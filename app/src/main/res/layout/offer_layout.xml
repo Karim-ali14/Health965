@@ -7,7 +7,7 @@
     >
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/adds1"
         android:id="@+id/Image"
         android:scaleType="fitCenter"

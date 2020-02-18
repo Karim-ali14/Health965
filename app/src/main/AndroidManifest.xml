@@ -7,12 +7,54 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".UI.Main.MainActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".UI.Login.Login_Activity" android:screenOrientation="portrait"/>
-        <activity android:name=".UI.Splash.Splash_Activity" android:screenOrientation="portrait">
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme"
+        >
+        <activity android:name=".UI.AreaDetailsActivity"
+            android:screenOrientation="portrait" ></activity>
+        <activity android:name=".UI.PrivacyPolicyActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.AboutAppActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.ClinicInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.ClinicRequestsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.PasswordModificationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.ModifyPersonalInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.PersonalInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.ActivateYourAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.NewAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.PasswordRecoveryActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.EnterCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.Login_Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.Doctor_Page_Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.Area_Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.Clinics_Details_activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.Clinics.Clinics_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Main.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Login.Login_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Splash.Splash_Activity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

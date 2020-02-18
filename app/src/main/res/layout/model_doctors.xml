@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    android:id="@+id/CardDoctor"
+    >
+    <RelativeLayout
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/check"
+            android:id="@+id/CheckImage"
+            android:visibility="visible"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ImageDoctor"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/doctorw"
+            android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_toLeftOf="@id/ImageDoctor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:text="د/ احمد محمد سلمان"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/NameOfDoctor"
+                />
+            <TextView
+                android:layout_toLeftOf="@id/ImageDoctor"
+                android:layout_below="@id/NameOfDoctor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorLine"
+                android:textSize="15dp"
+                android:text="ماجيستير طب وجراحه اسنان"
+                android:id="@+id/Dec"/>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

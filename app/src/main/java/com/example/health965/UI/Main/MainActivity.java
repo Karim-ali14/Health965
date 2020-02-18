@@ -63,24 +63,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
                         ImageBack.setVisibility(View.VISIBLE);
                     }
                         break;
-                    case R.id.notify:{
-                        fragment = new NotifyPage(stringList);
-                        title.setText(menuItem.getTitle());
-                        ImageBar.setVisibility(View.VISIBLE);
-                        ImageBack.setVisibility(View.GONE);
-                        AboveLine.setVisibility(View.VISIBLE);
-                        ImageBar.setImageResource(R.drawable.trash);
-                    }
-                        break;
-                    case R.id.account:{
-                        fragment = new AccountPage();
-                        title.setText(menuItem.getTitle());
-                        ImageBar.setVisibility(View.VISIBLE);
-                        ImageBack.setVisibility(View.GONE);
-                        AboveLine.setVisibility(View.VISIBLE);
-                        ImageBar.setImageResource(R.drawable.logout);
-                    }
-                        break;
                     case R.id.offer:{
                         fragment = new OfferPage();
                         title.setText(menuItem.getTitle());
@@ -89,6 +71,24 @@ public class MainActivity extends AppCompatActivity implements MainView {
                         ImageBar.setVisibility(View.GONE);
                     }
                         break;
+                    case R.id.notify:{
+                        fragment = new NotifyPage(stringList);
+                        title.setText(menuItem.getTitle());
+                        AboveLine.setVisibility(View.VISIBLE);
+                        ImageBar.setVisibility(View.VISIBLE);
+                        ImageBack.setVisibility(View.GONE);
+                        ImageBar.setImageResource(R.drawable.trash);
+                    }
+                    break;
+                    case R.id.account:{
+                        fragment = new AccountPage(MainActivity.this);
+                        title.setText(menuItem.getTitle());
+                        ImageBar.setVisibility(View.VISIBLE);
+                        ImageBack.setVisibility(View.GONE);
+                        AboveLine.setVisibility(View.VISIBLE);
+                        ImageBar.setImageResource(R.drawable.logout);
+                    }
+                    break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.Fragment,fragment).commit();
                 return true;

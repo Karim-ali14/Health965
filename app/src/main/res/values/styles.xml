@@ -8,4 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CardStyle">
+        <item name="android:gradientRadius">15dp</item>
+        <item name="android:color">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="ImageSize">
+        <item name="android:layout_width">27dp</item>
+        <item name="android:layout_height">20dp</item>
+    </style>
+    <style name="ImageSize2">
+        <item name="android:layout_width">27dp</item>
+        <item name="android:layout_height">20dp</item>
+    </style>
 </resources>

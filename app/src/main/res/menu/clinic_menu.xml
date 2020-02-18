@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Reservations"
+        android:icon="@drawable/reserves"
+        android:title="الحجوزات"/>
+    <item
+        android:id="@+id/Notification"
+        android:icon="@drawable/bell"
+        android:title="الأشعارات"/>
+    <item
+        android:id="@+id/Clinics"
+        android:icon="@drawable/stethoscope"
+        android:title="العيادة"/>
+</menu>

@@ -12,16 +12,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 import com.example.health965.Adapters.AdapterForSlider;
+import com.example.health965.UI.NewAccountActivity;
 import com.example.health965.R;
 import com.example.health965.UI.Main.MainActivity;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Login_Activity extends AppCompatActivity implements ILogin{
@@ -32,17 +33,16 @@ public class Login_Activity extends AppCompatActivity implements ILogin{
     Handler handler = new Handler();
     boolean live = true;
     LoginPresenter presenter;
+    LinearLayout ButtonsLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         presenter = new LoginPresenter(this);
         presenter.onInit();
-
             getWindow().getDecorView().setSystemUiVisibility
                     (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                             View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
     }
     @Override
     public void addPoints(int position){
@@ -104,5 +104,21 @@ public class Login_Activity extends AppCompatActivity implements ILogin{
         });
         slider = findViewById(R.id.slider);
         presenter.OnAddPoints(0);
+
+        ButtonsLayout = findViewById(R.id.Buttons);
+    }
+
+    public void LoginIn(View view) {
+        startActivity(new Intent(this, com.example.health965.UI.Login_Activity.class));
+    }
+
+    public void createNewAccount(View view) {
+        startActivity(new Intent(this, NewAccountActivity.class).putExtra("type",0));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ButtonsLayout.startAnimation(AnimationUtils.loadAnimation(this,R.anim.anim_above_bown));
     }
 }

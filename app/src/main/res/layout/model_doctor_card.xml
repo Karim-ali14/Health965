@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="10dp"
+    app:cardElevation="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/ImageDoctor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/doctorw" />
+
+            <TextView
+                android:id="@+id/NameOfDoctor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_toLeftOf="@id/ImageDoctor"
+                android:text="د/ احمد محمد سلمان"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/Dec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/NameOfDoctor"
+                android:layout_toLeftOf="@id/ImageDoctor"
+                android:text="ماجيستير طب وجراحه اسنان"
+                android:textColor="@color/colorLine"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/Line1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/LayoutDetails"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorLine" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/LayoutImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/card_image"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/ImageForClinic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/hebaclinic" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/LayoutDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/LayoutImage">
+
+                <TextView
+                    android:id="@+id/NameOfClinics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="2dp"
+                    android:text="عيادة هبة دينتال كلينك"
+                    android:textColor="#000"
+                    android:textSize="25dp" />
+
+                <RelativeLayout
+                    android:id="@+id/LayoutAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/NameOfClinics"
+                    android:layout_marginRight="2dp">
+
+                    <ImageView
+                        android:id="@+id/pin"
+                        android:layout_width="20dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/pin" />
+
+                    <TextView
+                        android:id="@+id/Address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@id/pin"
+                        android:text="السالمية , حي الامير صباح الأحمد"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="19dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/LayoutAddress"
+                    android:layout_marginRight="2dp">
+
+                    <ImageView
+                        android:id="@+id/calssification"
+                        android:layout_width="20dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/calssification" />
+
+                    <TextView
+                        android:id="@+id/TypeOfWork"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@id/calssification"
+                        android:text=", زراعة اسنان , تبييض , تلميع , تنظيف , تقويم بوليش , تركيبات"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="19dp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/Line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/LayoutDetails"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/colorLine" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Line"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/C"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/c" />
+
+                <ImageView
+                    android:id="@+id/Visa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/C"
+                    android:src="@drawable/visa" />
+
+                <ImageView
+                    android:id="@+id/master"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/Visa"
+                    android:src="@drawable/master" />
+
+                <ImageView
+                    android:id="@+id/Untitled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/master"
+                    android:src="@drawable/untitled" />
+
+                <ImageView
+                    android:id="@+id/loader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/Untitled"
+                    android:src="@drawable/loader" />
+
+                <ImageView
+                    android:id="@+id/tamen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/loader"
+                    android:src="@drawable/tamen"
+
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/right"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_gravity="right"
+                android:layout_weight="1">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorLine" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="تفصيل"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/left"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:background="@drawable/button_regstraion_style">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="حجز الأن"
+                    android:textColor="@color/White"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

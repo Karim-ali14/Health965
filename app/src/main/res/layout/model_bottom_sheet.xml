@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/style_sheet_bottom"
+    android:id="@+id/container">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/LayoutTitle"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="خيارات الطلب"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="10dp"
+            android:id="@+id/chose"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/cancel"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/close"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:id="@+id/Line"
+        android:layout_below="@id/LayoutTitle"
+        android:background="@color/colorLine"
+        android:layout_marginTop="20dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Line"
+        android:padding="5dp"
+        android:id="@+id/LayoutContacted"
+        android:layout_marginRight="10dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/contacted"
+            android:layout_alignParentRight="true"
+            android:id="@+id/contacted"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="تم الإتصال بالمريض"
+            android:layout_toLeftOf="@id/contacted"
+            android:layout_marginRight="20dp"
+            android:textSize="20dp"/>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LayoutContacted"
+        android:padding="5dp"
+        android:id="@+id/LayoutCanceled"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/canceled"
+            android:layout_alignParentRight="true"
+            android:id="@+id/canceled"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="إلغاء الطلب"
+            android:layout_toLeftOf="@id/canceled"
+            android:layout_marginRight="20dp"
+            android:textSize="20dp"
+            />
+
+
+    </RelativeLayout>
+</RelativeLayout>
