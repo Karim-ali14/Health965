@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 
 import com.example.health965.Adapters.AdapterForSlider;
-import com.example.health965.UI.NewAccountActivity;
+import com.example.health965.UI.Registration.NewAccountActivity;
 import com.example.health965.R;
 import com.example.health965.UI.Main.MainActivity;
 

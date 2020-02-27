@@ -7,16 +7,24 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.health965.Adapters.AdapterForClinicRequests;
+import com.example.health965.Common.Common;
+import com.example.health965.Models.Governorate.Governorate;
 import com.example.health965.Models.ModelOfRequests;
+import com.example.health965.Models.Reservation.Reservation;
 import com.example.health965.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -39,19 +47,25 @@ public class ReservationFragment extends Fragment {
         recyclerView = view.findViewById(R.id.Recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new AdapterForClinicRequests(getData(),getContext()));
+        getData();
         return view;
     }
 
-    private List<ModelOfRequests> getData(){
-        List<ModelOfRequests> list = new ArrayList<>();
-        list.add(new ModelOfRequests("محمود محمد بيومي", "info@gmail.com","+96512224464",
-                " د/ أحمد محمد السالم" ,"28/1/2020 ","06:30 PM" ,"في الإنتظار"));
-        list.add(new ModelOfRequests("محمود محمد بيومي", "info@gmail.com","+96512224464",
-                " د/ أحمد محمد السالم" ,"28/1/2020 ","06:30 PM" ,"في الإنتظار"));
-        list.add(new ModelOfRequests("محمود محمد بيومي", "info@gmail.com","+96512224464",
-                " د/ أحمد محمد السالم" ,"28/1/2020 ","06:30 PM" ,"في الإنتظار"));
-        return list;
+    private void getData(){
+        Common.getAPIRequest().getReservation(Common.CurrentClinic.getData().getToken().getAccessToken(),
+                Common.CurrentClinic.getData().getClinic().getId()+"").enqueue(new Callback<Reservation>() {
+            @Override
+            public void onResponse(Call<Reservation> call, Response<Reservation> response) {
+                if (response.code() == 200)
+                    recyclerView.setAdapter(new AdapterForClinicRequests(response.body().getData().getRows(),getContext()));
+                Log.i("TTTTTT",""+response.code());
+            }
+
+            @Override
+            public void onFailure(Call<Reservation> call, Throwable t) {
+
+            }
+        });
     }
 
 }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "662273640832",
+    "firebase_url": "https://kwhealth-e8b38.firebaseio.com",
+    "project_id": "kwhealth-e8b38",
+    "storage_bucket": "kwhealth-e8b38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662273640832:android:97d1d8794e7a991f621965",
+        "android_client_info": {
+          "package_name": "com.example.health965"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662273640832-q9v29p9lbgvp6t0aorcsgoufjv72ellk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.health965",
+            "certificate_hash": "cd879c446b102cb5f31ec100d7b75c28a7564c62"
+          }
+        },
+        {
+          "client_id": "662273640832-hubtr4ajkfjt59os7j84913qdd0st78v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjknQyMyKvKBQemYBtSuhkIgnuSZeZLjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662273640832-hubtr4ajkfjt59os7j84913qdd0st78v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

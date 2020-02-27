@@ -1,278 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.Login_Activity"
     android:background="@color/White"
-    android:id="@+id/Layout">
+    android:fillViewport="true"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/Layout"
+        >
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/AppBarMain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/AppBarMain"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
+            <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <RelativeLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:onClick="Back"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="15dp"
-                    >
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:onClick="Back"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="15dp"
+                        >
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:id="@+id/back"
+                            style="@style/ImageSize"
+                            android:src="@drawable/back" />
+                    </RelativeLayout>
+
                     <ImageView
+                        android:id="@+id/ImageBar"
+                        style="@style/ImageSize2"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:onClick="Back"
+                        android:src="@drawable/back"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:id="@+id/back"
-                        style="@style/ImageSize"
-                        android:src="@drawable/back" />
+                        android:text="تسجيل دخول"
+                        android:textColor="#000000"
+                        android:textSize="17dp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
 
-                <ImageView
-                    android:id="@+id/ImageBar"
-                    style="@style/ImageSize2"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:onClick="Back"
-                    android:src="@drawable/back"
-                    android:visibility="gone" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-                <TextView
-                    android:id="@+id/Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="تسجيل دخول"
-                    android:textColor="#000000"
-                    android:textSize="17dp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
+        <View
+            android:id="@+id/AboveLine"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@id/AppBarMain"
+            android:background="@drawable/shadow_line"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/AppBarMain"
+            app:layout_constraintTop_toBottomOf="@id/AppBarMain"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/Line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".37"
+            />
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent=".47"
+            android:orientation="vertical"
+            android:id="@+id/Line2"/>
 
-    <View
-        android:id="@+id/AboveLine"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_below="@id/AppBarMain"
-        android:background="@drawable/shadow_line"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/AppBarMain"
-        app:layout_constraintTop_toBottomOf="@id/AppBarMain"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/Line1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".37"
-        />
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent=".47"
-        android:orientation="vertical"
-        android:id="@+id/Line2"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/arthealth"
-        app:layout_constraintBottom_toTopOf="@id/Line1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:transitionName="imageHealth"
-        android:id="@+id/image"
-        app:layout_constraintTop_toBottomOf="@id/AboveLine"
-        app:layout_constraintVertical_bias="1"/>
-
-    <View
-        android:id="@+id/LineImage"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/AppBarMain"
-        android:background="@drawable/shadow_line"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/Line1"
-        android:transitionName="Line"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="مستخدم"
-        android:layout_centerInParent="true"
-        android:textSize="20dp"
-        android:textColor="@color/White"
-        android:background="@drawable/style_button"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
-        app:layout_constraintStart_toEndOf="@id/Line2"
-        app:layout_constraintTop_toBottomOf="@id/Line1"
-        android:layout_marginTop="20dp"
-        android:id="@+id/LoginAsUser"
-
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="شريك"
-        android:textColor="@color/colorLine"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@id/LoginAsUser"
-        app:layout_constraintTop_toBottomOf="@id/Line1"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/LoginAsPartner"
-        />
-    <EditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/style_edittext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/LoginAsUser"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/PhoneNumber"
-        android:drawableRight="@drawable/call"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:hint="رقم الجوال"
-        android:drawablePadding="7dp"
-        android:transitionName="Phone"
-        android:gravity="right"
-        android:inputType="phone"
-        />
-    <EditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/style_edittext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PhoneNumber"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/Password"
-        android:drawableRight="@drawable/key"
-        android:paddingRight="20dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:hint="كلمة المرور"
-        android:drawablePadding="7dp"
-        android:transitionName="Pass"
-        android:inputType="textPassword"
-        android:gravity="right"
-        
-        />
-
-    <RelativeLayout
-        android:id="@+id/LayoutForgottenPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Password"
-        >
-
-        <TextView
-            android:id="@+id/ForgottenPassword"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/arthealth"
+            app:layout_constraintBottom_toTopOf="@id/Line1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:transitionName="imageHealth"
+            android:id="@+id/image"
+            app:layout_constraintTop_toBottomOf="@id/AboveLine"
+            app:layout_constraintVertical_bias="1"/>
+
+        <View
+            android:id="@+id/LineImage"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/AppBarMain"
+            android:background="@drawable/shadow_line"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/Line1"
+            android:transitionName="Line"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="مستخدم"
+            android:layout_centerInParent="true"
+            android:textSize="20dp"
+            android:textColor="@color/White"
+            android:background="@drawable/style_button"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            app:layout_constraintStart_toEndOf="@id/Line2"
+            app:layout_constraintTop_toBottomOf="@id/Line1"
+            android:layout_marginTop="20dp"
+            android:id="@+id/LoginAsUser"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="شريك"
+            android:textColor="@color/colorLine"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toStartOf="@id/LoginAsUser"
+            app:layout_constraintTop_toBottomOf="@id/Line1"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/LoginAsPartner"
+            />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_edittext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LoginAsUser"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/PhoneNumber"
+            android:drawableRight="@drawable/call"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:hint="رقم الجوال"
+            android:drawablePadding="7dp"
+            android:transitionName="Phone"
+            android:gravity="right"
+            android:inputType="phone"
+            />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/style_edittext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/PhoneNumber"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="25dp"
-            android:onClick="getPassword"
-            android:text="هل نسيت كلمة المرور ؟"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/style_button"
-        android:text="تسجيل الدخول"
-        android:textColor="@color/White"
-        android:textSize="17dp"
-        android:layout_marginBottom="6dp"
-        android:onClick="LoginIn"
-        android:id="@+id/LoginButton"
-        app:layout_constraintBottom_toTopOf="@+id/LayoutOfEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LayoutForgottenPassword"
-        app:layout_constraintVertical_bias=".1"/>
+            android:id="@+id/Password"
+            android:drawableRight="@drawable/key"
+            android:paddingRight="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:hint="كلمة المرور"
+            android:drawablePadding="7dp"
+            android:transitionName="Pass"
+            android:inputType="textPassword"
+            android:gravity="right"
 
-    <Button
-        android:id="@+id/Skip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/style_button2"
-        android:onClick="Skip"
-        android:text="تخطي كزائر"
-        android:textColor="@color/colorPrimary"
-        android:textSize="17sp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/LoginButton"
-        />
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/LayoutOfEmail">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="لا تملك حساب ؟"
-            android:textColor="#000"
-            android:textSize="20dp"
-            android:id="@+id/WithOutEmail"
-            android:layout_toRightOf="@id/newAccount"
             />
-        <TextView
-            android:layout_width="wrap_content"
+
+        <RelativeLayout
+            android:id="@+id/LayoutForgottenPassword"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="حساب جديد"
-            android:textSize="20dp"
+            android:layout_marginTop="3dp"
             android:textColor="@color/colorPrimary"
-            android:onClick="createNewAccount"
-            android:id="@+id/newAccount"
-            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Password"
+            >
+
+            <TextView
+                android:id="@+id/ForgottenPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="25dp"
+                android:onClick="getPassword"
+                android:text="هل نسيت كلمة المرور ؟"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/style_button"
+            android:text="تسجيل الدخول"
+            android:textColor="@color/White"
+            android:textSize="17dp"
+            android:layout_marginBottom="6dp"
+            android:onClick="LoginIn"
+            android:id="@+id/LoginButton"
+            app:layout_constraintBottom_toTopOf="@+id/LayoutOfEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LayoutForgottenPassword"
+            app:layout_constraintVertical_bias=".1"/>
+
+        <Button
+            android:id="@+id/Skip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/style_button2"
+            android:onClick="Skip"
+            android:text="تخطي كزائر"
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LoginButton"
             />
-    </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/LayoutOfEmail">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="لا تملك حساب ؟"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:id="@+id/WithOutEmail"
+                android:layout_toRightOf="@id/newAccount"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="حساب جديد"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
+                android:onClick="createNewAccount"
+                android:id="@+id/newAccount"
+                android:textStyle="bold"
+                />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

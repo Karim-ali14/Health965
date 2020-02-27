@@ -4,25 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.health965.Models.ModelOfRequests;
+import com.example.health965.Models.Reservation.Row;
 import com.example.health965.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class AdapterForClinicRequests extends RecyclerView.Adapter<AdapterForClinicRequests.ViewHolderForClinicRequests> {
-    List<ModelOfRequests> list;
+    List<Row> list;
     Context context;
 
-    public AdapterForClinicRequests(List<ModelOfRequests> list, Context context) {
+    public AdapterForClinicRequests(List<Row> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -35,13 +34,23 @@ public class AdapterForClinicRequests extends RecyclerView.Adapter<AdapterForCli
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderForClinicRequests holder, int position) {
-        ModelOfRequests model = list.get(position);
-        holder.Name.setText(model.getName());
-        holder.Email.setText(model.getEmail());
-        holder.Phone.setText(model.getPhone());
-        holder.Doctor.setText(model.getDoctor());
-        holder.ReservationDate.setText(model.getDate());
-        holder.ReservationTime.setText(model.getTime());
+        Row model = list.get(position);
+        holder.Name.setText(model.getClient().getFullName());
+        holder.Email.setText(model.getClient().getEmail());
+        holder.Phone.setText(model.getClient().getMobilePhone());
+        if (model.getDoctor() != null)
+            holder.Doctor.setText(model.getDoctor().getName());
+        else
+            holder.Doctor.setText("-------");
+        try {
+            holder.ReservationDate.setText(new SimpleDateFormat("hh:mm a").format(
+                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(model.getCreatedAt())));
+
+            holder.ReservationTime.setText(new SimpleDateFormat("dd/MM/yyyy").format(
+                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(model.getCreatedAt())));
+        }  catch (ParseException e) {
+            e.printStackTrace();
+        }
         holder.StatusRequest.setText(model.getStatus());
         holder.Menu.setOnClickListener(new View.OnClickListener() {
             @Override

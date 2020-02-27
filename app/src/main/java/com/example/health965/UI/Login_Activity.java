@@ -2,19 +2,23 @@ package com.example.health965.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Guideline;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +27,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.health965.Common.Common;
+import com.example.health965.Models.LoginClinc.LoginClinc;
+import com.example.health965.Models.LoginUser.LoginUser;
 import com.example.health965.R;
 import com.example.health965.UI.Main.MainActivity;
+import com.example.health965.UI.Registration.NewAccountActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Login_Activity extends AppCompatActivity {
     Button LoginButton,SkipButton;
@@ -36,6 +53,7 @@ public class Login_Activity extends AppCompatActivity {
     RelativeLayout LayoutOfEmail;
     ConstraintLayout Layout;
     int typeUser = 0;
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +61,14 @@ public class Login_Activity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        dialog = new ProgressDialog(this);
         LoginButton = findViewById(R.id.LoginButton);
         SkipButton = findViewById(R.id.Skip);
         LoginAsUser = findViewById(R.id.LoginAsUser);
         LoginAsPartner = findViewById(R.id.LoginAsPartner);
         LayoutForgottenPassword    = findViewById(R.id.LayoutForgottenPassword);
         Password = findViewById(R.id.Password);
+        Password.setImeOptions(EditorInfo.IME_ACTION_DONE);
         Phone = findViewById(R.id.PhoneNumber);
         image = findViewById(R.id.image);
         Line = findViewById(R.id.LineImage);
@@ -78,6 +98,14 @@ public class Login_Activity extends AppCompatActivity {
                 return false;
             }
         });
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        Password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                onValidation(typeUser);
+                return false;
+            }
+        });
     }
 
     private void closeKeyBoard() {
@@ -90,12 +118,75 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     public void LoginIn(View view) {
-        if (typeUser == 0)
-            startActivity(new Intent(this,MainActivity.class));
-        else
-            startActivity(new Intent(this,ClinicRequestsActivity.class));
+        onValidation(typeUser);
+    }
+    private void onValidation(int typeUser){
+        if (Phone.getText().toString().isEmpty())
+            Phone.setError("ادخل رقم الهاتف");
+        else if (Password.getText().toString().isEmpty())
+            Password.setError("ادخل الرقم السري");
+        else{
+            if (typeUser == 0)
+                loginAsUser();
+            else
+                loginAsPartner();
+        }
     }
 
+    private void loginAsUser(){
+        dialog.show();
+        Common.getAPIRequest().onLoginAsUser(Phone.getText().toString(),
+                Password.getText().toString()).enqueue(new Callback<LoginUser>() {
+            @Override
+            public void onResponse(Call<LoginUser> call, Response<LoginUser> response) {
+                dialog.dismiss();
+                if (response.code() == 200) {
+                    Common.CurrentUser = response.body();
+                    startActivity(new Intent(Login_Activity.this, MainActivity.class));
+                }
+                else if (response.code() == 401) {
+                    try {
+                        Toast.makeText(Login_Activity.this,new JSONObject(response.errorBody().string()).getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginUser> call, Throwable t) {
+
+            }
+        });
+    }
+    private void loginAsPartner(){
+        Common.getAPIRequest().onLoginAsPartner(Phone.getText().toString(),
+                Password.getText().toString()).enqueue(new Callback<LoginClinc>() {
+            @Override
+            public void onResponse(Call<LoginClinc> call, Response<LoginClinc> response) {
+                if (response.code() == 200) {
+                    Log.i("TTTTTT",response.body().getData().getToken().getAccessToken());
+                    Common.CurrentClinic = response.body();
+                    startActivity(new Intent(Login_Activity.this, ClinicRequestsActivity.class));
+                }
+                else if (response.code() == 401) {
+                    try {
+                        Toast.makeText(Login_Activity.this,new JSONObject(response.errorBody().string()).getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<LoginClinc> call, Throwable t) {
+
+            }
+        });
+    }
     public void Skip(View view) {
         startActivity(new Intent(this,MainActivity.class));
     }
@@ -121,7 +212,6 @@ public class Login_Activity extends AppCompatActivity {
         LoginButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_above_bown));
         Phone.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
     }
-
     public void getPassword(View view) {
         Intent intent = new Intent(this, ForgotPasswordActivity.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){

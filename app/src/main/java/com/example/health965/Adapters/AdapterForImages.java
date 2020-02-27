@@ -21,10 +21,11 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 public class AdapterForImages extends PagerAdapter {
     List<Integer> list;
     Context context;
-
-    public AdapterForImages(List<Integer> list, Context context) {
+    boolean search;
+    public AdapterForImages(List<Integer> list, Context context,boolean search) {
         this.list = list;
         this.context = context;
+        this.search = search;
     }
 
     @NonNull
@@ -33,12 +34,14 @@ public class AdapterForImages extends PagerAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.model_of_image,container,false);
         ImageView imageView = view.findViewById(R.id.ImageSilder);
         imageView.setImageResource(list.get(position));
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Doctor_Page_Activity.closeKeyBoard((Activity) context);
-            }
-        });
+        if (search) {
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Doctor_Page_Activity.closeKeyBoard((Activity) context);
+                }
+            });
+        }
         container.addView(view);
         return view;
     }

@@ -31,9 +31,8 @@
                 android:id="@+id/LayoutImage"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/hebaclinic"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/ImageForClinic"/>
             </LinearLayout>
             <RelativeLayout
@@ -52,7 +51,8 @@
                     android:text="عيادة هبة دينتال كلينك"
                     android:textSize="25dp"
                     android:id="@+id/NameOfClinics"
-                    android:textColor="#000"/>
+                    android:textColor="#000"
+                    android:layout_marginBottom="2dp"/>
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:id="@+id/left"
+                android:id="@+id/Reservation"
                 android:layout_gravity="left"
                 android:background="@drawable/button_regstraion_style"
                 >

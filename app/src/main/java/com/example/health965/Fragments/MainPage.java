@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,18 @@ import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterFor;
 import com.example.health965.Adapters.AdapterForImages;
+import com.example.health965.Common.Common;
+import com.example.health965.Models.Category.Category;
+import com.example.health965.Models.Category.Row;
 import com.example.health965.Models.Model;
 import com.example.health965.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -31,13 +39,14 @@ import java.util.List;
  */
 public class MainPage extends Fragment implements ViewPager.OnPageChangeListener{
 
-    List<Model> list;
+    List<Row> list;
     LinearLayout linearLayout;
     ViewPager viewPager2;
     TextView points[];
     List<Integer> listImage;
+    RecyclerView recyclerView;
     boolean start;
-    public MainPage(List<Model> list,boolean start) {
+    public MainPage(List<Row> list,boolean start) {
         this.list = list;
         this.start  = start;
     }
@@ -52,9 +61,9 @@ public class MainPage extends Fragment implements ViewPager.OnPageChangeListener
         listImage.add(R.drawable.addclinic);
 
         linearLayout = view.findViewById(R.id.Layout);
-        viewPager2.setAdapter(new AdapterForImages(listImage,getContext()));
+        viewPager2.setAdapter(new AdapterForImages(listImage,getContext(),false));
         viewPager2.setOnPageChangeListener(this);
-        RecyclerView recyclerView = view.findViewById(R.id.Rec);
+        recyclerView = view.findViewById(R.id.Rec);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new AdapterFor(getContext(),list));
@@ -93,4 +102,5 @@ public class MainPage extends Fragment implements ViewPager.OnPageChangeListener
     public void onPageScrollStateChanged(int state) {
 
     }
+
 }

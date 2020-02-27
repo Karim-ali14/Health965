@@ -23,7 +23,7 @@
 
             <ImageView
                 android:id="@+id/ImageDoctor"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
@@ -33,22 +33,26 @@
                 android:id="@+id/NameOfDoctor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_toLeftOf="@id/ImageDoctor"
                 android:text="د/ احمد محمد سلمان"
                 android:textColor="#000"
-                android:textSize="20dp" />
+                android:textSize="23dp"
+                />
 
             <TextView
                 android:id="@+id/Dec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
                 android:layout_below="@id/NameOfDoctor"
                 android:layout_toLeftOf="@id/ImageDoctor"
                 android:text="ماجيستير طب وجراحه اسنان"
-                android:textColor="@color/colorLine"
-                android:textSize="15dp" />
+                android:textColor="@color/TextColor"
+                android:textSize="15dp"
+                />
 
         </RelativeLayout>
 
@@ -67,7 +71,7 @@
 
             <LinearLayout
                 android:id="@+id/LayoutImage"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
@@ -76,7 +80,8 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="10dp"
                 android:paddingRight="5dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/ImageForClinic"
@@ -101,7 +106,9 @@
                     android:layout_marginRight="2dp"
                     android:text="عيادة هبة دينتال كلينك"
                     android:textColor="#000"
-                    android:textSize="25dp" />
+                    android:textSize="24dp"
+                    android:layout_marginBottom="2dp"
+                    />
 
                 <RelativeLayout
                     android:id="@+id/LayoutAddress"
@@ -124,7 +131,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@id/pin"
                         android:text="السالمية , حي الامير صباح الأحمد"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/TextColor"
                         android:textSize="19dp" />
                 </RelativeLayout>
 
@@ -148,7 +155,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@id/calssification"
                         android:text=", زراعة اسنان , تبييض , تلميع , تنظيف , تقويم بوليش , تركيبات"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/TextColor"
                         android:textSize="19dp" />
                 </RelativeLayout>
             </RelativeLayout>
@@ -254,12 +261,13 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/left"
+                android:id="@+id/Reservations"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_gravity="left"
                 android:layout_weight="1"
-                android:background="@drawable/button_regstraion_style">
+                android:background="@drawable/button_regstraion_style"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -1,6 +1,8 @@
 package com.example.health965.Adapters;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +14,24 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.health965.Common.Common;
+import com.example.health965.Fragments.Details_fragment;
+import com.example.health965.Models.Doctors.Doctors;
+import com.example.health965.Models.Doctors.Row;
 import com.example.health965.Models.ModelDoctor;
 import com.example.health965.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class AdapterForDoctor extends RecyclerView.Adapter<AdapterForDoctor.ViewHolderForDoctor> {
-    List<ModelDoctor> list;
+    List<Row> list;
     Context context;
     int CurrentPosition;
     int OldPosition = -1;
     ViewHolderForDoctor OldCard = null;
 
-    public AdapterForDoctor(List<ModelDoctor> list, Context context) {
+    public AdapterForDoctor(List<Row> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -37,10 +44,13 @@ public class AdapterForDoctor extends RecyclerView.Adapter<AdapterForDoctor.View
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderForDoctor holder, final int position) {
-        final ModelDoctor model = list.get(position);
-        holder.DoctorImage.setImageResource(model.getImage());
+        final Row model = list.get(position);
+        Picasso.with(context).load(Common.BaseURL+"images/"+model.getImage().getFor()+"/"+
+                Uri.encode(model.getImage().getName())).into(holder.DoctorImage);
+        Log.i("TTTTTT",Common.BaseURL+"images/"+model.getImage().getFor()+"/"+
+                Uri.encode(model.getName()));
         holder.Name.setText(model.getName());
-        holder.Dec.setText(model.getDec());
+        holder.Dec.setText(model.getSpecialty());
         holder.Check.setVisibility(View.GONE);
         holder.CardDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,12 +62,16 @@ public class AdapterForDoctor extends RecyclerView.Adapter<AdapterForDoctor.View
                     holder.CardDoctor.setRadius(30);
                     holder.Check.setVisibility(View.GONE);
                     model.setSelected(false);
+                    Details_fragment.Doctor_Id = 0;
+                    Toast.makeText(context,Details_fragment.Doctor_Id+ "", Toast.LENGTH_SHORT).show();
                 }else if (!model.isSelected()){
                     holder.CardDoctor.setCardBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
                     holder.Name.setTextColor(context.getResources().getColor(R.color.White));
                     holder.CardDoctor.setRadius(30);
                     holder.Check.setVisibility(View.VISIBLE);
                     model.setSelected(true);
+                    Details_fragment.Doctor_Id = model.getId();
+                    Toast.makeText(context,Details_fragment.Doctor_Id+ "", Toast.LENGTH_SHORT).show();
                     if (OldPosition != -1 && OldPosition != position){
                         list.get(OldPosition).setSelected(false);
                         OldCard.CardDoctor.setCardBackgroundColor(context.getResources().getColor(R.color.White));

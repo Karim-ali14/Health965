@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,11 +22,17 @@ import android.widget.Toast;
 
 import com.example.health965.Adapters.AdapterForDoctorCard;
 import com.example.health965.Adapters.AdapterForImages;
+import com.example.health965.Common.Common;
+import com.example.health965.Models.DoctorsWithClinics.DoctorsWithClinics;
 import com.example.health965.Models.ModelOfCardDoctor;
 import com.example.health965.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     public static EditText SearchBar;
@@ -47,14 +54,14 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
         RecyclerOfCard = findViewById(R.id.RecyclerOfCard);
         RecyclerOfCard.setHasFixedSize(true);
         RecyclerOfCard.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerOfCard.setAdapter(new AdapterForDoctorCard(getDara(),this));
+        getDoctorsWithClinics();
         linearLayout = findViewById(R.id.Points);
         viewPager = findViewById(R.id.ViewPager);
         listImage = new ArrayList<>();
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
-        viewPager.setAdapter(new AdapterForImages(listImage,this));
+        viewPager.setAdapter(new AdapterForImages(listImage,this,true));
         viewPager.setOnPageChangeListener(this);
         addPoints(0);
         getWindow().getDecorView().setSystemUiVisibility
@@ -137,5 +144,22 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private void getDoctorsWithClinics(){
+        Common.getAPIRequest().getDoctorsWithClinics("image").enqueue(new Callback<DoctorsWithClinics>() {
+            @Override
+            public void onResponse(Call<DoctorsWithClinics> call, Response<DoctorsWithClinics> response) {
+                if (response.code() == 200)
+                    RecyclerOfCard.setAdapter(new AdapterForDoctorCard(response.body().getData().getRows(),Doctor_Page_Activity.this));
+                else
+                    Toast.makeText(Doctor_Page_Activity.this,response.message(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<DoctorsWithClinics> call, Throwable t) {
+
+            }
+        });
     }
 }

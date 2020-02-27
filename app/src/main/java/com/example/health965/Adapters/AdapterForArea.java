@@ -11,18 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.health965.Models.Governorate.Row;
 import com.example.health965.UI.AreaDetailsActivity;
 import com.example.health965.R;
 
 import java.util.List;
 
 public class AdapterForArea extends RecyclerView.Adapter<AdapterForArea.ViewHolderOfArea> {
-    List<String> list;
+    List<Row> list;
     Context context;
-
-    public AdapterForArea(List<String> list, Context context) {
+    int C_ID;
+    public AdapterForArea(List<Row> list, Context context,int C_ID) {
         this.list = list;
         this.context = context;
+        this.C_ID = C_ID;
     }
 
     @NonNull
@@ -33,15 +35,15 @@ public class AdapterForArea extends RecyclerView.Adapter<AdapterForArea.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderOfArea holder, int position) {
-        final String NameOfAarea = list.get(position);
-        holder.NameOFArea.setText(NameOfAarea);
+        final Row row = list.get(position);
+        holder.NameOFArea.setText(row.getName());
         holder.Line.setVisibility(View.VISIBLE);
         if (list.size()-1 == position)
             holder.Line.setVisibility(View.GONE);
         holder.Row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, AreaDetailsActivity.class).putExtra("Name",NameOfAarea));
+                context.startActivity(new Intent(context, AreaDetailsActivity.class).putExtra("Row",row).putExtra("ID",C_ID));
             }
         });
     }

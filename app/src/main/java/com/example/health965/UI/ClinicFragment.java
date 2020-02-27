@@ -42,7 +42,7 @@ public class ClinicFragment extends Fragment {
         LayOutModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getActivity(),PasswordModificationActivity.class));
+                getActivity().startActivity(new Intent(getActivity(),PasswordModificationActivity.class).putExtra("Type","Clinic"));
             }
         });
         RelativeLayout LayOutAbout = v.findViewById(R.id.LayOutAbout);

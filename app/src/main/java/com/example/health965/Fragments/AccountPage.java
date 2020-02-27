@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.example.health965.Common.Common;
 import com.example.health965.UI.AboutAppActivity;
+import com.example.health965.UI.Login_Activity;
 import com.example.health965.UI.PasswordModificationActivity;
 import com.example.health965.UI.PersonalInformationActivity;
 import com.example.health965.UI.PrivacyPolicyActivity;
@@ -42,14 +44,19 @@ public class AccountPage extends Fragment {
         LayOutPersonalInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, PersonalInformationActivity.class));
-
+                if (Common.CurrentUser!=null)
+                    context.startActivity(new Intent(context, PersonalInformationActivity.class));
+                else
+                    context.startActivity(new Intent(context, Login_Activity.class));
             }
         });
         LayOutModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, PasswordModificationActivity.class));
+                if (Common.CurrentUser!=null)
+                    context.startActivity(new Intent(context, PasswordModificationActivity.class).putExtra("Type","User"));
+                else
+                    context.startActivity(new Intent(context, Login_Activity.class));
             }
         });
         LayOutAbout.setOnClickListener(new View.OnClickListener() {

@@ -8,18 +8,25 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterForClinics;
 import com.example.health965.Adapters.AdapterForImages;
+import com.example.health965.Common.Common;
+import com.example.health965.Models.getClincs.Clinics;
 import com.example.health965.UI.Area_Activity;
 import com.example.health965.UI.Doctor_Page_Activity;
 import com.example.health965.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Clinics_Activity extends AppCompatActivity implements IClinics, ViewPager.OnPageChangeListener {
     RecyclerView recyclerView;
@@ -28,6 +35,7 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
     List<Integer> listImage;
     LinearLayout linearLayout;
     ViewPager viewPager;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,23 +50,38 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
 
     @Override
     public void init() {
+        id = getIntent().getExtras().getInt("ID");
         recyclerView = findViewById(R.id.RecyclerClinics);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setAdapter(new AdapterForClinics(presenter.getdata(),this));
+
         linearLayout = findViewById(R.id.Points);
         viewPager = findViewById(R.id.ViewPager);
         listImage = new ArrayList<>();
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
-        viewPager.setAdapter(new AdapterForImages(listImage,this));
+        viewPager.setAdapter(new AdapterForImages(listImage,this,false));
         viewPager.setOnPageChangeListener(this);
         addPoints(0);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        Common.getAPIRequest().getAllClinics("image",id+"").enqueue(new Callback<Clinics>() {
+            @Override
+            public void onResponse(Call<Clinics> call, Response<Clinics> response) {
+                if (response.code() == 200)
+                    recyclerView.setAdapter(new AdapterForClinics(response.body().getData().getRows(),Clinics_Activity.this));
+
+                Log.i("TTTTTTT",response.code()+"___"+response.body().getData().getCount());
+            }
+
+            @Override
+            public void onFailure(Call<Clinics> call, Throwable t) {
+                Log.d("TTTTTTT",t.getMessage());
+            }
+        });
     }
 
     private void addPoints(int position) {
@@ -92,7 +115,7 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
     }
 
     public void Area(View view) {
-        startActivity(new Intent(this, Area_Activity.class));
+        startActivity(new Intent(this, Area_Activity.class).putExtra("C_ID",id));
     }
 
     public void Clinics(View view) {

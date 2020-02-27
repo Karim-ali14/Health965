@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.health965.Common.Common;
 import com.example.health965.R;
 
 public class PersonalInformationActivity extends AppCompatActivity {
     Button modify;
+    TextView Name,Email,Phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +23,16 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         modify = findViewById(R.id.modify);
+        Name = findViewById(R.id.Name);
+        Email = findViewById(R.id.Email);
+        Phone = findViewById(R.id.Phone);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Common.CurrentUser != null)
+            putDataOfUser();
     }
 
     public void Back(View view) {
@@ -34,5 +47,11 @@ public class PersonalInformationActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         modify.startAnimation(AnimationUtils.loadAnimation(this,R.anim.anim2));
+    }
+
+    private void putDataOfUser(){
+        Name.setText(Common.CurrentUser.getData().getUser().getFullName());
+        Email.setText(Common.CurrentUser.getData().getUser().getEmail());
+        Phone.setText(Common.CurrentUser.getData().getUser().getMobilePhone());
     }
 }
