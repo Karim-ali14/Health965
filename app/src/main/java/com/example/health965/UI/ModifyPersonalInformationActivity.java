@@ -1,11 +1,15 @@
 package com.example.health965.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,13 +18,17 @@ import com.example.health965.Models.ChangePassword.ResponseChangePassword.Respon
 import com.example.health965.Models.UpdateClientInfo.RequestUpdateClientInfo;
 import com.example.health965.Models.UpdateClientInfo.ResponseUpdateClientInfo.ResponseUpdateClientInfo;
 import com.example.health965.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ModifyPersonalInformationActivity extends AppCompatActivity {
-    EditText FullName,PhoneNumber,Email;
+    TextInputEditText FullName,PhoneNumber,Email;
+    TextInputLayout PhoneNumberLayOut;
+    ConstraintLayout Layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +39,18 @@ public class ModifyPersonalInformationActivity extends AppCompatActivity {
         FullName = findViewById(R.id.FullName);
         Email = findViewById(R.id.Email);
         PhoneNumber = findViewById(R.id.PhoneNumber);
-        PhoneNumber.startAnimation(AnimationUtils.loadAnimation(this,R.anim.anim2));
-
+        PhoneNumberLayOut = findViewById(R.id.PhoneNumberLayOut);
+        PhoneNumberLayOut.startAnimation(AnimationUtils.loadAnimation(this,R.anim.anim2));
+        Layout = findViewById(R.id.Layout);
+        Layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (!(v instanceof EditText))
+                    closeKeyBoard();
+                return false;
+            }
+        });
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     public void Back(View view) {
@@ -80,4 +98,13 @@ public class ModifyPersonalInformationActivity extends AppCompatActivity {
             Toast.makeText(this, "ليتم عملية التحديث بنجاح عليك تغير عنصر واحد علي الاقل", Toast.LENGTH_LONG).show();
         }
     }
+
+    private void closeKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        FullName.clearFocus();
+        PhoneNumber.clearFocus();
+        Email.clearFocus();
+    }
+
 }

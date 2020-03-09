@@ -57,7 +57,8 @@
             android:text="تم الإتصال بالمريض"
             android:layout_toLeftOf="@id/contacted"
             android:layout_marginRight="20dp"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:id="@+id/Text"/>
 
 
     </RelativeLayout>

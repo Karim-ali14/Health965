@@ -33,16 +33,20 @@
                     android:id="@+id/Details"
                     android:textColor="#000"
                     android:textStyle="bold"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:gravity="right"
+                    />
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textSize="16dp"
-                    android:text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق"
+                    android:text="هذانفس المساحة، لقد تم تولق"
                     android:layout_below="@id/Details"
                     android:textColor="#000"
+                    android:gravity="right"
+
                     />
 
             </RelativeLayout>
@@ -93,13 +97,18 @@
             android:layout_below="@id/CardCertificates"
             android:id="@+id/CardOfImages">
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/Line"
                 android:gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:padding="10dp">
-                <ImageView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/RecyclerOfOption"
+                    android:layout_centerHorizontal="true"/>
+                <!--<ImageView
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:src="@drawable/c"
@@ -152,7 +161,7 @@
                     android:layout_marginRight="10dp"
                     android:id="@+id/tamen"
 
-                    />
+                    />-->
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <RelativeLayout
@@ -178,11 +187,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="(8)"
+                android:text="(0)"
                 android:textSize="17sp"
                 android:textColor="#000"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:id="@+id/NumberOfDoctors"/>
         </RelativeLayout>
 
         <TextView

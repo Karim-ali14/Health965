@@ -18,9 +18,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.health965.Common.Common;
+import com.example.health965.Models.Clinics.Row;
 import com.example.health965.Models.MakeReservation.RequestOfReservation;
 import com.example.health965.Models.Reservation.Reservation;
-import com.example.health965.Models.getClincs.Row;
 import com.example.health965.R;
 import com.example.health965.UI.Clinics_Details_activity;
 import com.example.health965.UI.Login_Activity;
@@ -36,10 +36,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.ViewHolderForClicnics> {
+public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.ViewHolderForClinics> {
     List<Row> list;
     Context context;
     ProgressDialog dialog;
+    public static Row CLINIC = null;
     public AdapterForClinics(List<Row> list, Context context) {
         this.list = list;
         this.context = context;
@@ -47,12 +48,12 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
 
     @NonNull
     @Override
-    public ViewHolderForClicnics onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolderForClicnics(LayoutInflater.from(context).inflate(R.layout.model_clinics,parent,false));
+    public ViewHolderForClinics onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolderForClinics(LayoutInflater.from(context).inflate(R.layout.model_clinics,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderForClicnics holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolderForClinics holder, final int position) {
         final Row row = list.get(position);
         holder.NameOfClinics.setText(row.getName());
         Picasso.with(context).load(Common.BaseURL+"images/"+ row.getImage().getFor()+"/"+Uri.encode(row.getImage().getName())).into(holder.image);
@@ -60,7 +61,9 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context,Clinics_Details_activity.class).putExtra("Clinic",row));
+                CLINIC  = row;
+                context.startActivity(new Intent(context, Clinics_Details_activity.class));
+
             }
         });
         holder.Reservation.setOnClickListener(new View.OnClickListener() {
@@ -108,12 +111,12 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
         return list.size();
     }
 
-    class ViewHolderForClicnics extends RecyclerView.ViewHolder{
+    class ViewHolderForClinics extends RecyclerView.ViewHolder{
         ImageView image;
         TextView Address,TypeWork,NameOfClinics;
         CardView cardView;
         RelativeLayout Reservation;
-        public ViewHolderForClicnics(@NonNull View itemView) {
+        public ViewHolderForClinics(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.ImageForClinic);
             Address = itemView.findViewById(R.id.Address);

@@ -7,7 +7,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -18,15 +17,20 @@ import android.widget.Toast;
 import com.example.health965.Adapters.AdapterForClinics;
 import com.example.health965.Adapters.AdapterForImages;
 import com.example.health965.Common.Common;
+import com.example.health965.Models.BannerForCategory.BannerForCategory;
+import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Governorate.Row;
 import com.example.health965.Models.ModelsForCilinics;
-import com.example.health965.Models.getClincs.Clinics;
 import com.example.health965.R;
-import com.example.health965.UI.Clinics.Clinics_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,6 +42,7 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
     ViewPager viewPager;
     RecyclerView recyclerView;
     ProgressDialog dialog;
+    int listSize = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +57,13 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
-        viewPager.setAdapter(new AdapterForImages(listImage,this,false));
         viewPager.setOnPageChangeListener(this);
-        addPoints(0);
+
         recyclerView = findViewById(R.id.Recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Common.getAPIRequest().getClinicsByGovernorate("image",getIntent().getExtras().getInt("ID")+"",row.getId()+"").enqueue(new Callback<Clinics>() {
+        Common.getAPIRequest().getClinicsByGovernorate("image","clinicOptions","clinicCertificate",getIntent().getExtras().getInt("ID")+"",
+                row.getId()+"").enqueue(new Callback<Clinics>() {
             @Override
             public void onResponse(Call<Clinics> call, Response<Clinics> response) {
                 if (response.code() == 200) {
@@ -81,13 +86,42 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        Observable<BannerForCategory> bannerForGovernorate = Common.getAPIRequest().getBannerForGovernorate(true,
+                row.getId()+"");
+        bannerForGovernorate.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(final BannerForCategory bannerForCategory) {
+                if (bannerForCategory.getData().getRows().size() != 0){
+                    listSize = bannerForCategory.getData().getRows().size();
+                    viewPager.setAdapter(new AdapterForImages(bannerForCategory.getData().getRows(),AreaDetailsActivity.this,false,false));
+                    addPoints(0,listSize);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     public void Back(View view) {
         finish();
     }
-    private void addPoints(int position) {
-        points = new TextView[listImage.size()];
+    private void addPoints(int position,int Size) {
+        points = new TextView[Size];
         linearLayout.removeAllViews();
 
         for (int i = 0 ; i < points.length ; i++){
@@ -108,7 +142,7 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
 
     @Override
     public void onPageSelected(int position) {
-        addPoints(position);
+        addPoints(position,listSize);
     }
 
     @Override

@@ -9,15 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.health965.Models.Clinics.ClinicCertificate;
 import com.example.health965.Models.ModelOfCertificates;
 import com.example.health965.R;
 
 import java.util.List;
 
 public class AdapterForCertificates extends RecyclerView.Adapter<AdapterForCertificates.ViewHolderForCertificates> {
-    List<ModelOfCertificates> list;
+    List<ClinicCertificate> list;
     Context context;
-    public AdapterForCertificates(List<ModelOfCertificates> list, Context context) {
+    public AdapterForCertificates(List<ClinicCertificate> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -32,10 +33,10 @@ public class AdapterForCertificates extends RecyclerView.Adapter<AdapterForCerti
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderForCertificates holder, int position) {
-        ModelOfCertificates model = list.get(position);
+        ClinicCertificate model = list.get(position);
         holder.Line.setVisibility(View.VISIBLE);
-        holder.NameCertificates.setText(model.getNameCertificates());
-        holder.Date.setText(model.getDate());
+        holder.NameCertificates.setText(model.getName());
+        holder.Date.setText(model.getYear()+"");
         if (list.size()-1 == position)
             holder.Line.setVisibility(View.GONE);
     }

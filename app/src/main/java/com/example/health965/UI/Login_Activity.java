@@ -10,6 +10,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
@@ -33,6 +35,9 @@ import com.example.health965.Models.LoginUser.LoginUser;
 import com.example.health965.R;
 import com.example.health965.UI.Main.MainActivity;
 import com.example.health965.UI.Registration.NewAccountActivity;
+import com.example.health965.UI.ResetPassWord.ForgotPasswordActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +50,8 @@ import retrofit2.Response;
 
 public class Login_Activity extends AppCompatActivity {
     Button LoginButton,SkipButton;
-    EditText Password,Phone;
+    TextInputEditText Phone,Password;
+    TextInputLayout PhoneNumberLayout,PasswordLayout;
     ImageView image;
     View Line;
     TextView LoginAsPartner,LoginAsUser;
@@ -69,12 +75,55 @@ public class Login_Activity extends AppCompatActivity {
         LayoutForgottenPassword    = findViewById(R.id.LayoutForgottenPassword);
         Password = findViewById(R.id.Password);
         Password.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        PhoneNumberLayout = findViewById(R.id.PhoneNumberLayOut);
+        PasswordLayout = findViewById(R.id.PasswordLayout);
         Phone = findViewById(R.id.PhoneNumber);
+        Phone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!Phone.getText().toString().isEmpty()){
+                    PhoneNumberLayout.setErrorEnabled(false);
+                    PhoneNumberLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        Password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!Password.getText().toString().isEmpty()){
+                    PasswordLayout.setErrorEnabled(false);
+                    PasswordLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         image = findViewById(R.id.image);
         Line = findViewById(R.id.LineImage);
         LayoutOfEmail = findViewById(R.id.LayoutOfEmail);
         LoginButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
-        Password.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
+        if (getIntent().getExtras().getString("type").equals("main"))
+            PasswordLayout.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
+        else if (getIntent().getExtras().getString("type").equals("getPass"))
+            PhoneNumberLayout.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_above_bown));
         LoginAsPartner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +160,12 @@ public class Login_Activity extends AppCompatActivity {
     private void closeKeyBoard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        Phone.clearFocus();
+        Password.clearFocus();
+        PhoneNumberLayout.setErrorEnabled(false);
+        PhoneNumberLayout.setError(null);
+        PasswordLayout.setErrorEnabled(false);
+        PasswordLayout.setError(null);
     }
 
     public void Back(View view) {
@@ -120,11 +175,12 @@ public class Login_Activity extends AppCompatActivity {
     public void LoginIn(View view) {
         onValidation(typeUser);
     }
+
     private void onValidation(int typeUser){
         if (Phone.getText().toString().isEmpty())
-            Phone.setError("ادخل رقم الهاتف");
+            PhoneNumberLayout.setError("ادخل رقم الهاتف");
         else if (Password.getText().toString().isEmpty())
-            Password.setError("ادخل الرقم السري");
+            PasswordLayout.setError("ادخل الرقم السري");
         else{
             if (typeUser == 0)
                 loginAsUser();
@@ -196,8 +252,8 @@ public class Login_Activity extends AppCompatActivity {
         intent.putExtra("type",1);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             Pair pair[] = new Pair[2];
-            pair[0] = new Pair<View,String>(Password,"Pass");
-            pair[1] = new Pair<View,String>(Phone,"Phone");
+            pair[0] = new Pair<View,String>(PasswordLayout,"Pass");
+            pair[1] = new Pair<View,String>(PhoneNumberLayout,"Phone");
             ActivityOptions options =ActivityOptions.makeSceneTransitionAnimation(Login_Activity.this,pair);
             getWindow().getSharedElementReturnTransition().setDuration(400) // this For Make Animation Slow
                     .setInterpolator(new DecelerateInterpolator());
@@ -210,10 +266,11 @@ public class Login_Activity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         LoginButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_above_bown));
-        Phone.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
+        PhoneNumberLayout.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
     }
     public void getPassword(View view) {
         Intent intent = new Intent(this, ForgotPasswordActivity.class);
+        intent.putExtra("Type",typeUser);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             Pair pair[] = new Pair[2];
             pair[0] = new Pair<View,String>(image,"imageHealth");
@@ -245,10 +302,13 @@ public class Login_Activity extends AppCompatActivity {
         ObjectAnimator animationAboveToBownAsLine = ObjectAnimator.ofFloat(Line, "translationY", 100f);
         animationAboveToBownAsLine.setDuration(300);
 
-        ObjectAnimator animationAboveToBownAsPhone = ObjectAnimator.ofFloat(Phone, "translationY", 100f);
-        animationAboveToBownAsPhone.setDuration(300);
+//        ObjectAnimator animationAboveToBownAsPhone = ObjectAnimator.ofFloat(Phone, "translationY", 100f);
+//        animationAboveToBownAsPhone.setDuration(300);
 
-        ObjectAnimator animationAboveToBownAsPass = ObjectAnimator.ofFloat(Password, "translationY", 100f);
+        ObjectAnimator animationAboveToBownAsPhoneLayout = ObjectAnimator.ofFloat(PhoneNumberLayout, "translationY", 100f);
+        animationAboveToBownAsPhoneLayout.setDuration(300);
+
+        ObjectAnimator animationAboveToBownAsPass = ObjectAnimator.ofFloat(PasswordLayout, "translationY", 100f);
         animationAboveToBownAsPass.setDuration(300);
 
         ObjectAnimator animationAboveToBownAsForgotPass = ObjectAnimator.ofFloat(LayoutForgottenPassword, "translationY", 100f);
@@ -260,7 +320,8 @@ public class Login_Activity extends AppCompatActivity {
         AnimatorSet set = new AnimatorSet();
         set.playTogether(animationAboveToBownAsPartner,animationLeftToRightAsPartner,
                 animationAboveToBownAsUser,animationLeftToRightAsUser,animationAboveToBownAsImage,
-                animationAboveToBownAsLine,animationAboveToBownAsPhone,animationAboveToBownAsPass,animationAboveToBownAsForgotPass,animationAboveToBownAsButton);
+                animationAboveToBownAsLine,animationAboveToBownAsPass,animationAboveToBownAsForgotPass,
+                animationAboveToBownAsPhoneLayout,animationAboveToBownAsButton);
         set.start();
         SkipButton.setVisibility(View.GONE);
         LayoutOfEmail.setAlpha(0);
@@ -288,7 +349,10 @@ public class Login_Activity extends AppCompatActivity {
         ObjectAnimator animationAboveToBownAsPhone = ObjectAnimator.ofFloat(Phone, "translationY", 0f);
         animationAboveToBownAsPhone.setDuration(300);
 
-        ObjectAnimator animationAboveToBownAsPass = ObjectAnimator.ofFloat(Password, "translationY", 0f);
+        ObjectAnimator animationAboveToBownAsPhoneLayout = ObjectAnimator.ofFloat(PhoneNumberLayout, "translationY", 0f);
+        animationAboveToBownAsPhone.setDuration(300);
+
+        ObjectAnimator animationAboveToBownAsPass = ObjectAnimator.ofFloat(PasswordLayout, "translationY", 0f);
         animationAboveToBownAsPass.setDuration(300);
 
         ObjectAnimator animationAboveToBownAsForgotPass = ObjectAnimator.ofFloat(LayoutForgottenPassword, "translationY", 0f);
@@ -300,7 +364,8 @@ public class Login_Activity extends AppCompatActivity {
         AnimatorSet set = new AnimatorSet();
         set.playTogether(animationAboveToBownAsPartner,animationLeftToRightAsPartner,
                 animationAboveToBownAsUser,animationLeftToRightAsUser,animationAboveToBownAsImage,
-                animationAboveToBownAsLine,animationAboveToBownAsPhone,animationAboveToBownAsPass,animationAboveToBownAsForgotPass,animationAboveToBownAsButton);
+                animationAboveToBownAsLine,animationAboveToBownAsPass,animationAboveToBownAsForgotPass
+                ,animationAboveToBownAsPhoneLayout,animationAboveToBownAsButton);
         set.start();
         SkipButton.setVisibility(View.VISIBLE);
         LayoutOfEmail.setAlpha(1);

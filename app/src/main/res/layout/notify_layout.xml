@@ -27,14 +27,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="dskfjlfjsdlfjlsjdfls"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:textColor="#000"
                     android:id="@+id/massage"
                     />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     >
                     <ImageView
                         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:text="منذ 5 دقائق"
                         android:textColor="@color/colorAccent"
-                        android:textSize="13dp"
+                        android:textSize="12dp"
                         />
                 </RelativeLayout>
             </LinearLayout>
@@ -63,8 +63,8 @@
                 >
                 <ImageView
                     android:layout_gravity="center"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:src="@drawable/notifi"
                     />
             </LinearLayout>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Clinics_Details_activity">
+    tools:context=".UI.Clinics_Details_activity"
+    android:background="@color/White">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/AppBar"
@@ -28,7 +29,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="dsakfhksdjhfksj"
                     android:textColor="#000"
                     android:textSize="19dp"
                     android:id="@+id/Title"/>
@@ -58,14 +58,14 @@
         android:orientation="horizontal"
         android:id="@+id/GuidLine1"/>
 
-    <ImageView
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/addclinic"
         app:layout_constraintBottom_toTopOf="@id/GuidLine1"
         app:layout_constraintTop_toBottomOf="@id/AppBar"
-        app:layout_scrollFlags="scroll"/>
+        app:layout_scrollFlags="scroll"
+        android:id="@+id/ViewPager2"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragments.MainPage">
+    tools:context=".Fragments.MainPage"
+    >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".35"
-            android:id="@+id/GuidLine1"/>
         <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="200dp"
             android:id="@+id/ViewPager2"
-            app:layout_constraintBottom_toTopOf="@id/GuidLine1"
+            app:layout_constraintBottom_toTopOf="@id/Layout"
             app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="fitXY"
             />
         <LinearLayout
             android:layout_centerHorizontal="true"
@@ -27,17 +23,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/Layout"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="@id/GuidLine1"
+            app:layout_constraintTop_toBottomOf="@id/ViewPager2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_below="@id/Layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
             android:id="@+id/Rec"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/Layout"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Layout"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</androidx.core.widget.NestedScrollView>

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.Clinics.Clinics_Activity"
-    android:background="@color/White">
+    android:background="@color/White"
+    >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -53,12 +54,7 @@
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.36"
-                android:orientation="horizontal"
-                android:id="@+id/GuidLine1"/>
+
             <androidx.constraintlayout.widget.Guideline
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,9 +95,9 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/ViewPager"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toTopOf="@id/GuidLine1"
+                app:layout_constraintBottom_toTopOf="@id/Points"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/AppBar"
@@ -110,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Points"
-                app:layout_constraintTop_toBottomOf="@id/GuidLine1"
+                app:layout_constraintTop_toBottomOf="@id/ViewPager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:orientation="horizontal" />
@@ -221,9 +217,10 @@
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="7dp"
                 android:id="@+id/RecyclerClinics"
-                android:layout_width="408dp"
-                android:layout_height="243dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.ActivateYourAccountActivity"
+    tools:context=".UI.Registration.ActivateYourAccountActivity"
     android:background="@color/White"
     android:id="@+id/Layout">
     <com.google.android.material.appbar.AppBarLayout
@@ -108,25 +108,38 @@
         android:id="@+id/LoginAsUser"
         android:gravity="center"
         />
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/style_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/LoginAsUser"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:id="@+id/EnterCode"
-        android:paddingRight="20dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
+        android:id="@+id/EnterCodeLayOut"
         android:hint="ادخل الكود هنا"
-        android:drawablePadding="7dp"
-        android:drawableRight="@drawable/edit"
-        android:gravity="right"
-        />
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:boxCornerRadiusTopStart="25dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:errorEnabled="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/EnterCode"
+            android:paddingRight="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:drawablePadding="7dp"
+            android:drawableRight="@drawable/edit"
+            android:gravity="right"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -136,7 +149,7 @@
         android:textSize="20dp"
         android:id="@+id/Arrive"
         android:layout_centerInParent="true"
-        app:layout_constraintTop_toBottomOf="@id/EnterCode"
+        app:layout_constraintTop_toBottomOf="@id/EnterCodeLayOut"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
@@ -148,10 +161,11 @@
         android:textSize="20dp"
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toStartOf="@id/Arrive"
-        app:layout_constraintTop_toBottomOf="@id/EnterCode"
+        app:layout_constraintTop_toBottomOf="@id/EnterCodeLayOut"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:textStyle="bold"
+        android:onClick="sendCode"
         />
 
     <Button
@@ -169,5 +183,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Arrive"
         android:onClick="active"
-        android:id="@+id/ButtonActive"/>
+        android:id="@+id/ButtonActive" />
 </androidx.constraintlayout.widget.ConstraintLayout>

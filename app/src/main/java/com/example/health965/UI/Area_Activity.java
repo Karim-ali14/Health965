@@ -16,13 +16,20 @@ import android.widget.TextView;
 import com.example.health965.Adapters.AdapterForArea;
 import com.example.health965.Adapters.AdapterForImages;
 import com.example.health965.Common.Common;
+import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Governorate.Governorate;
 import com.example.health965.Models.Governorate.Row;
 import com.example.health965.R;
+import com.example.health965.UI.Clinics.Clinics_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +41,7 @@ public class Area_Activity extends AppCompatActivity implements ViewPager.OnPage
     LinearLayout linearLayout;
     ViewPager viewPager;
     ProgressDialog dialog;
+    int listSize = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +61,11 @@ public class Area_Activity extends AppCompatActivity implements ViewPager.OnPage
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
-        viewPager.setAdapter(new AdapterForImages(listImage,this,false));
-        viewPager.setOnPageChangeListener(this);
-        addPoints(0);
+        listSize = Clinics_Activity.rows.size();
+        viewPager.setAdapter(new AdapterForImages(Clinics_Activity.rows,Area_Activity.this,false,false));
+        viewPager.setOnPageChangeListener(Area_Activity.this);
+        addPoints(0,listSize);
+
     }
 
     public void Back(View view) {
@@ -63,6 +73,34 @@ public class Area_Activity extends AppCompatActivity implements ViewPager.OnPage
     }
 
     private void getData(){
+//        Observable<BannerForCategory> bannerForCategoryObservable = Common.getAPIRequest().getBannerForCategory(true, getIntent().getExtras().getInt("C_ID") + "");
+//        bannerForCategoryObservable.subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(final BannerForCategory bannerForCategory) {
+//                if (bannerForCategory.getData().getRows().size() != 0){
+//                    listSize = bannerForCategory.getData().getRows().size();
+//                    viewPager.setAdapter(new AdapterForImages(Clinics_Activity.rows,Area_Activity.this,false));
+//                    viewPager.setOnPageChangeListener(Area_Activity.this);
+//                    addPoints(0,listSize);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        });
         Common.getAPIRequest().getAllGovernorate().enqueue(new Callback<Governorate>() {
             @Override
             public void onResponse(Call<Governorate> call, Response<Governorate> response) {
@@ -78,12 +116,11 @@ public class Area_Activity extends AppCompatActivity implements ViewPager.OnPage
                 Log.i("TTTTTT",t.getMessage());
             }
         });
-
     }
 
 
-    private void addPoints(int position) {
-        points = new TextView[listImage.size()];
+    private void addPoints(int position,int Size) {
+        points = new TextView[Size];
         linearLayout.removeAllViews();
 
         for (int i = 0 ; i < points.length ; i++){
@@ -104,7 +141,7 @@ public class Area_Activity extends AppCompatActivity implements ViewPager.OnPage
 
     @Override
     public void onPageSelected(int position) {
-        addPoints(position);
+        addPoints(position,listSize);
     }
 
     @Override

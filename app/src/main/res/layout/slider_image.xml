@@ -1,12 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.makeramen.roundedimageview.RoundedImageView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ImageSilder"
     android:adjustViewBounds="true"
-    app:riv_corner_radius="12dp"
     >
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ImageSilder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="12dp"
+        android:src="@drawable/p1"
+        android:scaleType="fitXY"
+        >
 
-</com.makeramen.roundedimageview.RoundedImageView>
+    </com.makeramen.roundedimageview.RoundedImageView>
+
+   <!-- <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias=".6"
+        android:src="@drawable/c"
+        android:id="@+id/Icon"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/Icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="sdlhfkjsdhkfjsdhfkjshjk"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/Title"
+        android:layout_gravity="center"
+        android:textColor="@color/White"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/Title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="sdlhfkjsdhkfjskjkjhkjhkhjkhkjhkjhjkhkkjhkjhjkhhkjhkjdhfkjshjk"
+        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:id="@id/description"
+        android:gravity="center"
+        android:textColor="@color/White"/>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

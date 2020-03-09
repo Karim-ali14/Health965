@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".37"
+            app:layout_constraintGuide_percent=".35"
             />
         <androidx.constraintlayout.widget.Guideline
             android:layout_width="match_parent"
@@ -94,7 +94,7 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="140dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/arthealth"
             app:layout_constraintBottom_toTopOf="@id/Line1"
@@ -148,50 +148,76 @@
             android:layout_marginTop="20dp"
             android:id="@+id/LoginAsPartner"
             />
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/style_edittext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/LoginAsUser"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/PhoneNumber"
-            android:drawableRight="@drawable/call"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:hint="رقم الجوال"
-            android:drawablePadding="7dp"
+            android:id="@+id/PhoneNumberLayOut"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            app:boxCornerRadiusTopStart="25dp"
+            app:boxCornerRadiusBottomEnd="25dp"
+            app:boxCornerRadiusBottomStart="25dp"
+            app:boxCornerRadiusTopEnd="25dp"
+            app:errorEnabled="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:transitionName="Phone"
-            android:gravity="right"
-            android:inputType="phone"
-            />
-        <EditText
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/call"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:id="@+id/PhoneNumber"
+                android:hint="رقم الجوال"
+                android:drawablePadding="7dp"
+                android:gravity="right"
+                android:inputType="phone"
+                app:counterMaxLength="10"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/style_edittext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/PhoneNumber"
+            app:layout_constraintTop_toBottomOf="@id/PhoneNumberLayOut"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/Password"
-            android:drawableRight="@drawable/key"
-            android:paddingRight="20dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:hint="كلمة المرور"
-            android:drawablePadding="7dp"
+            android:id="@+id/PasswordLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            app:boxCornerRadiusTopStart="25dp"
+            app:boxCornerRadiusBottomEnd="25dp"
+            app:boxCornerRadiusBottomStart="25dp"
+            app:boxCornerRadiusTopEnd="25dp"
+            app:errorEnabled="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:transitionName="Pass"
-            android:inputType="textPassword"
-            android:gravity="right"
-
-            />
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Password"
+                android:drawableRight="@drawable/key"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:hint="كلمة المرور"
+                android:drawablePadding="7dp"
+                android:inputType="textPassword"
+                android:gravity="right"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <RelativeLayout
             android:id="@+id/LayoutForgottenPassword"
@@ -201,7 +227,7 @@
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Password"
+            app:layout_constraintTop_toBottomOf="@id/PasswordLayout"
             >
 
             <TextView
@@ -226,7 +252,7 @@
             android:text="تسجيل الدخول"
             android:textColor="@color/White"
             android:textSize="17dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="7dp"
             android:onClick="LoginIn"
             android:id="@+id/LoginButton"
             app:layout_constraintBottom_toTopOf="@+id/LayoutOfEmail"
@@ -240,7 +266,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/style_button2"
             android:onClick="Skip"

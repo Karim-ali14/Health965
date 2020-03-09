@@ -10,13 +10,17 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterForClinics;
 import com.example.health965.Adapters.AdapterForImages;
 import com.example.health965.Common.Common;
-import com.example.health965.Models.getClincs.Clinics;
+import com.example.health965.Models.BannerForCategory.BannerForCategory;
+import com.example.health965.Models.BannerForCategory.Row;
+import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.UI.Area_Activity;
 import com.example.health965.UI.Doctor_Page_Activity;
 import com.example.health965.R;
@@ -24,6 +28,11 @@ import com.example.health965.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,12 +45,17 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
     LinearLayout linearLayout;
     ViewPager viewPager;
     int id;
+    public static List<Row> rows;
+    int listSize = 0;
+    RelativeLayout LayoutSpecial;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clinics);
         presenter = new ClinicsPresenter(this);
         presenter.onInit();
+        rows = new ArrayList<>();
+        LayoutSpecial = findViewById(R.id.LayoutSpecial);
     }
 
     public void Back(View view) {
@@ -54,7 +68,7 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
         recyclerView = findViewById(R.id.RecyclerClinics);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setNestedScrollingEnabled(false);
 
         linearLayout = findViewById(R.id.Points);
         viewPager = findViewById(R.id.ViewPager);
@@ -62,19 +76,15 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
-        viewPager.setAdapter(new AdapterForImages(listImage,this,false));
-        viewPager.setOnPageChangeListener(this);
-        addPoints(0);
+
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        Common.getAPIRequest().getAllClinics("image",id+"").enqueue(new Callback<Clinics>() {
+        Common.getAPIRequest().getAllClinics("image",id+"","clinicOptions","clinicCertificate").enqueue(new Callback<Clinics>() {
             @Override
             public void onResponse(Call<Clinics> call, Response<Clinics> response) {
                 if (response.code() == 200)
                     recyclerView.setAdapter(new AdapterForClinics(response.body().getData().getRows(),Clinics_Activity.this));
-
-                Log.i("TTTTTTT",response.code()+"___"+response.body().getData().getCount());
             }
 
             @Override
@@ -82,10 +92,41 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
                 Log.d("TTTTTTT",t.getMessage());
             }
         });
+        Observable<BannerForCategory> bannerForCategoryObservable = Common.getAPIRequest().getBannerForCategory(true, id + "");
+                bannerForCategoryObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(final BannerForCategory bannerForCategory) {
+                        if (bannerForCategory.getData().getRows().size() != 0){
+                            listSize = bannerForCategory.getData().getRows().size();
+                            rows = bannerForCategory.getData().getRows();
+                            Log.i("TTTTTTTTTG",rows.get(0).getImage().getName());
+                            viewPager.setAdapter(new AdapterForImages(bannerForCategory.getData().getRows(),Clinics_Activity.this,false,false));
+                            viewPager.setOnPageChangeListener(Clinics_Activity.this);
+                            addPoints(0,bannerForCategory.getData().getRows().size());
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
-    private void addPoints(int position) {
-        points = new TextView[listImage.size()];
+    private void addPoints(int position,int listSize) {
+        points = new TextView[listSize];
         linearLayout.removeAllViews();
 
         for (int i = 0 ; i < points.length ; i++){
@@ -106,7 +147,8 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
 
     @Override
     public void onPageSelected(int position) {
-        addPoints(position);
+
+        addPoints(position,listSize);
     }
 
     @Override
@@ -119,10 +161,19 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
     }
 
     public void Clinics(View view) {
-        startActivity(new Intent(this, Doctor_Page_Activity.class));
+        startActivity(new Intent(this, Doctor_Page_Activity.class).putExtra("C_ID",id));
     }
 
     public void DoctorPage(View view) {
-        startActivity(new Intent(this, Doctor_Page_Activity.class));
+
+        startActivity(new Intent(this, Doctor_Page_Activity.class).putExtra("C_ID",id));
+
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        LayoutSpecial.startAnimation(AnimationUtils.loadAnimation(this,R.anim.anim));
     }
 }

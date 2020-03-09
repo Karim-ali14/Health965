@@ -9,12 +9,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.health965.Common.Common;
 import com.example.health965.Fragments.NotifyPage;
+import com.example.health965.Models.FireBaseToken.FireBaseToken;
 import com.example.health965.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ClinicRequestsActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
@@ -56,6 +63,21 @@ public class ClinicRequestsActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if (Common.CurrentClinic != null) {
+            Common.getAPIRequest().onUpDateFireBaseTokenClient(Common.CurrentClinic.getData().getToken().getAccessToken(),
+                    Common.CurrentClinic.getData().getClinic().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
+                    .enqueue(new Callback() {
+                        @Override
+                        public void onResponse(Call call, Response response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call call, Throwable t) {
+
+                        }
+                    });
+        }
     }
     public List<String> getStringList(){
         List<String> list = new ArrayList<>();

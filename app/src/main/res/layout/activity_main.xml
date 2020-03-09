@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".UI.Main.MainActivity"
     android:background="@color/White">
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/AppBarMain"
         android:layout_width="0dp"

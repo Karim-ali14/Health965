@@ -25,10 +25,12 @@ import com.example.health965.Fragments.NotifyPage;
 import com.example.health965.Fragments.MainPage;
 import com.example.health965.Models.Category.Category;
 import com.example.health965.Models.Category.Row;
+import com.example.health965.Models.FireBaseToken.FireBaseToken;
 import com.example.health965.Models.Model;
 import com.example.health965.Fragments.OfferPage;
 import com.example.health965.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -50,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     TextView title;
     ImageView ImageBar,ImageBack;
     View AboveLine;
-    ProgressDialog progressDialog;
     RelativeLayout BackLayout,LeftImageLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,21 @@ public class MainActivity extends AppCompatActivity implements MainView {
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if (Common.CurrentUser != null) {
+            Common.getAPIRequest().onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),
+                    Common.CurrentUser.getData().getUser().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
+                    .enqueue(new Callback() {
+                        @Override
+                        public void onResponse(Call call, Response response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call call, Throwable t) {
+
+                        }
+                    });
+        }
     }
 
     @Override
@@ -73,8 +89,61 @@ public class MainActivity extends AppCompatActivity implements MainView {
         AboveLine = findViewById(R.id.AboveLine);
         BackLayout = findViewById(R.id.BackLayout);
         LeftImageLayout = findViewById(R.id.LeftImageLayout);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
+        getSupportFragmentManager().beginTransaction().replace(R.id.Fragment,new MainPage(true)).commit();
+        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment fragment = null;
+                switch (menuItem.getItemId()){
+                    case R.id.account:{
+                        fragment = new AccountPage(MainActivity.this);
+                        title.setText(menuItem.getTitle());
+                        ImageBar.setVisibility(View.VISIBLE);
+                        LeftImageLayout.setVisibility(View.VISIBLE);
+                        ImageBack.setVisibility(View.GONE);
+                        BackLayout.setVisibility(View.GONE);
+                        AboveLine.setVisibility(View.VISIBLE);
+                        ImageBar.setImageResource(R.drawable.logout);
+                    }
+                    break;
+                    case R.id.notify:{
+                        fragment = new NotifyPage(presenter.getStringList());
+                        title.setText(menuItem.getTitle());
+                        AboveLine.setVisibility(View.VISIBLE);
+                        ImageBar.setVisibility(View.VISIBLE);
+                        LeftImageLayout.setVisibility(View.VISIBLE);
+                        ImageBack.setVisibility(View.GONE);
+                        BackLayout.setVisibility(View.GONE);
+                        ImageBar.setImageResource(R.drawable.trash);
+                    }
+                    break;
+                    case R.id.offer:{
+                        fragment = new OfferPage();
+                        title.setText(menuItem.getTitle());
+                        AboveLine.setVisibility(View.VISIBLE);
+                        ImageBack.setVisibility(View.GONE);
+                        BackLayout.setVisibility(View.GONE);
+                        ImageBar.setVisibility(View.GONE);
+                        LeftImageLayout.setVisibility(View.GONE);
+                    }
+                    break;
+                    case R.id.home:{
+                        fragment = new MainPage(false);
+                        title.setText(menuItem.getTitle());
+                        ImageBar.setVisibility(View.GONE);
+                        LeftImageLayout.setVisibility(View.GONE);
+                        AboveLine.setVisibility(View.GONE);
+                        ImageBack.setVisibility(View.VISIBLE);
+                        BackLayout.setVisibility(View.VISIBLE);
+
+                    }
+                    break;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.Fragment,fragment).commit();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -87,113 +156,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     public void getAllCategory(final List<String> stringList){
-        Observable<Category> allCategory = Common.getAPIRequest().getAllCategory(true);
-                allCategory.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Category>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
 
-                    }
 
-                    @Override
-                    public void onNext(final Category category) {
-                        progressDialog.dismiss();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.Fragment,new MainPage(category.getData().getRows(),true)).commit();
-                        bottomNavigationView.setSelectedItemId(R.id.home);
-                        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                            @Override
-                            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                                Fragment fragment = null;
-                                switch (menuItem.getItemId()){
-                                    case R.id.account:{
-                                        fragment = new AccountPage(MainActivity.this);
-                                        title.setText(menuItem.getTitle());
-                                        ImageBar.setVisibility(View.VISIBLE);
-                                        LeftImageLayout.setVisibility(View.VISIBLE);
-                                        ImageBack.setVisibility(View.GONE);
-                                        BackLayout.setVisibility(View.GONE);
-                                        AboveLine.setVisibility(View.VISIBLE);
-                                        ImageBar.setImageResource(R.drawable.logout);
-                                    }
-                                    break;
-                                    case R.id.notify:{
-                                        fragment = new NotifyPage(stringList);
-                                        title.setText(menuItem.getTitle());
-                                        AboveLine.setVisibility(View.VISIBLE);
-                                        ImageBar.setVisibility(View.VISIBLE);
-                                        LeftImageLayout.setVisibility(View.VISIBLE);
-                                        ImageBack.setVisibility(View.GONE);
-                                        BackLayout.setVisibility(View.GONE);
-                                        ImageBar.setImageResource(R.drawable.trash);
-                                    }
-                                    break;
-                                    case R.id.offer:{
-                                        fragment = new OfferPage();
-                                        title.setText(menuItem.getTitle());
-                                        AboveLine.setVisibility(View.VISIBLE);
-                                        ImageBack.setVisibility(View.GONE);
-                                        BackLayout.setVisibility(View.GONE);
-                                        ImageBar.setVisibility(View.GONE);
-                                        LeftImageLayout.setVisibility(View.GONE);
-                                    }
-                                    break;
-                                    case R.id.home:{
-                                        fragment = new MainPage(category.getData().getRows(),false);
-                                        title.setText(menuItem.getTitle());
-                                        ImageBar.setVisibility(View.GONE);
-                                        LeftImageLayout.setVisibility(View.GONE);
-                                        AboveLine.setVisibility(View.GONE);
-                                        ImageBack.setVisibility(View.VISIBLE);
-                                        BackLayout.setVisibility(View.VISIBLE);
-
-                                    }
-                                    break;
-                                }
-                                getSupportFragmentManager().beginTransaction().replace(R.id.Fragment,fragment).commit();
-                                return true;
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        progressDialog.dismiss();
-                        final AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.error_dialog, null);
-                        TextView Title = view.findViewById(R.id.Title);
-                        TextView Message = view.findViewById(R.id.Message);
-                        Button button = view.findViewById(R.id.Again);
-                        dialog.setView(view);
-                        final AlertDialog dialog1 = dialog.create();
-                        dialog1.setCanceledOnTouchOutside(false);
-                        dialog1.setCancelable(false);
-                        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog1.dismiss();
-                                progressDialog.show();
-                                getAllCategory(stringList);
-                            }
-                        });
-                        if(e instanceof SocketTimeoutException) {
-                            Title.setText("تعذر الأتصال بالخادم");
-                            Message.setText("خطأ في تحميل البيانات من الخادم اضغط علي زر لأعاده تحميل البيانات");
-                            dialog1.show();
-                        }
-
-                        else if (e instanceof UnknownHostException) {
-                            Title.setText("لا يوجد اتصال بالانترنت");
-                            Message.setText("تأكد من أتصالك بالأنترنت ثم أعد المحاولة");
-                            dialog1.show();
-                        }
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 }

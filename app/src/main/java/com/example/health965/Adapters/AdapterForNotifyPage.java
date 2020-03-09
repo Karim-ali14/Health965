@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.health965.Models.Notification.Notification;
 import com.example.health965.R;
 
 import org.w3c.dom.Text;
@@ -16,10 +17,10 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class AdapterForNotifyPage extends RecyclerView.Adapter<AdapterForNotifyPage.ViewHolderForNotify> {
-    List<String> list;
+    List<Notification> list;
     Context context;
 
-    public AdapterForNotifyPage(List<String> list, Context context) {
+    public AdapterForNotifyPage(List<Notification> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -33,7 +34,7 @@ public class AdapterForNotifyPage extends RecyclerView.Adapter<AdapterForNotifyP
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderForNotify holder, int position) {
-        holder.Massage.setText(list.get(position));
+        holder.Massage.setText(list.get(position).getBody());
         if (list.size()-1 == position)
             holder.line.setVisibility(View.GONE);
         else

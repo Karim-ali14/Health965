@@ -23,9 +23,11 @@ import android.widget.Toast;
 import com.example.health965.Adapters.AdapterForDoctorCard;
 import com.example.health965.Adapters.AdapterForImages;
 import com.example.health965.Common.Common;
+import com.example.health965.Models.BannerForCategory.Row;
 import com.example.health965.Models.DoctorsWithClinics.DoctorsWithClinics;
 import com.example.health965.Models.ModelOfCardDoctor;
 import com.example.health965.R;
+import com.example.health965.UI.Clinics.Clinics_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +63,7 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
         listImage.add(R.drawable.addclinic);
-        viewPager.setAdapter(new AdapterForImages(listImage,this,true));
+        viewPager.setAdapter(new AdapterForImages(Clinics_Activity.rows,this,true,false));
         viewPager.setOnPageChangeListener(this);
         addPoints(0);
         getWindow().getDecorView().setSystemUiVisibility
@@ -147,7 +149,7 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
     }
 
     private void getDoctorsWithClinics(){
-        Common.getAPIRequest().getDoctorsWithClinics("image").enqueue(new Callback<DoctorsWithClinics>() {
+        Common.getAPIRequest().getDoctorsWithClinics("image",getIntent().getExtras().getInt("C_ID")+"").enqueue(new Callback<DoctorsWithClinics>() {
             @Override
             public void onResponse(Call<DoctorsWithClinics> call, Response<DoctorsWithClinics> response) {
                 if (response.code() == 200)
@@ -162,4 +164,5 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
             }
         });
     }
+
 }

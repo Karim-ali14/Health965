@@ -1,11 +1,15 @@
 package com.example.health965.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -13,6 +17,8 @@ import com.example.health965.Common.Common;
 import com.example.health965.Models.ChangePassword.ResponseChangePassword.ResponseChangePassword;
 import com.example.health965.Models.ChangePassword.ChangePassword;
 import com.example.health965.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,8 +30,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PasswordModificationActivity extends AppCompatActivity {
-    EditText OldPassword,NewPassword,PasswordConfirmation;
+    TextInputEditText OldPassword,NewPassword,PasswordConfirmation;
     ProgressDialog dialog;
+    ConstraintLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,17 +44,20 @@ public class PasswordModificationActivity extends AppCompatActivity {
         NewPassword =findViewById(R.id.NewPassword);
         PasswordConfirmation =findViewById(R.id.PasswordConfirmation);
         dialog = new ProgressDialog(this);
+        layout = findViewById(R.id.Layout);
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (!(v instanceof EditText))
+                    closeKeyBoard();
+                return false;
+            }
+        });
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     public void Back(View view) {
-        switch (getIntent().getExtras().getString("Type")){
-            case "User":
-                changeClientPassword();
-                break;
-            case "Clinic" :
-                changeClinicPassword();
-                break;
-        }
+        finish();
     }
 
     private void changeClinicPassword(){
@@ -106,5 +116,24 @@ public class PasswordModificationActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void closeKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        OldPassword.clearFocus();
+        NewPassword.clearFocus();
+        PasswordConfirmation.clearFocus();
+    }
+
+    public void Save(View view) {
+        switch (getIntent().getExtras().getString("Type")){
+            case "User":
+                changeClientPassword();
+                break;
+            case "Clinic" :
+                changeClinicPassword();
+                break;
+        }
     }
 }
