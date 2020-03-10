@@ -8,7 +8,7 @@
         android:icon="@drawable/bell"/>
     <item android:id="@+id/offer"
         android:title="عروض مميزة"
-        android:icon="@drawable/discount"/>
+        android:icon="@drawable/discount" />
     <item android:id="@+id/home"
         android:title="الرئيسي"
         android:icon="@drawable/homeactive"/>

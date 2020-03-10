@@ -26,6 +26,7 @@ import com.example.health965.Fragments.MainPage;
 import com.example.health965.Models.Category.Category;
 import com.example.health965.Models.Category.Row;
 import com.example.health965.Models.FireBaseToken.FireBaseToken;
+import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
 import com.example.health965.Models.Model;
 import com.example.health965.Fragments.OfferPage;
 import com.example.health965.R;
@@ -64,16 +65,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         if (Common.CurrentUser != null) {
-            Common.getAPIRequest().onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),
+            Common.getAPIRequest().onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),"application/json",
                     Common.CurrentUser.getData().getUser().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
-                    .enqueue(new Callback() {
+                    .enqueue(new Callback<FireBaseTokenRespons>() {
                         @Override
-                        public void onResponse(Call call, Response response) {
+                        public void onResponse(Call<FireBaseTokenRespons> call, Response<FireBaseTokenRespons> response) {
 
                         }
 
                         @Override
-                        public void onFailure(Call call, Throwable t) {
+                        public void onFailure(Call<FireBaseTokenRespons> call, Throwable t) {
 
                         }
                     });

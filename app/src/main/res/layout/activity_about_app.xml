@@ -45,8 +45,7 @@
                         android:layout_centerInParent="true"
                         android:text="عن التطبيق"
                         android:textColor="#000000"
-                        android:textSize="17dp"
-                        android:textStyle="bold" />
+                        android:textSize="20dp" />
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
 
@@ -61,29 +60,26 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/AppBarMain"
             app:layout_constraintTop_toBottomOf="@id/AppBarMain"/>
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent=".32"
-            android:orientation="horizontal"
-            android:id="@+id/Line1"/>
 
         <ImageView
+            android:id="@id/Image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/Line1"
+            app:layout_constraintTop_toBottomOf="@id/AboveLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/arthealth"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"/>
         <View
+            android:layout_marginTop="20dp"
             android:id="@+id/LineImage"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_below="@id/AppBarMain"
             android:background="@drawable/shadow_line"
             android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/Line1"/>
+            app:layout_constraintTop_toBottomOf="@id/Image"/>
 
         <TextView
             android:id="@+id/AboutUs"
@@ -98,11 +94,13 @@
             android:paddingBottom="15dp"
             android:text="هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل جميع مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل جميع مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة "
             android:textColor="#000"
-            android:textSize="20dp"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Line1"
-            app:layout_constraintBottom_toTopOf="@id/LineDown"/>
+            app:layout_constraintTop_toBottomOf="@id/LineImage"
+            app:layout_constraintBottom_toTopOf="@id/LineDown"
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
 
         <View
             android:id="@+id/LineDown"

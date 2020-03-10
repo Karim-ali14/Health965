@@ -12,6 +12,15 @@ public class Data {
     @SerializedName("whoWeAre")
     @Expose
     private String whoWeAre;
+    @SerializedName("whoWeAreEn")
+    @Expose
+    private String whoWeAreEn;
+    @SerializedName("privacy")
+    @Expose
+    private String privacy;
+    @SerializedName("privacyEn")
+    @Expose
+    private String privacyEn;
     @SerializedName("phone")
     @Expose
     private String phone;
@@ -21,6 +30,9 @@ public class Data {
     @SerializedName("twitter")
     @Expose
     private String twitter;
+    @SerializedName("instagram")
+    @Expose
+    private String instagram;
     @SerializedName("linkedIn")
     @Expose
     private String linkedIn;
@@ -57,11 +69,6 @@ public class Data {
         this.id = id;
     }
 
-    public Data withId(Integer id) {
-        this.id = id;
-        return this;
-    }
-
     public String getWhoWeAre() {
         return whoWeAre;
     }
@@ -70,9 +77,28 @@ public class Data {
         this.whoWeAre = whoWeAre;
     }
 
-    public Data withWhoWeAre(String whoWeAre) {
-        this.whoWeAre = whoWeAre;
-        return this;
+    public String getWhoWeAreEn() {
+        return whoWeAreEn;
+    }
+
+    public void setWhoWeAreEn(String whoWeAreEn) {
+        this.whoWeAreEn = whoWeAreEn;
+    }
+
+    public String getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(String privacy) {
+        this.privacy = privacy;
+    }
+
+    public String getPrivacyEn() {
+        return privacyEn;
+    }
+
+    public void setPrivacyEn(String privacyEn) {
+        this.privacyEn = privacyEn;
     }
 
     public String getPhone() {
@@ -83,22 +109,12 @@ public class Data {
         this.phone = phone;
     }
 
-    public Data withPhone(String phone) {
-        this.phone = phone;
-        return this;
-    }
-
     public String getFacebook() {
         return facebook;
     }
 
     public void setFacebook(String facebook) {
         this.facebook = facebook;
-    }
-
-    public Data withFacebook(String facebook) {
-        this.facebook = facebook;
-        return this;
     }
 
     public String getTwitter() {
@@ -109,9 +125,12 @@ public class Data {
         this.twitter = twitter;
     }
 
-    public Data withTwitter(String twitter) {
-        this.twitter = twitter;
-        return this;
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
     }
 
     public String getLinkedIn() {
@@ -122,22 +141,12 @@ public class Data {
         this.linkedIn = linkedIn;
     }
 
-    public Data withLinkedIn(String linkedIn) {
-        this.linkedIn = linkedIn;
-        return this;
-    }
-
     public String getGooglePlus() {
         return googlePlus;
     }
 
     public void setGooglePlus(String googlePlus) {
         this.googlePlus = googlePlus;
-    }
-
-    public Data withGooglePlus(String googlePlus) {
-        this.googlePlus = googlePlus;
-        return this;
     }
 
     public String getYoutube() {
@@ -148,22 +157,12 @@ public class Data {
         this.youtube = youtube;
     }
 
-    public Data withYoutube(String youtube) {
-        this.youtube = youtube;
-        return this;
-    }
-
     public String getWhatsApp() {
         return whatsApp;
     }
 
     public void setWhatsApp(String whatsApp) {
         this.whatsApp = whatsApp;
-    }
-
-    public Data withWhatsApp(String whatsApp) {
-        this.whatsApp = whatsApp;
-        return this;
     }
 
     public String getEmail() {
@@ -174,22 +173,12 @@ public class Data {
         this.email = email;
     }
 
-    public Data withEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Data withAddress(String address) {
-        this.address = address;
-        return this;
     }
 
     public String getSupportNum() {
@@ -200,11 +189,6 @@ public class Data {
         this.supportNum = supportNum;
     }
 
-    public Data withSupportNum(String supportNum) {
-        this.supportNum = supportNum;
-        return this;
-    }
-
     public String getCreatedAt() {
         return createdAt;
     }
@@ -213,22 +197,12 @@ public class Data {
         this.createdAt = createdAt;
     }
 
-    public Data withCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-        return this;
-    }
-
     public String getUpdatedAt() {
         return updatedAt;
     }
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Data withUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-        return this;
     }
 
 }

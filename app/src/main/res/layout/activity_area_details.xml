@@ -34,8 +34,9 @@
                         android:layout_centerInParent="true"
                         android:text="عيادات أسنان"
                         android:textColor="#000"
-                        android:textSize="19dp"
-                        android:id="@+id/NameOfArea"/>
+                        android:textSize="20dp"
+                        android:id="@+id/NameOfArea"
+                        />
 
                     <RelativeLayout
                         android:layout_width="50dp"

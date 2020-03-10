@@ -29,6 +29,10 @@ import com.example.health965.Models.ModelOfCardDoctor;
 import com.example.health965.R;
 import com.example.health965.UI.Clinics.Clinics_Activity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,8 +158,15 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
             public void onResponse(Call<DoctorsWithClinics> call, Response<DoctorsWithClinics> response) {
                 if (response.code() == 200)
                     RecyclerOfCard.setAdapter(new AdapterForDoctorCard(response.body().getData().getRows(),Doctor_Page_Activity.this));
-                else
-                    Toast.makeText(Doctor_Page_Activity.this,response.message(), Toast.LENGTH_LONG).show();
+                else {
+                    try {
+                        Toast.makeText(Doctor_Page_Activity.this,new JSONObject(response.errorBody().string()).getString("message"), Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override

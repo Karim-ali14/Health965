@@ -7,7 +7,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingRight="15dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="10dp"
         android:id="@+id/LayOutPersonalInformation">
         <ImageView
             android:layout_width="25dp"
@@ -16,7 +18,8 @@
             android:src="@drawable/userprofile"
             android:layout_centerVertical="true"
             android:id="@+id/MenImage"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="18dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +28,8 @@
             android:text="المعلومات الشخصية"
             android:textColor="#000"
             android:textSize="17dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
 
     </RelativeLayout>
     <View
@@ -39,7 +43,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:id="@+id/LayOutModify"
         android:layout_below="@id/line1">
         <ImageView
@@ -49,7 +55,8 @@
             android:src="@drawable/keyprofile"
             android:layout_centerVertical="true"
             android:id="@+id/modifyImage"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="18dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +64,8 @@
             android:layout_toLeftOf="@id/modifyImage"
             android:textSize="17dp"
             android:textColor="#000"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
 
     </RelativeLayout>
     <View
@@ -67,11 +75,14 @@
         android:layout_height="1dp"
         android:background="@color/colorAccent"
         android:layout_below="@id/LayOutModify"
-        android:id="@+id/line2"/>
+        android:id="@+id/line2"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:id="@+id/LayOutAbout"
         android:layout_below="@id/line2">
         <ImageView
@@ -81,7 +92,8 @@
             android:src="@drawable/infoprofile"
             android:layout_centerVertical="true"
             android:id="@+id/AboutImage"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="18dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,7 +101,8 @@
             android:layout_toLeftOf="@id/AboutImage"
             android:textSize="17dp"
             android:textColor="#000"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
 
     </RelativeLayout>
     <View
@@ -103,7 +116,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:id="@+id/LayOutPersonal"
         android:layout_below="@id/line3">
         <ImageView
@@ -113,7 +128,8 @@
             android:src="@drawable/insuranceprofile"
             android:layout_centerVertical="true"
             android:id="@+id/PersonalImage"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="18dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,7 +137,8 @@
             android:layout_toLeftOf="@id/PersonalImage"
             android:textSize="17dp"
             android:textColor="#000"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
 
     </RelativeLayout>
 

@@ -37,10 +37,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
-                android:textSize="20dp"
+                android:textSize="17sp"
                 android:text="د/ احمد محمد سلمان"
-                android:layout_marginBottom="5dp"
                 android:id="@+id/NameOfDoctor"
+                android:fontFamily="@font/helveticaneuelt_arabic_roman"
+
                 />
             <TextView
                 android:layout_toLeftOf="@id/ImageDoctor"
@@ -50,7 +51,9 @@
                 android:textColor="@color/TextColor"
                 android:textSize="15dp"
                 android:text="ماجيستير طب وجراحه اسنان"
-                android:id="@+id/Dec"/>
+                android:id="@+id/Dec"
+                android:fontFamily="@font/helveticaneuelt_arabic_roman"
+                />
 
     </RelativeLayout>
 

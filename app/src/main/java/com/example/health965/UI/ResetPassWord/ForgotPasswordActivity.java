@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,10 +43,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     View Line;
     ConstraintLayout Layout;
     TextInputLayout PhoneNumberLayOut;
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+        dialog = new ProgressDialog(this);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -111,11 +114,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     public void Sure(View view) {
+        dialog.show();
         if (!PhoneNumber.getText().toString().isEmpty()) {
             if (getIntent().getExtras().getInt("Type") == 0) {
                 Common.getAPIRequest().onSendCodeVerficationClient(getIntent().getExtras().getString("Email")).enqueue(new Callback<ReSetPassword>() {
                     @Override
                     public void onResponse(Call<ReSetPassword> call, Response<ReSetPassword> response) {
+                        dialog.dismiss();
                         if (response.code() == 200) {
                             Toast.makeText(ForgotPasswordActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ForgotPasswordActivity.this, EnterCodeActivity.class);
@@ -145,7 +150,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ReSetPassword> call, Throwable t) {
-
+                        Toast.makeText(ForgotPasswordActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
                 });
             }
@@ -153,6 +159,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 Common.getAPIRequest().onSendCodeVerficationClinic(getIntent().getExtras().getString("Email")).enqueue(new Callback<ReSetPassword>() {
                     @Override
                     public void onResponse(Call<ReSetPassword> call, Response<ReSetPassword> response) {
+                        dialog.dismiss();
                         if (response.code() == 200) {
                             Toast.makeText(ForgotPasswordActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ForgotPasswordActivity.this, EnterCodeActivity.class);
@@ -181,11 +188,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ReSetPassword> call, Throwable t) {
-
+                        Toast.makeText(ForgotPasswordActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         }else {
+            dialog.dismiss();
             PhoneNumberLayOut.setErrorEnabled(true);
             PhoneNumberLayOut.setError("ادخل الايميل");
         }

@@ -34,12 +34,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_toLeftOf="@id/ImageDoctor"
                 android:text="د/ احمد محمد سلمان"
                 android:textColor="#000"
-                android:textSize="23dp"
+                android:textSize="18dp"
+                android:fontFamily="@font/helveticaneuelt_arabic_roman"
                 />
 
             <TextView
@@ -52,6 +51,8 @@
                 android:text="ماجيستير طب وجراحه اسنان"
                 android:textColor="@color/TextColor"
                 android:textSize="15dp"
+                android:fontFamily="@font/helveticaneuelt_arabic_roman"
+
                 />
 
         </RelativeLayout>
@@ -94,7 +95,6 @@
                 android:id="@+id/LayoutDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@id/LayoutImage">
 
@@ -106,8 +106,9 @@
                     android:layout_marginRight="2dp"
                     android:text="عيادة هبة دينتال كلينك"
                     android:textColor="#000"
-                    android:textSize="24dp"
+                    android:textSize="21dp"
                     android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
 
                 <RelativeLayout

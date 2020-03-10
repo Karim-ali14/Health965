@@ -136,6 +136,8 @@
                         android:textSize="17sp"
                         android:text="الطبيب"
                         android:textColor="#000"
+                        android:fontFamily="@font/helveticaneuelt_arabic_roman"
+
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -164,6 +166,8 @@
                         android:textSize="17sp"
                         android:text="العيادات"
                         android:textColor="#000"
+                        android:fontFamily="@font/helveticaneuelt_arabic_roman"
+
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -192,6 +196,7 @@
                         android:textSize="17sp"
                         android:text="المنطقة"
                         android:textColor="#000"
+                        android:fontFamily="@font/helveticaneuelt_arabic_roman"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -210,9 +215,10 @@
                     android:layout_height="wrap_content"
                     android:text="عيادات مميزة"
                     android:textColor="#000"
-                    android:textSize="17sp"
+                    android:textSize="18dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
+                    android:textStyle="bold"
                     />
             </RelativeLayout>
 

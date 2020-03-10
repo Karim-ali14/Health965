@@ -45,8 +45,8 @@
                     android:layout_centerInParent="true"
                     android:text="معلومات العيادة"
                     android:textColor="#000000"
-                    android:textSize="17dp"
-                    android:textStyle="bold" />
+                    android:textSize="20dp"
+                    />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         android:id="@+id/Card"
@@ -114,7 +114,9 @@
                     android:layout_marginRight="10dp"
                     android:text="الأسم العيادة"
                     android:textColor="#000"
-                    android:textSize="20dp" />
+                    android:textSize="17sp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
+                    />
 
                 <TextView
                     android:id="@+id/Name"
@@ -125,7 +127,9 @@
                     android:layout_marginRight="10dp"
                     android:text="هبة دينتال كلينيك"
                     android:textColor="@color/Red"
-                    android:textSize="20dp" />
+                    android:textSize="17sp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
+                    />
 
                 <View
                     android:layout_width="match_parent"
@@ -145,9 +149,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="البريد الألكتروني"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:textColor="#000"
                     android:layout_marginRight="10dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -155,9 +160,10 @@
                     android:layout_alignParentLeft="true"
                     android:text="info@gmail.com"
                     android:id="@+id/Email"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:textColor="@color/Red"
                     android:layout_marginRight="10dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
                 <View
                     android:layout_width="match_parent"
@@ -177,9 +183,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="رقم الجوال"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:textColor="#000"
                     android:layout_marginRight="10dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -187,9 +194,10 @@
                     android:layout_alignParentLeft="true"
                     android:text="+96512224464"
                     android:id="@+id/Phone"
-                    android:textSize="20dp"
+                    android:textSize="17sp"
                     android:textColor="@color/Red"
                     android:layout_marginRight="10dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
 
             </RelativeLayout>

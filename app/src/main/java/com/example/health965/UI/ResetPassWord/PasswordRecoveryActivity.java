@@ -1,8 +1,9 @@
-package com.example.health965.UI;
+package com.example.health965.UI.ResetPassWord;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.ReSetPassword;
 import com.example.health965.R;
+import com.example.health965.UI.Login_Activity;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,10 +39,13 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
     ImageView image;
     ConstraintLayout Layout;
     TextInputEditText NewPassword,PasswordConfirmation;
+    ProgressDialog dialog;
+    TextInputLayout NewPasswordLayOut,PasswordConfirmationLayOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_recovery);
+        dialog = new ProgressDialog(this);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -47,17 +53,34 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
         ButtonSure = findViewById(R.id.ButtonSure);
         NewPassword = findViewById(R.id.NewPassword);
         PasswordConfirmation = findViewById(R.id.PasswordConfirmation);
+        NewPasswordLayOut = findViewById(R.id.NewPasswordLayOut);
+        PasswordConfirmationLayOut = findViewById(R.id.PasswordConfirmationLayOut);
         ButtonSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!NewPassword.getText().toString().isEmpty() && !PasswordConfirmation.getText().toString().isEmpty()
-                        && PasswordConfirmation.getText().toString().equals(NewPassword.getText().toString())) {
+                dialog.show();
+                if (NewPassword.getText().toString().isEmpty()){
+                    dialog.dismiss();
+                    NewPasswordLayOut.setErrorEnabled(true);
+                    NewPasswordLayOut.setError("ادخل كلمه المرور الجديده");
+                }else if(PasswordConfirmation.getText().toString().isEmpty()){
+                    dialog.dismiss();
+                    PasswordConfirmationLayOut.setErrorEnabled(true);
+                    PasswordConfirmationLayOut.setError("ادخل كلمه المرور الجديده");
+                } else if (PasswordConfirmation.getText().toString().equals(NewPassword.getText().toString())){
+                    dialog.dismiss();
+                    PasswordConfirmationLayOut.setErrorEnabled(true);
+                    PasswordConfirmationLayOut.setError("كلمة المرور لسه متطابقه");
+                    NewPasswordLayOut.setErrorEnabled(true);
+                    NewPasswordLayOut.setError("كلمة المرور لسه متطابقه");
+                }else{
                     if (getIntent().getExtras().getInt("Type")==0) {
                         Common.getAPIRequest().onVerficationClient(getIntent().getExtras().getString("Email"),
                                 getIntent().getExtras().getString("Code"),
                                 NewPassword.getText().toString()).enqueue(new Callback<ReSetPassword>() {
                             @Override
                             public void onResponse(Call<ReSetPassword> call, Response<ReSetPassword> response) {
+                                dialog.dismiss();
                                 if (response.code() == 200) {
                                     Toast.makeText(PasswordRecoveryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(PasswordRecoveryActivity.this, Login_Activity.class).putExtra("type", "getPass"));
@@ -76,7 +99,8 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<ReSetPassword> call, Throwable t) {
-
+                                dialog.dismiss();
+                                Toast.makeText(PasswordRecoveryActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }else {
@@ -85,6 +109,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
                                 NewPassword.getText().toString()).enqueue(new Callback<ReSetPassword>() {
                             @Override
                             public void onResponse(Call<ReSetPassword> call, Response<ReSetPassword> response) {
+                                dialog.dismiss();
                                 if (response.code() == 200) {
                                     Toast.makeText(PasswordRecoveryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(PasswordRecoveryActivity.this, Login_Activity.class).putExtra("type", "getPass"));
@@ -103,11 +128,11 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<ReSetPassword> call, Throwable t) {
-
+                                dialog.dismiss();
+                                Toast.makeText(PasswordRecoveryActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
-
                 }
             }
         });
@@ -132,6 +157,10 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         NewPassword.clearFocus();
         PasswordConfirmation.clearFocus();
+        PasswordConfirmationLayOut.setErrorEnabled(false);
+        PasswordConfirmationLayOut.setError(null);
+        NewPasswordLayOut.setErrorEnabled(false);
+        NewPasswordLayOut.setError(null);
     }
 
     public void Back(View view) {

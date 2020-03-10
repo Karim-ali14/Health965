@@ -1,6 +1,7 @@
 package com.example.health965.UI.Home;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -9,12 +10,16 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,6 +40,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,7 +116,7 @@ public class Home_Activity extends AppCompatActivity implements ILogin{
     }
 
     private void getBanners(){
-        Common.getAPIRequest().getOffersForHome(true,true,true).enqueue(new Callback<Offers>() {
+       /* Common.getAPIRequest().getOffersForHome(true,true,true).enqueue(new Callback<Offers>() {
             @Override
             public void onResponse(Call<Offers> call, final Response<Offers> response) {
                 dialog.dismiss();
@@ -183,9 +190,7 @@ public class Home_Activity extends AppCompatActivity implements ILogin{
             public void onFailure(Call<Offers> call, Throwable t) {
                 Log.i("TTTTTT",t.getMessage());
             }
-        });
-
-/*
+        });*/
         Common.getAPIRequest().getOffersForHome(true,true,true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -247,13 +252,42 @@ public class Home_Activity extends AppCompatActivity implements ILogin{
 
                     @Override
                     public void onError(Throwable e) {
+                        dialog.dismiss();
+                        final AlertDialog.Builder Adialog = new AlertDialog.Builder(Home_Activity.this);
+                        View view = LayoutInflater.from(Home_Activity.this).inflate(R.layout.error_dialog, null);
+                        TextView Title = view.findViewById(R.id.Title);
+                        TextView Message = view.findViewById(R.id.Message);
+                        Button button = view.findViewById(R.id.Again);
+                        Adialog.setView(view);
+                        final AlertDialog dialog1 = Adialog.create();
+                        dialog1.setCanceledOnTouchOutside(false);
+                        dialog1.setCancelable(false);
+                        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog1.dismiss();
+                                dialog.show();
+                                getBanners();
+                            }
+                        });
+                        if(e instanceof SocketTimeoutException) {
+                            Title.setText("تعذر الأتصال بالخادم");
+                            Message.setText("خطأ في تحميل البيانات من الخادم اضغط علي زر لأعاده تحميل البيانات");
+                            dialog1.show();
+                        }
 
+                        else if (e instanceof UnknownHostException) {
+                            Title.setText("لا يوجد اتصال بالانترنت");
+                            Message.setText("تأكد من أتصالك بالأنترنت ثم أعد المحاولة");
+                            dialog1.show();
+                        }
                     }
 
                     @Override
                     public void onComplete() {
 
                     }
-                })*/
+                });
     }
 }

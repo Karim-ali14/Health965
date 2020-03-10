@@ -92,7 +92,7 @@ public class AboutAppActivity extends AppCompatActivity {
         Instagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(AboutAppActivity.this,setting.getData().get(), Toast.LENGTH_SHORT).show();
+                openBrowser(setting.getData().getInstagram());
             }
         });
         GooglePlus.setOnClickListener(new View.OnClickListener() {

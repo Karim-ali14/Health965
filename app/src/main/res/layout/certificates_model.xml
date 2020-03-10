@@ -15,7 +15,8 @@
             android:textColor="#000"
             android:id="@+id/NameOfCertificate"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+
             />
         <TextView
             android:layout_width="wrap_content"
@@ -25,8 +26,8 @@
             android:textColor="@color/colorPrimary"
             android:textSize="15dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:id="@+id/Date"
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
             />
         <View
             android:layout_width="match_parent"

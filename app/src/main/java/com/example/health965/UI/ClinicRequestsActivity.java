@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.example.health965.Common.Common;
 import com.example.health965.Fragments.NotifyPage;
 import com.example.health965.Models.FireBaseToken.FireBaseToken;
+import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
 import com.example.health965.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -64,16 +65,16 @@ public class ClinicRequestsActivity extends AppCompatActivity {
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         if (Common.CurrentClinic != null) {
-            Common.getAPIRequest().onUpDateFireBaseTokenClient(Common.CurrentClinic.getData().getToken().getAccessToken(),
+            Common.getAPIRequest().onUpDateFireBaseTokenClinic(Common.CurrentClinic.getData().getToken().getAccessToken(),
                     Common.CurrentClinic.getData().getClinic().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
-                    .enqueue(new Callback() {
+                    .enqueue(new Callback<FireBaseTokenRespons>() {
                         @Override
-                        public void onResponse(Call call, Response response) {
+                        public void onResponse(Call<FireBaseTokenRespons> call, Response<FireBaseTokenRespons> response) {
 
                         }
 
                         @Override
-                        public void onFailure(Call call, Throwable t) {
+                        public void onFailure(Call<FireBaseTokenRespons> call, Throwable t) {
 
                         }
                     });

@@ -45,8 +45,8 @@
                     android:layout_centerInParent="true"
                     android:text="تفعيل حسابك"
                     android:textColor="#000000"
-                    android:textSize="17dp"
-                    android:textStyle="bold" />
+                    android:textSize="20dp"
+                    />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
@@ -93,13 +93,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ادخل الكود المرسل على جوالك لاسترجاع كلمة المرور الخاصة بك"
+        android:text="ادخل الكود المرسل على جوالك لتفعيل حسابك"
         android:layout_centerInParent="true"
-        android:textSize="20dp"
+        android:textSize="19dp"
         android:textColor="#000"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:paddingTop="15dp"
         android:paddingBottom="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,6 +106,7 @@
         android:layout_marginTop="10dp"
         android:id="@+id/LoginAsUser"
         android:gravity="center"
+        android:fontFamily="@font/helveticaneuelt_arabic_roman"
         />
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
@@ -140,34 +140,37 @@
             android:gravity="right"
             />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="لم يصلك؟"
-        android:textColor="#000"
-        android:textSize="20dp"
-        android:id="@+id/Arrive"
-        android:layout_centerInParent="true"
         app:layout_constraintTop_toBottomOf="@id/EnterCodeLayOut"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="أعد الإرسال"
-        android:textSize="20dp"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintEnd_toStartOf="@id/Arrive"
-        app:layout_constraintTop_toBottomOf="@id/EnterCodeLayOut"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:textStyle="bold"
-        android:onClick="sendCode"
-        />
-
+        android:layout_marginTop="5dp"
+        android:id="@+id/LayoutOfSendText">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="لم يصلك؟"
+            android:textColor="#000"
+            android:textSize="18dp"
+            android:id="@+id/Arrive"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
+        <TextView
+            android:layout_toLeftOf="@id/Arrive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="أعد الإرسال"
+            android:textSize="18dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold"
+            android:onClick="sendCode"
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
+    </RelativeLayout>
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -181,7 +184,8 @@
         android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Arrive"
+        app:layout_constraintTop_toBottomOf="@+id/LayoutOfSendText"
         android:onClick="active"
-        android:id="@+id/ButtonActive" />
+        android:id="@+id/ButtonActive"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

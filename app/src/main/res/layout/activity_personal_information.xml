@@ -79,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         android:id="@+id/Card"
@@ -102,15 +102,18 @@
                     android:layout_marginRight="10dp"
                     android:text="الأسم"
                     android:textColor="#000"
-                    android:textSize="18dp" />
+                    android:textSize="15dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:id="@+id/Name"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textColor="@color/Red"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
                 <View
                     android:layout_width="match_parent"
@@ -131,18 +134,20 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="البريد الألكتروني"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textColor="#000"
                     android:layout_marginRight="10dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:id="@+id/Email"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textColor="@color/Red"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
                 <View
                     android:layout_width="match_parent"
@@ -163,18 +168,20 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="رقم الجوال"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textColor="#000"
                     android:layout_marginRight="10dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:id="@+id/Phone"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textColor="@color/Red"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/helveticaneuelt_arabic_roman"
                     />
 
             </RelativeLayout>

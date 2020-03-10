@@ -63,21 +63,17 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/AppBarMain"
             app:layout_constraintTop_toBottomOf="@id/AppBarMain"/>
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent=".30"
-            android:orientation="horizontal"
-            android:id="@+id/Line1"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/Line1"
+            app:layout_constraintTop_toBottomOf="@id/AboveLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/insurance"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:id="@id/image"
+            android:layout_marginTop="25dp"/>
         <View
             android:id="@+id/LineImage"
             android:layout_width="match_parent"
@@ -85,7 +81,8 @@
             android:layout_below="@id/AppBarMain"
             android:background="@drawable/shadow_line"
             android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/Line1"/>
+            app:layout_constraintTop_toBottomOf="@id/image"
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:id="@+id/AboutUs"
@@ -104,6 +101,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Line1" />
+            app:layout_constraintTop_toBottomOf="@id/LineImage"
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

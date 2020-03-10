@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LayoutTitle"
-        android:layout_margin="10dp">
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,14 +18,16 @@
             android:textSize="20dp"
             android:textColor="@color/colorPrimary"
             android:layout_marginTop="10dp"
-            android:id="@+id/chose"/>
+            android:id="@+id/chose"
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:src="@drawable/cancel"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/close"/>
     </RelativeLayout>
     <View
@@ -49,6 +51,7 @@
             android:src="@drawable/contacted"
             android:layout_alignParentRight="true"
             android:id="@+id/contacted"
+            android:layout_marginTop="18dp"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -58,7 +61,9 @@
             android:layout_toLeftOf="@id/contacted"
             android:layout_marginRight="20dp"
             android:textSize="20dp"
-            android:id="@+id/Text"/>
+            android:id="@+id/Text"
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
+            />
 
 
     </RelativeLayout>
@@ -68,7 +73,6 @@
         android:layout_below="@id/LayoutContacted"
         android:padding="5dp"
         android:id="@+id/LayoutCanceled"
-        android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         >
@@ -78,6 +82,7 @@
             android:src="@drawable/canceled"
             android:layout_alignParentRight="true"
             android:id="@+id/canceled"
+            android:layout_marginTop="18dp"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -87,6 +92,7 @@
             android:layout_toLeftOf="@id/canceled"
             android:layout_marginRight="20dp"
             android:textSize="20dp"
+            android:fontFamily="@font/helveticaneuelt_arabic_roman"
             />
 
 

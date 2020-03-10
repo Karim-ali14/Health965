@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -16,9 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.health965.Common.Common;
 import com.example.health965.Fragments.Details_fragment;
-import com.example.health965.Models.Doctors.Doctors;
+
 import com.example.health965.Models.Doctors.Row;
-import com.example.health965.Models.ModelDoctor;
+
 import com.example.health965.R;
 import com.squareup.picasso.Picasso;
 
@@ -63,7 +62,6 @@ public class AdapterForDoctor extends RecyclerView.Adapter<AdapterForDoctor.View
                     holder.Check.setVisibility(View.GONE);
                     model.setSelected(false);
                     Details_fragment.Doctor_Id = 0;
-                    Toast.makeText(context,Details_fragment.Doctor_Id+ "", Toast.LENGTH_SHORT).show();
                 }else if (!model.isSelected()){
                     holder.CardDoctor.setCardBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
                     holder.Name.setTextColor(context.getResources().getColor(R.color.White));
@@ -71,7 +69,6 @@ public class AdapterForDoctor extends RecyclerView.Adapter<AdapterForDoctor.View
                     holder.Check.setVisibility(View.VISIBLE);
                     model.setSelected(true);
                     Details_fragment.Doctor_Id = model.getId();
-                    Toast.makeText(context,Details_fragment.Doctor_Id+ "", Toast.LENGTH_SHORT).show();
                     if (OldPosition != -1 && OldPosition != position){
                         list.get(OldPosition).setSelected(false);
                         OldCard.CardDoctor.setCardBackgroundColor(context.getResources().getColor(R.color.White));

@@ -9,6 +9,7 @@ import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Doctors.Doctors;
 import com.example.health965.Models.DoctorsWithClinics.DoctorsWithClinics;
 import com.example.health965.Models.FireBaseToken.FireBaseToken;
+import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
 import com.example.health965.Models.Governorate.Governorate;
 import com.example.health965.Models.LoginClinc.LoginClinc;
 import com.example.health965.Models.LoginUser.LoginUser;
@@ -127,7 +128,7 @@ public interface APIRequest {
     Call<Setting> getSetting();
 
     @GET("offer")
-    Call<Offers> getOffersForHome(@Query("is_featured") boolean is_featured,
+    Observable<Offers> getOffersForHome(@Query("is_featured") boolean is_featured,
                                   @Query("include_background") boolean include_background,
                                   @Query("include_icon") boolean include_icon);
 
@@ -158,12 +159,12 @@ public interface APIRequest {
     @GET("notification")
     Observable<List<Notification>> getNotification(@Header("Authorization") String Authorization);
 
-    @PUT("clinic/{clinic_id}")
-    Call onUpDateFireBaseTokenClinic(@Header("Authorization") String Authorization,
-                                              @Path("clinic_id")String clinic_id,
-                                              @Body FireBaseToken token);
-    @PUT("client/{client_id}")
-    Call onUpDateFireBaseTokenClient(@Header("Authorization") String Authorization,
+    @PUT("clinic/{clinic_id}/device-id")
+    Call<FireBaseTokenRespons> onUpDateFireBaseTokenClinic(@Header("Authorization") String Authorization,
+                                                           @Path("clinic_id")String clinic_id,
+                                                           @Body FireBaseToken token);
+    @PUT("client/{client_id}/device-id")
+    Call<FireBaseTokenRespons> onUpDateFireBaseTokenClient(@Header("Authorization") String Authorization,@Header("Content-Type") String Content_Type,
                                               @Path("client_id")String clinic_id,
                                               @Body FireBaseToken token);
 
