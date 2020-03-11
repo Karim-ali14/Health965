@@ -50,8 +50,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     private void putDataOfUser(){
-        Name.setText(Common.CurrentUser.getData().getUser().getFullName());
-        Email.setText(Common.CurrentUser.getData().getUser().getEmail());
-        Phone.setText(Common.CurrentUser.getData().getUser().getMobilePhone());
+        if (Common.CurrentUser != null) {
+            Name.setText(Common.CurrentUser.getData().getUser().getFullName());
+            Email.setText(Common.CurrentUser.getData().getUser().getEmail());
+            Phone.setText(Common.CurrentUser.getData().getUser().getMobilePhone());
+        }
     }
 }

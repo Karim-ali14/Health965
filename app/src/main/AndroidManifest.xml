@@ -12,11 +12,11 @@
         >
         <activity android:name=".UI.AreaDetailsActivity"
             android:screenOrientation="portrait" ></activity>
-        <activity android:name=".UI.PrivacyPolicyActivity"
+        <activity android:name=".UI.PrivacyPolicy.PrivacyPolicyActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.AboutApp.AboutAppActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.ClinicInformationActivity"
+        <activity android:name=".UI.ClinicInformation.ClinicInformationActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.ClinicRequestsActivity"
             android:screenOrientation="portrait" />

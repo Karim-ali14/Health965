@@ -17,7 +17,7 @@ import com.example.health965.UI.AboutApp.AboutAppActivity;
 import com.example.health965.UI.Login_Activity;
 import com.example.health965.UI.PasswordModificationActivity;
 import com.example.health965.UI.PersonalInformationActivity;
-import com.example.health965.UI.PrivacyPolicyActivity;
+import com.example.health965.UI.PrivacyPolicy.PrivacyPolicyActivity;
 import com.example.health965.R;
 
 

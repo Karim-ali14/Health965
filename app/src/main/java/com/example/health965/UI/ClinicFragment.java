@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 
 import com.example.health965.R;
 import com.example.health965.UI.AboutApp.AboutAppActivity;
+import com.example.health965.UI.ClinicInformation.ClinicInformationActivity;
+import com.example.health965.UI.PrivacyPolicy.PrivacyPolicyActivity;
 
 
 /**
@@ -35,7 +37,7 @@ public class ClinicFragment extends Fragment {
         LayOutPersonalInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getActivity(),ClinicInformationActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), ClinicInformationActivity.class));
             }
         });
         RelativeLayout LayOutModify = v.findViewById(R.id.LayOutModify);
@@ -56,7 +58,7 @@ public class ClinicFragment extends Fragment {
         LayOutPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getActivity(),PrivacyPolicyActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), PrivacyPolicyActivity.class));
             }
         });
         return v;
