@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
@@ -53,26 +54,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Home_Activity extends AppCompatActivity implements ILogin{
+public class Home_Activity extends AppCompatActivity{
     ViewPager2 viewPager;
     LinearLayout slider;
     TextView listOfPints[];
     Handler handler = new Handler();
     boolean live = true;
-    HomePresenter presenter;
     LinearLayout ButtonsLayout;
     ProgressDialog dialog;
+    HomeViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
-        presenter = new HomePresenter(this);
-        presenter.onInit();
-            getWindow().getDecorView().setSystemUiVisibility
-                    (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
-                            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        Init();
     }
-    @Override
+
     public void addPoints(int position,int listSize){
         listOfPints = new TextView[listSize];
         slider.removeAllViews();
@@ -92,13 +89,16 @@ public class Home_Activity extends AppCompatActivity implements ILogin{
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    @Override
     public void Init() {
         dialog = new ProgressDialog(this);
         dialog.show();
         viewPager = findViewById(R.id.ViewPager);
-        getBanners();
         ButtonsLayout = findViewById(R.id.Buttons);
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        getBanners();
+        getWindow().getDecorView().setSystemUiVisibility
+                (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
+                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
     public void LoginIn(View view) {
@@ -191,7 +191,56 @@ public class Home_Activity extends AppCompatActivity implements ILogin{
                 Log.i("TTTTTT",t.getMessage());
             }
         });*/
-        Common.getAPIRequest().getOffersForHome(true,true,true)
+       viewModel.getOffers(dialog,this).observe(this, new androidx.lifecycle.Observer<Offers>() {
+           @Override
+           public void onChanged(final Offers offers) {
+               dialog.dismiss();
+               AdapterForSlider adapter = new AdapterForSlider(offers.getData().getRows(),Home_Activity.this);
+               viewPager.setAdapter(adapter);
+               viewPager.setClipToPadding(false);
+               viewPager.setClipChildren(false);
+               viewPager.setOffscreenPageLimit(3);
+
+               CompositePageTransformer transformer = new CompositePageTransformer();
+               transformer.addTransformer(new MarginPageTransformer(40));
+               transformer.addTransformer(new ViewPager2.PageTransformer() {
+                   @Override
+                   public void transformPage(@NonNull View page, float position) {
+                       float i = 1 - Math.abs(position);
+                       page.setScaleY(0.85f + i * 0.15f);
+                   }
+               });
+               viewPager.setPageTransformer(transformer);
+               final Runnable runnable = new Runnable() {
+                   @Override
+                   public void run() {
+                       if (viewPager.getCurrentItem() == offers.getData().getRows().size()-1 && live)
+                           viewPager.setCurrentItem(0);
+                       else if (live)
+                           viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                   }
+               };
+               viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                   @Override
+                   public void onPageSelected(int position) {
+                       super.onPageSelected(position);
+                       handler.removeCallbacks(runnable);
+                       handler.postDelayed(runnable,3000);
+                       addPoints(position,offers.getData().getRows().size());
+                   }
+               });
+               slider = findViewById(R.id.slider);
+               if (offers.getData().getRows().size() != 0){
+                   if (offers.getData().getRows().size() % 2 == 0){
+                       addPoints(offers.getData().getRows().size() / 2,offers.getData().getRows().size());
+                   }else {
+
+                       addPoints((offers.getData().getRows().size()+1) / 2,offers.getData().getRows().size());
+                   }
+               }
+           }
+       });
+        /*Common.getAPIRequest().getOffersForHome(true,true,true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Offers>() {
@@ -202,50 +251,7 @@ public class Home_Activity extends AppCompatActivity implements ILogin{
 
                     @Override
                     public void onNext(final Offers offers) {
-                        dialog.dismiss();
-                        AdapterForSlider adapter = new AdapterForSlider(offers.getData().getRows(),Home_Activity.this);
-                        viewPager.setAdapter(adapter);
-                        viewPager.setClipToPadding(false);
-                        viewPager.setClipChildren(false);
-                        viewPager.setOffscreenPageLimit(3);
 
-                        CompositePageTransformer transformer = new CompositePageTransformer();
-                        transformer.addTransformer(new MarginPageTransformer(40));
-                        transformer.addTransformer(new ViewPager2.PageTransformer() {
-                            @Override
-                            public void transformPage(@NonNull View page, float position) {
-                                float i = 1 - Math.abs(position);
-                                page.setScaleY(0.85f + i * 0.15f);
-                            }
-                        });
-                        viewPager.setPageTransformer(transformer);
-                        final Runnable runnable = new Runnable() {
-                            @Override
-                            public void run() {
-                                if (viewPager.getCurrentItem() == offers.getData().getRows().size()-1 && live)
-                                    viewPager.setCurrentItem(0);
-                                else if (live)
-                                    viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
-                            }
-                        };
-                        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                            @Override
-                            public void onPageSelected(int position) {
-                                super.onPageSelected(position);
-                                handler.removeCallbacks(runnable);
-                                handler.postDelayed(runnable,3000);
-                                presenter.OnAddPoints(position,offers.getData().getRows().size());
-                            }
-                        });
-                        slider = findViewById(R.id.slider);
-                        if (offers.getData().getRows().size() != 0){
-                            if (offers.getData().getRows().size() % 2 == 0){
-                                presenter.OnAddPoints(offers.getData().getRows().size() / 2,offers.getData().getRows().size());
-                            }else {
-
-                                presenter.OnAddPoints((offers.getData().getRows().size()+1) / 2,offers.getData().getRows().size());
-                            }
-                        }
 //                    presenter.OnAddPoints(0,response.body().getData().getRows().size());
 
                     }
@@ -288,6 +294,6 @@ public class Home_Activity extends AppCompatActivity implements ILogin{
                     public void onComplete() {
 
                     }
-                });
+                });*/
     }
 }

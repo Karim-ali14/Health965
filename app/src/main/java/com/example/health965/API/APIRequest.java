@@ -14,7 +14,7 @@ import com.example.health965.Models.Governorate.Governorate;
 import com.example.health965.Models.LoginClinc.LoginClinc;
 import com.example.health965.Models.LoginUser.LoginUser;
 import com.example.health965.Models.MakeReservation.RequestOfReservation;
-import com.example.health965.Models.Notification.Notification;
+import com.example.health965.Models.Notification.Notifications;
 import com.example.health965.Models.OfferForClinic.OfferForClinic;
 import com.example.health965.Models.Offers.Offers;
 import com.example.health965.Models.Options.Option;
@@ -27,8 +27,6 @@ import com.example.health965.Models.Reservation.UpDate.ModelOfUpDate;
 import com.example.health965.Models.Setting.Setting;
 import com.example.health965.Models.UpdateClientInfo.RequestUpdateClientInfo;
 import com.example.health965.Models.UpdateClientInfo.ResponseUpdateClientInfo.ResponseUpdateClientInfo;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -157,7 +155,7 @@ public interface APIRequest {
                                              @Query("governorate_id") String governorate_id);
 
     @GET("notification")
-    Observable<List<Notification>> getNotification(@Header("Authorization") String Authorization);
+    Observable<Notifications> getNotification(@Header("Authorization") String Authorization);
 
     @PUT("clinic/{clinic_id}/device-id")
     Call<FireBaseTokenRespons> onUpDateFireBaseTokenClinic(@Header("Authorization") String Authorization,

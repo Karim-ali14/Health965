@@ -1,4 +1,4 @@
-package com.example.health965.Fragments;
+package com.example.health965.UI.Fragments;
 
 
 import android.content.Context;
@@ -47,7 +47,7 @@ public class AccountPage extends Fragment {
                 if (Common.CurrentUser!=null)
                     context.startActivity(new Intent(context, PersonalInformationActivity.class));
                 else
-                    context.startActivity(new Intent(context, Login_Activity.class));
+                    context.startActivity(new Intent(context, Login_Activity.class).putExtra("type","getPass"));
             }
         });
         LayOutModify.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +56,7 @@ public class AccountPage extends Fragment {
                 if (Common.CurrentUser!=null)
                     context.startActivity(new Intent(context, PasswordModificationActivity.class).putExtra("Type","User"));
                 else
-                    context.startActivity(new Intent(context, Login_Activity.class));
+                    context.startActivity(new Intent(context, Login_Activity.class).putExtra("type","getPass"));
             }
         });
         LayOutAbout.setOnClickListener(new View.OnClickListener() {

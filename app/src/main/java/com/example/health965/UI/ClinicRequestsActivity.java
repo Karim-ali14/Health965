@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.health965.Common.Common;
-import com.example.health965.Fragments.NotifyPage;
+import com.example.health965.UI.Fragments.NotifyPage;
 import com.example.health965.Models.FireBaseToken.FireBaseToken;
 import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
 import com.example.health965.R;
@@ -44,12 +44,12 @@ public class ClinicRequestsActivity extends AppCompatActivity {
                         ImageBar.setVisibility(View.GONE);
                     }
                         break;
-                    case R.id.Notification: {
+                   /* case R.id.Notification: {
                         fragment = new NotifyPage(getStringList());
                         ImageBar.setImageResource(R.drawable.trash);
                         ImageBar.setVisibility(View.VISIBLE);
                     }
-                        break;
+                        break;*/
                     case R.id.Clinics: {
                         fragment = new ClinicFragment();
                         ImageBar.setVisibility(View.VISIBLE);

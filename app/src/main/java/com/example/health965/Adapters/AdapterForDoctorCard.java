@@ -94,7 +94,7 @@ public class AdapterForDoctorCard extends RecyclerView.Adapter<AdapterForDoctorC
                     });
                 }else {
                     dialog.dismiss();
-                    context.startActivity(new Intent(context, Login_Activity.class));
+                    context.startActivity(new Intent(context, Login_Activity.class).putExtra("type","getPass"));
                 }
             }
         });

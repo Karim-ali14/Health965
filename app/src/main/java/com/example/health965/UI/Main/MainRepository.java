@@ -1,118 +1,46 @@
-package com.example.health965.Fragments;
-
+package com.example.health965.UI.Main;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.MutableLiveData;
 
-import com.example.health965.Adapters.AdapterForCategory;
-import com.example.health965.Adapters.AdapterForImages;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
-import com.example.health965.Models.BannerForCategory.Row;
 import com.example.health965.Models.Category.Category;
+import com.example.health965.Models.Notification.Notifications;
+import com.example.health965.Models.OfferForClinic.OfferForClinic;
 import com.example.health965.R;
-
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+public class MainRepository {
+    public static MainRepository mRepository;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class MainPage extends Fragment implements ViewPager.OnPageChangeListener{
-    LinearLayout linearLayout;
-    ViewPager viewPager2;
-    TextView points[];
-    List<Integer> listImage;
-    RecyclerView recyclerView;
-    ProgressDialog dialog;
-    int listSize = 0;
-    boolean start;
-    List<Row> rows;
-    public MainPage(boolean start) {
-        this.start  = start;
-    }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_blank_fragment2, container, false);
-        dialog = new ProgressDialog(getContext());
-        dialog.show();
-        viewPager2 = view.findViewById(R.id.ViewPager2);
-        listImage = new ArrayList<>();
-        listImage.add(R.drawable.addclinic);
-        listImage.add(R.drawable.addclinic);
-        listImage.add(R.drawable.addclinic);
-        linearLayout = view.findViewById(R.id.Layout);
-        getBanners();
-        viewPager2.setOnPageChangeListener(this);
-        recyclerView = view.findViewById(R.id.Rec);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        getCategory();
-
-        if (start)
-            linearLayout.startAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.anim));
-        return view;
+    public static MainRepository getInstance(){
+        if (mRepository  == null)
+            mRepository = new MainRepository();
+        return mRepository;
     }
 
-    private void addPoints(int position,int Size) {
-        points = new TextView[Size];
-        linearLayout.removeAllViews();
-
-        for (int i = 0 ; i < points.length ; i++){
-            points[i] = new TextView(getContext());
-            points[i].setText(Html.fromHtml("&#8226"));
-            points[i].setTextSize(44);
-            points[i].setTextColor(getResources().getColor(R.color.colorAccent));
-            linearLayout.addView(points[i]);
-        }
-        if (points.length > 0)
-            points[position].setTextColor(getResources().getColor(R.color.colorPrimary));
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        addPoints(position,listSize);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    private void getCategory(){
+    // TODO get Data of Category for Main Fragment
+    public MutableLiveData<Category> getDataOfCategories(final Context context, final ProgressDialog dialog){
+        final MutableLiveData<Category> categoryData = new MutableLiveData<>();
         Observable<Category> allCategory = Common.getAPIRequest().getAllCategory(true);
         allCategory.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -124,15 +52,14 @@ public class MainPage extends Fragment implements ViewPager.OnPageChangeListener
 
                     @Override
                     public void onNext(final Category category) {
-                        dialog.dismiss();
-                        recyclerView.setAdapter(new AdapterForCategory(getContext(),category.getData().getRows()));
+                        categoryData.setValue(category);
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        dialog.dismiss();
-                        final AlertDialog.Builder Adialog = new AlertDialog.Builder(getActivity());
-                        View view = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                        final AlertDialog.Builder Adialog = new AlertDialog.Builder(context);
+                        View view = LayoutInflater.from(context).inflate(R.layout.error_dialog, null);
                         TextView Title = view.findViewById(R.id.Title);
                         TextView Message = view.findViewById(R.id.Message);
                         Button button = view.findViewById(R.id.Again);
@@ -146,7 +73,7 @@ public class MainPage extends Fragment implements ViewPager.OnPageChangeListener
                             public void onClick(View v) {
                                 dialog1.dismiss();
                                 dialog.show();
-                                getCategory();
+                                mRepository.getDataOfCategories(context,dialog);
                             }
                         });
                         if(e instanceof SocketTimeoutException) {
@@ -167,8 +94,11 @@ public class MainPage extends Fragment implements ViewPager.OnPageChangeListener
 
                     }
                 });
+        return categoryData;
     }
-    private void getBanners(){
+    //TODO get Data Of Banners for Main Fragment
+    public MutableLiveData<BannerForCategory> getDataOfBanners(final Context context, final ProgressDialog dialog) {
+        final MutableLiveData<BannerForCategory> mutableLiveData = new MutableLiveData<>();
         Observable<BannerForCategory> bannerForCategoryObservable = Common.getAPIRequest().getBannerForCategories(true, "home");
         bannerForCategoryObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
@@ -179,21 +109,13 @@ public class MainPage extends Fragment implements ViewPager.OnPageChangeListener
 
             @Override
             public void onNext(final BannerForCategory bannerForCategory) {
-                dialog.dismiss();
-                if (bannerForCategory.getData().getRows().size() != 0){
-                    listSize = bannerForCategory.getData().getRows().size();
-                    rows = bannerForCategory.getData().getRows();
-                    Log.i("TTTTTTTTTG",rows.get(0).getImage().getName());
-                    viewPager2.setAdapter(new AdapterForImages(rows,getContext(),false,false));
-                    addPoints(0,bannerForCategory.getData().getRows().size());
-                }
+                mutableLiveData.setValue(bannerForCategory);
             }
 
             @Override
             public void onError(Throwable e) {
-                dialog.dismiss();
-                final AlertDialog.Builder Adialog = new AlertDialog.Builder(getActivity());
-                View view = LayoutInflater.from(getActivity()).inflate(R.layout.error_dialog, null);
+                final AlertDialog.Builder Adialog = new AlertDialog.Builder(context);
+                View view = LayoutInflater.from(context).inflate(R.layout.error_dialog, null);
                 TextView Title = view.findViewById(R.id.Title);
                 TextView Message = view.findViewById(R.id.Message);
                 Button button = view.findViewById(R.id.Again);
@@ -207,16 +129,14 @@ public class MainPage extends Fragment implements ViewPager.OnPageChangeListener
                     public void onClick(View v) {
                         dialog1.dismiss();
                         dialog.show();
-                        getBanners();
+                        mRepository.getDataOfBanners(context,dialog);
                     }
                 });
-                if(e instanceof SocketTimeoutException) {
+                if (e instanceof SocketTimeoutException) {
                     Title.setText("تعذر الأتصال بالخادم");
                     Message.setText("خطأ في تحميل البيانات من الخادم اضغط علي زر لأعاده تحميل البيانات");
                     dialog1.show();
-                }
-
-                else if (e instanceof UnknownHostException) {
+                } else if (e instanceof UnknownHostException) {
                     Title.setText("لا يوجد اتصال بالانترنت");
                     Message.setText("تأكد من أتصالك بالأنترنت ثم أعد المحاولة");
                     dialog1.show();
@@ -228,5 +148,56 @@ public class MainPage extends Fragment implements ViewPager.OnPageChangeListener
 
             }
         });
+        return mutableLiveData;
+    }
+
+    //TODO get Data Of Notifications for Notify Fragment
+    public MutableLiveData<Notifications> getDataOfNotification(){
+        final MutableLiveData<Notifications> notificationData = new MutableLiveData<>();
+        Common.getAPIRequest().getNotification(Common.CurrentUser.getData().getToken().getAccessToken())
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Notifications>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Notifications notification) {
+                        notificationData.setValue(notification);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        return notificationData;
+    }
+
+    //TODO get Data Of Offers for Offer Fragment
+    public MutableLiveData<OfferForClinic> getDataOfferForClinic(final ProgressDialog dialog){
+        final MutableLiveData<OfferForClinic> offerForClinicData = new MutableLiveData<>();
+        Common.getAPIRequest().getAllOffersF(true,true).
+                enqueue(new Callback<OfferForClinic>() {
+                    @Override
+                    public void onResponse(Call<OfferForClinic> call, Response<OfferForClinic> response) {
+                        dialog.dismiss();
+                        if (response.code() == 200){
+                            offerForClinicData.setValue(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<OfferForClinic> call, Throwable t) {
+
+                    }
+                });
+        return offerForClinicData;
     }
 }

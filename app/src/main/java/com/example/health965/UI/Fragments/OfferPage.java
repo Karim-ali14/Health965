@@ -1,10 +1,11 @@
-package com.example.health965.Fragments;
+package com.example.health965.UI.Fragments;
 
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.Row;
 import com.example.health965.Models.OfferForClinic.OfferForClinic;
 import com.example.health965.R;
+import com.example.health965.UI.Main.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,38 +36,34 @@ public class OfferPage extends Fragment {
 
     RecyclerView recyclerView;
     ProgressDialog dialog;
-    public OfferPage() {
-
+    MainViewModel viewModel;
+    public OfferPage(MainViewModel viewModel) {
+        this.viewModel = viewModel;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View inflate = inflater.inflate(R.layout.fragment_offer_page, container, false);
+        init(inflate);
+        return inflate;
+    }
+
+    private void init(View inflate){
         dialog = new ProgressDialog(getActivity());
         dialog.show();
-        View inflate = inflater.inflate(R.layout.fragment_offer_page, container, false);
         recyclerView = inflate.findViewById(R.id.RecyclerOffer);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         getData();
-        return inflate;
     }
 
     private void getData(){
-        Common.getAPIRequest().getAllOffersF(true,true).
-                enqueue(new Callback<OfferForClinic>() {
-                    @Override
-                    public void onResponse(Call<OfferForClinic> call, Response<OfferForClinic> response) {
-                        dialog.dismiss();
-                        if (response.code() == 200){
-                            recyclerView.setAdapter(new AdapterForOfferPage(response.body().getData().getRows(),getContext(),false));
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<OfferForClinic> call, Throwable t) {
-
-                    }
-                });
+        viewModel.getOfferClinic(dialog).observe(getActivity(), new Observer<OfferForClinic>() {
+            @Override
+            public void onChanged(OfferForClinic offerForClinic) {
+                recyclerView.setAdapter(new AdapterForOfferPage(offerForClinic.getData().getRows(),getContext(),false));
+            }
+        });
     }
 }

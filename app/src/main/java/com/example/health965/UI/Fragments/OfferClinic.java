@@ -1,4 +1,4 @@
-package com.example.health965.Fragments;
+package com.example.health965.UI.Fragments;
 
 
 import android.os.Bundle;

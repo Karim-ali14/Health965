@@ -4,7 +4,7 @@ package com.example.health965.Models.Notification;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Notification {
+public class Data {
 
     @SerializedName("id")
     @Expose

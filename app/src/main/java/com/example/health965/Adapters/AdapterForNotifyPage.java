@@ -9,18 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.health965.Models.Notification.Notification;
+import com.example.health965.Models.Notification.Data;
 import com.example.health965.R;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 public class AdapterForNotifyPage extends RecyclerView.Adapter<AdapterForNotifyPage.ViewHolderForNotify> {
-    List<Notification> list;
+    List<Data> list;
     Context context;
 
-    public AdapterForNotifyPage(List<Notification> list, Context context) {
+    public AdapterForNotifyPage(List<Data> list, Context context) {
         this.list = list;
         this.context = context;
     }

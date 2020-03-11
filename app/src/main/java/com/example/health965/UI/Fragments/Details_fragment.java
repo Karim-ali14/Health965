@@ -1,4 +1,4 @@
-package com.example.health965.Fragments;
+package com.example.health965.UI.Fragments;
 
 
 import android.app.ProgressDialog;
@@ -162,7 +162,7 @@ public class Details_fragment extends Fragment {
                     }
                 }else {
                     dialog.dismiss();
-                    startActivity(new Intent(getActivity(), Login_Activity.class));
+                    startActivity(new Intent(getActivity(), Login_Activity.class).putExtra("type","getPass"));
                 }
             }
         });
