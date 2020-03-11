@@ -1,6 +1,8 @@
-package com.example.health965.UI;
+package com.example.health965.UI.Governorate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -16,36 +18,34 @@ import android.widget.TextView;
 import com.example.health965.Adapters.AdapterForArea;
 import com.example.health965.Adapters.AdapterForImages;
 import com.example.health965.Common.Common;
-import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Governorate.Governorate;
-import com.example.health965.Models.Governorate.Row;
 import com.example.health965.R;
 import com.example.health965.UI.Clinics.Clinics_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Area_Activity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class Governorate_Activity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     RecyclerView recyclerView;
     TextView points[];
-    List<Integer> listImage;
     LinearLayout linearLayout;
     ViewPager viewPager;
     ProgressDialog dialog;
     int listSize = 0;
+    GovernorateViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_area);
+        setContentView(R.layout.activity_governorate);
+        init();
+    }
+
+    private void init(){
+        viewModel = ViewModelProviders.of(this).get(GovernorateViewModel.class);
         dialog = new ProgressDialog(this);
         dialog.show();
         getWindow().getDecorView().setSystemUiVisibility
@@ -57,15 +57,10 @@ public class Area_Activity extends AppCompatActivity implements ViewPager.OnPage
         getData();
         linearLayout = findViewById(R.id.Points);
         viewPager = findViewById(R.id.ViewPager);
-        listImage = new ArrayList<>();
-        listImage.add(R.drawable.addclinic);
-        listImage.add(R.drawable.addclinic);
-        listImage.add(R.drawable.addclinic);
         listSize = Clinics_Activity.rows.size();
-        viewPager.setAdapter(new AdapterForImages(Clinics_Activity.rows,Area_Activity.this,false,false));
-        viewPager.setOnPageChangeListener(Area_Activity.this);
+        viewPager.setAdapter(new AdapterForImages(Clinics_Activity.rows, Governorate_Activity.this,false,false));
+        viewPager.setOnPageChangeListener(Governorate_Activity.this);
         addPoints(0,listSize);
-
     }
 
     public void Back(View view) {
@@ -73,51 +68,15 @@ public class Area_Activity extends AppCompatActivity implements ViewPager.OnPage
     }
 
     private void getData(){
-//        Observable<BannerForCategory> bannerForCategoryObservable = Common.getAPIRequest().getBannerForCategory(true, getIntent().getExtras().getInt("C_ID") + "");
-//        bannerForCategoryObservable.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//
-//            }
-//
-//            @Override
-//            public void onNext(final BannerForCategory bannerForCategory) {
-//                if (bannerForCategory.getData().getRows().size() != 0){
-//                    listSize = bannerForCategory.getData().getRows().size();
-//                    viewPager.setAdapter(new AdapterForImages(Clinics_Activity.rows,Area_Activity.this,false));
-//                    viewPager.setOnPageChangeListener(Area_Activity.this);
-//                    addPoints(0,listSize);
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//
-//            }
-//        });
-        Common.getAPIRequest().getAllGovernorate().enqueue(new Callback<Governorate>() {
+        viewModel.getGovernorate(this).observe(this, new Observer<Governorate>() {
             @Override
-            public void onResponse(Call<Governorate> call, Response<Governorate> response) {
-                if (response.code() == 200) {
-                    dialog.dismiss();
-                    recyclerView.setAdapter(new AdapterForArea(response.body().getData().getRows(), Area_Activity.this,getIntent().getExtras().getInt("C_ID")));
-                }else
-                    Log.i("TTTTTT",response.code()+"");
-            }
-
-            @Override
-            public void onFailure(Call<Governorate> call, Throwable t) {
-                Log.i("TTTTTT",t.getMessage());
+            public void onChanged(Governorate governorate) {
+                dialog.dismiss();
+                recyclerView.setAdapter(new AdapterForArea(governorate.getData().getRows(),
+                        Governorate_Activity.this,getIntent().getExtras().getInt("C_ID")));
             }
         });
     }
-
 
     private void addPoints(int position,int Size) {
         points = new TextView[Size];
@@ -136,7 +95,6 @@ public class Area_Activity extends AppCompatActivity implements ViewPager.OnPage
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override

@@ -40,7 +40,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Doctor_Page_Activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Area_Activity"
+        <activity android:name=".UI.Governorate.Governorate_Activity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Clinics_Details_activity"
             android:screenOrientation="portrait" />

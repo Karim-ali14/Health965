@@ -21,7 +21,7 @@ import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.BannerForCategory.Row;
 import com.example.health965.Models.Clinics.Clinics;
-import com.example.health965.UI.Area_Activity;
+import com.example.health965.UI.Governorate.Governorate_Activity;
 import com.example.health965.UI.Doctor_Page_Activity;
 import com.example.health965.R;
 
@@ -157,7 +157,7 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
     }
 
     public void Area(View view) {
-        startActivity(new Intent(this, Area_Activity.class).putExtra("C_ID",id));
+        startActivity(new Intent(this, Governorate_Activity.class).putExtra("C_ID",id));
     }
 
     public void Clinics(View view) {

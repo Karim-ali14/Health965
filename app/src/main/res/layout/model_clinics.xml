@@ -78,7 +78,8 @@
                         android:textSize="19dp"
                         android:textColor="@color/colorAccent"
                         android:layout_marginRight="5dp"
-                        android:id="@+id/Address"/>
+                        android:id="@+id/Address"
+                        />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="wrap_content"
