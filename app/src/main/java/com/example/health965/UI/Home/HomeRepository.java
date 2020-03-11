@@ -8,22 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.MutableLiveData;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
-
-import com.example.health965.Adapters.AdapterForSlider;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.Offers.Offers;
 import com.example.health965.R;
-
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -50,7 +41,6 @@ public class HomeRepository {
 
                     @Override
                     public void onNext(final Offers offers) {
-//                    presenter.OnAddPoints(0,response.body().getData().getRows().size());
                         mutableLiveData.setValue(offers);
                     }
 
@@ -84,6 +74,10 @@ public class HomeRepository {
                         else if (e instanceof UnknownHostException) {
                             Title.setText("لا يوجد اتصال بالانترنت");
                             Message.setText("تأكد من أتصالك بالأنترنت ثم أعد المحاولة");
+                            dialog1.show();
+                        }else {
+                            Title.setText("تعذر الأتصال بالخادم");
+                            Message.setText("خطأ في تحميل البيانات من الخادم اضغط اعد المحاولة في وقت لاحق");
                             dialog1.show();
                         }
                     }

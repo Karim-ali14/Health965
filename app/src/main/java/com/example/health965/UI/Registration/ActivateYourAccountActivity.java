@@ -66,12 +66,7 @@ public class ActivateYourAccountActivity extends AppCompatActivity {
             }
         });
 
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                getIntent().getExtras().getString("phone"),        // Phone number to verify
-                30,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks);        // OnVerificationStateChangedCallbacks
+        sendVerificationMessage();
     }
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -122,8 +117,6 @@ public class ActivateYourAccountActivity extends AppCompatActivity {
         }
     };
 
-
-
     private void closeKeyBoard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -164,6 +157,10 @@ public class ActivateYourAccountActivity extends AppCompatActivity {
     }
 
     public void sendCode(View view) {
+        sendVerificationMessage();
+    }
+
+    private void sendVerificationMessage(){
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 getIntent().getExtras().getString("phone"),        // Phone number to verify
                 30,                 // Timeout duration

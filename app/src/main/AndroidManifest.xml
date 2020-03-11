@@ -14,7 +14,7 @@
             android:screenOrientation="portrait" ></activity>
         <activity android:name=".UI.PrivacyPolicyActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.AboutAppActivity"
+        <activity android:name=".UI.AboutApp.AboutAppActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.ClinicInformationActivity"
             android:screenOrientation="portrait" />

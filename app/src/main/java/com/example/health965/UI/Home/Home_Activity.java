@@ -200,7 +200,17 @@ public class Home_Activity extends AppCompatActivity{
                viewPager.setClipToPadding(false);
                viewPager.setClipChildren(false);
                viewPager.setOffscreenPageLimit(3);
-
+               slider = findViewById(R.id.slider);
+               if (offers.getData().getRows().size() > 0){
+                   if (offers.getData().getRows().size() % 2 == 0){
+                       viewPager.setCurrentItem((offers.getData().getRows().size() / 2)-1);
+                       addPoints((offers.getData().getRows().size() / 2)-1,offers.getData().getRows().size());
+                   }
+                   else {
+                       viewPager.setCurrentItem(((offers.getData().getRows().size()+1) / 2)-1);
+                       addPoints(((offers.getData().getRows().size()+1) / 2)-1,offers.getData().getRows().size());
+                   }
+               }
                CompositePageTransformer transformer = new CompositePageTransformer();
                transformer.addTransformer(new MarginPageTransformer(40));
                transformer.addTransformer(new ViewPager2.PageTransformer() {
@@ -220,6 +230,7 @@ public class Home_Activity extends AppCompatActivity{
                            viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
                    }
                };
+               handler.postDelayed(runnable,3000);
                viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                    @Override
                    public void onPageSelected(int position) {
@@ -229,15 +240,6 @@ public class Home_Activity extends AppCompatActivity{
                        addPoints(position,offers.getData().getRows().size());
                    }
                });
-               slider = findViewById(R.id.slider);
-               if (offers.getData().getRows().size() != 0){
-                   if (offers.getData().getRows().size() % 2 == 0){
-                       addPoints(offers.getData().getRows().size() / 2,offers.getData().getRows().size());
-                   }else {
-
-                       addPoints((offers.getData().getRows().size()+1) / 2,offers.getData().getRows().size());
-                   }
-               }
            }
        });
         /*Common.getAPIRequest().getOffersForHome(true,true,true)

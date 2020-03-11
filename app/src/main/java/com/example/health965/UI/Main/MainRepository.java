@@ -86,6 +86,10 @@ public class MainRepository {
                             Title.setText("لا يوجد اتصال بالانترنت");
                             Message.setText("تأكد من أتصالك بالأنترنت ثم أعد المحاولة");
                             dialog1.show();
+                        }else {
+                            Title.setText("تعذر الأتصال بالخادم");
+                            Message.setText("خطأ في تحميل البيانات من الخادم اضغط اعد المحاولة في وقت لاحق");
+                            dialog1.show();
                         }
                     }
 
@@ -139,6 +143,10 @@ public class MainRepository {
                 } else if (e instanceof UnknownHostException) {
                     Title.setText("لا يوجد اتصال بالانترنت");
                     Message.setText("تأكد من أتصالك بالأنترنت ثم أعد المحاولة");
+                    dialog1.show();
+                }else {
+                    Title.setText("تعذر الأتصال بالخادم");
+                    Message.setText("خطأ في تحميل البيانات من الخادم اضغط اعد المحاولة في وقت لاحق");
                     dialog1.show();
                 }
             }
