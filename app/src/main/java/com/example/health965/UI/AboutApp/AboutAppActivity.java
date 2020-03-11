@@ -1,6 +1,8 @@
 package com.example.health965.UI.AboutApp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -26,10 +28,12 @@ import retrofit2.Response;
 public class AboutAppActivity extends AppCompatActivity {
     ProgressDialog dialog;
     ImageView Twitter,LinkedIn,Instagram,GooglePlus,Facebook;
+    AboutViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
+        viewModel = new ViewModelProviders().of(this).get(AboutViewModel.class);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -49,27 +53,11 @@ public class AboutAppActivity extends AppCompatActivity {
 
     private void getDataOfSetting(){
         dialog.show();
-        Common.getAPIRequest().getSetting().enqueue(new Callback<Setting>() {
+        viewModel.getSettings(this).observe(this, new Observer<Setting>() {
             @Override
-            public void onResponse(Call<Setting> call, Response<Setting> response) {
+            public void onChanged(Setting setting) {
                 dialog.dismiss();
-                if (response.code() == 200){
-                    purLinks(response.body());
-                }else{
-                    try {
-                        Toast.makeText(AboutAppActivity.this, new JSONObject(response.errorBody().string()).getString("message")
-                                , Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Setting> call, Throwable t) {
-
+                purLinks(setting);
             }
         });
     }
