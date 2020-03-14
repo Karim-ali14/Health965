@@ -149,6 +149,7 @@ public class ActivateYourAccountActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(ActivateYourAccountActivity.this, "Done", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(ActivateYourAccountActivity.this, Login_Activity.class).putExtra("type","getPass"));
+                            finish();
                         } else {
                             Toast.makeText(ActivateYourAccountActivity.this, "Wrong", Toast.LENGTH_SHORT).show();
                         }

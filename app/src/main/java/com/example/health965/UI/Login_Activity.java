@@ -199,6 +199,7 @@ public class Login_Activity extends AppCompatActivity {
                 if (response.code() == 200) {
                     Common.CurrentUser = response.body();
                     startActivity(new Intent(Login_Activity.this, MainActivity.class));
+                    finish();
                 }
                 else if (response.code() == 401) {
                     try {
@@ -226,6 +227,7 @@ public class Login_Activity extends AppCompatActivity {
                     Log.i("TTTTTT",response.body().getData().getToken().getAccessToken());
                     Common.CurrentClinic = response.body();
                     startActivity(new Intent(Login_Activity.this, ClinicRequestsActivity.class));
+                    finish();
                 }
                 else if (response.code() == 401) {
                     try {

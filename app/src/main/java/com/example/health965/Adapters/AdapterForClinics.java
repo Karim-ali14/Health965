@@ -56,6 +56,8 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
     public void onBindViewHolder(@NonNull ViewHolderForClinics holder, final int position) {
         final Row row = list.get(position);
         holder.NameOfClinics.setText(row.getName());
+        holder.Address.setText(row.getAddress());
+        holder.TypeWork.setText(row.getDescription());
         Picasso.with(context).load(Common.BaseURL+"images/"+ row.getImage().getFor()+"/"+Uri.encode(row.getImage().getName())).into(holder.image);
         Log.i("TTTTTT",Common.BaseURL+"images/"+ row.getImage().getFor()+Uri.encode(row.getImage().getName())+"___"+row.getName());
         holder.cardView.setOnClickListener(new View.OnClickListener() {

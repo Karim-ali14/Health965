@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.health965.Models.FireBaseToken.FireBaseToken;
 import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
 import com.example.health965.UI.Fragments.OfferPage;
 import com.example.health965.R;
+import com.example.health965.UI.Login_Activity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     View AboveLine;
     RelativeLayout BackLayout,LeftImageLayout;
     MainViewModel viewModel;
+    boolean logOut = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (menuItem.getItemId()){
                     case R.id.account:{
+                        logOut = true;
                         fragment = new AccountPage(MainActivity.this);
                         title.setText(menuItem.getTitle());
                         ImageBar.setVisibility(View.VISIBLE);
@@ -70,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                     case R.id.notify:{
+                        logOut = false;
                         fragment = new NotifyPage(viewModel);
                         title.setText(menuItem.getTitle());
                         AboveLine.setVisibility(View.VISIBLE);
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                     case R.id.offer:{
+                        logOut = false;
                         fragment = new OfferPage(viewModel);
                         title.setText(menuItem.getTitle());
                         AboveLine.setVisibility(View.VISIBLE);
@@ -91,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                     case R.id.home:{
+                        logOut = false;
                         fragment = new MainPage(false,viewModel);
                         title.setText(menuItem.getTitle());
                         ImageBar.setVisibility(View.GONE);
@@ -132,4 +139,11 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void LogOut(View view) {
+        if (logOut) {
+            Common.CurrentUser = null;
+            startActivity(new Intent(this, Login_Activity.class).putExtra("type","main"));
+            finish();
+        }
+    }
 }

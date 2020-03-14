@@ -10,7 +10,7 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         >
-        <activity android:name=".UI.AreaDetailsActivity"
+        <activity android:name=".UI.AreaDetails.AreaDetailsActivity"
             android:screenOrientation="portrait" ></activity>
         <activity android:name=".UI.PrivacyPolicy.PrivacyPolicyActivity"
             android:screenOrientation="portrait" />

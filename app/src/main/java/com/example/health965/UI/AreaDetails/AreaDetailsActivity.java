@@ -1,6 +1,8 @@
-package com.example.health965.UI;
+package com.example.health965.UI.AreaDetails;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -27,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -43,14 +44,25 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
     RecyclerView recyclerView;
     ProgressDialog dialog;
     int listSize = 0;
+    AreaDetailsViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_details);
+        init();
+    }
+
+    private void init(){
+        getWindow().getDecorView().setSystemUiVisibility
+                (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
+                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         dialog = new ProgressDialog(this);
         dialog.show();
+
         Row row = getIntent().getExtras().getParcelable("Row");
         ((TextView)findViewById(R.id.NameOfArea)).setText(row.getName());
+
         linearLayout = findViewById(R.id.Points);
         viewPager = findViewById(R.id.ViewPager);
         listImage = new ArrayList<>();
@@ -62,64 +74,30 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
         recyclerView = findViewById(R.id.Recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Common.getAPIRequest().getClinicsByGovernorate("image","clinicOptions","clinicCertificate",getIntent().getExtras().getInt("ID")+"",
-                row.getId()+"").enqueue(new Callback<Clinics>() {
-            @Override
-            public void onResponse(Call<Clinics> call, Response<Clinics> response) {
-                if (response.code() == 200) {
-                    if (response.body().getData().getCount() == 0){
-                        dialog.dismiss();
-                        Toast.makeText(AreaDetailsActivity.this, "لا يوجد عيادات في هذه المنطقة", Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        dialog.dismiss();
-                        recyclerView.setAdapter(new AdapterForClinics(response.body().getData().getRows(), AreaDetailsActivity.this));
-                    }
-                }
-            }
 
+        viewModel = ViewModelProviders.of(this).get(AreaDetailsViewModel.class);
+
+        viewModel.getClinicsByGovernorate(this,dialog,getIntent().getExtras().getInt("ID")+"",
+                row.getId()+"").observe(this, new Observer<Clinics>() {
             @Override
-            public void onFailure(Call<Clinics> call, Throwable t) {
-                Log.d("TTTTTTT",t.getMessage());
+            public void onChanged(Clinics clinics) {
+                recyclerView.setAdapter(new AdapterForClinics(clinics.getData().getRows(), AreaDetailsActivity.this));
             }
         });
-        getWindow().getDecorView().setSystemUiVisibility
-                (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
-                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
-        Observable<BannerForCategory> bannerForGovernorate = Common.getAPIRequest().getBannerForGovernorate(true,
-                row.getId()+"");
-        bannerForGovernorate.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
+        viewModel.getBannerForGovernorate(this,row.getId()+"",dialog).observe(this, new Observer<BannerForCategory>() {
             @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(final BannerForCategory bannerForCategory) {
-                if (bannerForCategory.getData().getRows().size() != 0){
-                    listSize = bannerForCategory.getData().getRows().size();
-                    viewPager.setAdapter(new AdapterForImages(bannerForCategory.getData().getRows(),AreaDetailsActivity.this,false,false));
-                    addPoints(0,listSize);
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
+            public void onChanged(BannerForCategory bannerForCategory) {
+                listSize = bannerForCategory.getData().getRows().size();
+                viewPager.setAdapter(new AdapterForImages(bannerForCategory.getData().getRows(),AreaDetailsActivity.this,false,false));
+                addPoints(0,listSize);
             }
         });
     }
-
     public void Back(View view) {
         finish();
     }
+
     private void addPoints(int position,int Size) {
         points = new TextView[Size];
         linearLayout.removeAllViews();
@@ -149,14 +127,5 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
     public void onPageScrollStateChanged(int state) {
 
     }
-    private List<ModelsForCilinics> getdata(){
-        List<ModelsForCilinics> list = new ArrayList<>();
-        list.add(new ModelsForCilinics(R.drawable.hebaclinic,"عيادة هبة دينتال كلينيك",
-                "السالمية , حي الامير صباح الأحمد",
-                ", زراعة اسنان , تبييض , تلميع , تنظيف , تقويم بوليش , تركيبات"));
-        list.add(new ModelsForCilinics(R.drawable.hebaclinic,"عيادة هبة دينتال كلينيك",
-                "السالمية , حي الامير صباح الأحمد",
-                ", زراعة اسنان , تبييض , تلميع , تنظيف , تقويم بوليش , تركيبات"));
-        return list;
-    }
+
 }

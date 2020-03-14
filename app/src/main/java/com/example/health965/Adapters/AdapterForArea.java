@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.health965.Models.Governorate.Row;
-import com.example.health965.UI.AreaDetailsActivity;
+import com.example.health965.UI.AreaDetails.AreaDetailsActivity;
 import com.example.health965.R;
 
 import java.util.List;
