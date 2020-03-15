@@ -26,9 +26,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.PersonalInformationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Registration.ActivateYourAccountActivity"
+        <activity android:name=".UI.Registration.ActivateYourAccount.ActivateYourAccountActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Registration.NewAccountActivity"
+        <activity android:name=".UI.Registration.Registration.RegistrationActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.ResetPassWord.PasswordRecoveryActivity"
             android:screenOrientation="portrait" />

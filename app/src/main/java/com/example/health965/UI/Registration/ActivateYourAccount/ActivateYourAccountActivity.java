@@ -1,4 +1,4 @@
-package com.example.health965.UI.Registration;
+package com.example.health965.UI.Registration.ActivateYourAccount;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

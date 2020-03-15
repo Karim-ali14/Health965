@@ -1,7 +1,6 @@
 package com.example.health965.UI.Home;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.lifecycle.ViewModelProviders;
@@ -11,48 +10,20 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 import com.example.health965.Adapters.AdapterForSlider;
-import com.example.health965.Common.Common;
-import com.example.health965.Models.Offers.Background;
-import com.example.health965.Models.Offers.Icon;
 import com.example.health965.Models.Offers.Offers;
-import com.example.health965.Models.Offers.Row;
-import com.example.health965.UI.Registration.NewAccountActivity;
+import com.example.health965.UI.Registration.Registration.RegistrationActivity;
 import com.example.health965.R;
 import com.example.health965.UI.Main.MainActivity;
-import com.google.gson.JsonObject;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Home_Activity extends AppCompatActivity{
     ViewPager2 viewPager;
@@ -106,7 +77,7 @@ public class Home_Activity extends AppCompatActivity{
     }
 
     public void createNewAccount(View view) {
-        startActivity(new Intent(this, NewAccountActivity.class).putExtra("type",0));
+        startActivity(new Intent(this, RegistrationActivity.class).putExtra("type",0));
     }
 
     @Override

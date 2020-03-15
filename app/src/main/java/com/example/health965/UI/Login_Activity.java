@@ -34,7 +34,7 @@ import com.example.health965.Models.LoginClinc.LoginClinc;
 import com.example.health965.Models.LoginUser.LoginUser;
 import com.example.health965.R;
 import com.example.health965.UI.Main.MainActivity;
-import com.example.health965.UI.Registration.NewAccountActivity;
+import com.example.health965.UI.Registration.Registration.RegistrationActivity;
 import com.example.health965.UI.ResetPassWord.ForgotPasswordActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -250,7 +250,7 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     public void createNewAccount(View view) {
-        Intent intent = new Intent(this, NewAccountActivity.class);
+        Intent intent = new Intent(this, RegistrationActivity.class);
         intent.putExtra("type",1);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             Pair pair[] = new Pair[2];

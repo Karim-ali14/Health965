@@ -1,7 +1,10 @@
-package com.example.health965.UI.Registration;
+package com.example.health965.UI.Registration.Registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,35 +22,34 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.example.health965.API.APIRequest;
-import com.example.health965.Common.Common;
+
 import com.example.health965.Models.Regestration.DataUserRegistration;
 import com.example.health965.Models.Regestration.Registration;
 import com.example.health965.R;
 import com.example.health965.UI.Login_Activity;
+import com.example.health965.UI.Registration.ActivateYourAccount.ActivateYourAccountActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.PhoneAuthCredential;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.IOException;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class NewAccountActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
     TextInputEditText FullName,Email,Password,PhoneNumber,PasswordConfirmation;
     ImageView image;
     View Line;
     ConstraintLayout Layout;
     ProgressDialog dialog;
     TextInputLayout FullNameLayOut,EmailLayOut,PhoneNumberLayOut,PasswordLayout,PasswordConfirmationLayOut;
-    public final static String TAG = "NewAccountActivity";
+    RegistrationViewModel viewModel;
+    public final static String TAG = "RegistrationActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_account);
+        setContentView(R.layout.activity_registration);
+        init();
+    }
+
+    private void init(){
         dialog = new ProgressDialog(this);
+        viewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -87,7 +88,6 @@ public class NewAccountActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     }
-
 
     private void closeKeyBoard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -159,50 +159,31 @@ public class NewAccountActivity extends AppCompatActivity {
             dialog.dismiss();
             PhoneNumberLayOut.setError("ادخل رقم الهاتف");
         }else{
-            startActivity(new Intent(NewAccountActivity.this,
+            startActivity(new Intent(RegistrationActivity.this,
                     ActivateYourAccountActivity.class).putExtra("phone","+20"+PhoneNumber.getText().toString()));
         }*/
 
     }
 
     private void onRegistration(String ...C){
-        APIRequest apiRequest = Common.getAPIRequest();
-        apiRequest.onRegistration(new DataUserRegistration(C[0],C[1],C[2],C[3]))
-                .enqueue(new Callback<Registration>() {
+        viewModel.onRegistration(new DataUserRegistration(C[0],C[1],C[2],C[3]),dialog,this)
+                .observe(this, new Observer<Registration>() {
                     @Override
-                    public void onResponse(Call<Registration> call, Response<Registration> response) {
-                        dialog.dismiss();
-                        if (response.code() == 201){
-                            Intent intent = new Intent(NewAccountActivity.this, ActivateYourAccountActivity.class);
-                            intent.putExtra("phone","+20"+PhoneNumber.getText().toString());
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                                Pair pair[] = new Pair[2];
-                                pair[0] = new Pair<View,String>(image,"imageHealth");
-                                pair[1] = new Pair<View,String>(Line,"Line");
-                                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(NewAccountActivity.this,pair).toBundle());
-                            }else
-                                startActivity(intent);
-                        } else {
-                            Log.i("TTTTTT",response.code()+"");
-                            try {
-                                JSONObject object = new JSONObject(response.errorBody().string());
-                                Toast.makeText(NewAccountActivity.this, object.getString("message"), Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Registration> call, Throwable t) {
-                        dialog.dismiss();
-                        Log.i(TAG,t.getMessage());
+                    public void onChanged(Registration registration) {
+                        Intent intent = new Intent(RegistrationActivity.this, ActivateYourAccountActivity.class);
+                        intent.putExtra("phone","+20"+PhoneNumber.getText().toString());
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                            Pair pair[] = new Pair[2];
+                            pair[0] = new Pair<View,String>(image,"imageHealth");
+                            pair[1] = new Pair<View,String>(Line,"Line");
+                            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(RegistrationActivity.this,pair).toBundle());
+                        }else
+                            startActivity(intent);
                     }
                 });
     }
-    private void onChangeText(){
+
+    private void onChangeText() {
         FullName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
