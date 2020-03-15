@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterForSlider;
 import com.example.health965.Models.Offers.Offers;
+import com.example.health965.UI.Login_In.Login_Activity;
 import com.example.health965.UI.Registration.Registration.RegistrationActivity;
 import com.example.health965.R;
 import com.example.health965.UI.Main.MainActivity;
@@ -73,7 +74,7 @@ public class Home_Activity extends AppCompatActivity{
     }
 
     public void LoginIn(View view) {
-        startActivity(new Intent(this, com.example.health965.UI.Login_Activity.class).putExtra("type","main"));
+        startActivity(new Intent(this, Login_Activity.class).putExtra("type","main"));
     }
 
     public void createNewAccount(View view) {

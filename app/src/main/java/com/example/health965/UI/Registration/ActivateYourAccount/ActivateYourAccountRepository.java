@@ -3,12 +3,11 @@ package com.example.health965.UI.Registration.ActivateYourAccount;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.health965.UI.Login_Activity;
+import com.example.health965.UI.Login_In.Login_Activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;

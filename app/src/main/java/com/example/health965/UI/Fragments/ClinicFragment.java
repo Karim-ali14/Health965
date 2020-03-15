@@ -1,4 +1,4 @@
-package com.example.health965.UI;
+package com.example.health965.UI.Fragments;
 
 
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.example.health965.R;
 import com.example.health965.UI.AboutApp.AboutAppActivity;
 import com.example.health965.UI.ClinicInformation.ClinicInformationActivity;
+import com.example.health965.UI.PasswordModificationActivity;
 import com.example.health965.UI.PrivacyPolicy.PrivacyPolicyActivity;
 
 
@@ -44,7 +45,7 @@ public class ClinicFragment extends Fragment {
         LayOutModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getActivity(),PasswordModificationActivity.class).putExtra("Type","Clinic"));
+                getActivity().startActivity(new Intent(getActivity(), PasswordModificationActivity.class).putExtra("Type","Clinic"));
             }
         });
         RelativeLayout LayOutAbout = v.findViewById(R.id.LayOutAbout);

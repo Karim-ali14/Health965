@@ -23,7 +23,7 @@ import com.example.health965.Models.MakeReservation.RequestOfReservation;
 import com.example.health965.Models.Reservation.Reservation;
 import com.example.health965.R;
 import com.example.health965.UI.Clinics_Details_activity;
-import com.example.health965.UI.Login_Activity;
+import com.example.health965.UI.Login_In.Login_Activity;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.example.health965.UI;
+package com.example.health965.UI.ClinicRequests;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,10 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.health965.Common.Common;
-import com.example.health965.UI.Fragments.NotifyPage;
+import com.example.health965.UI.Fragments.ClinicFragment;
 import com.example.health965.Models.FireBaseToken.FireBaseToken;
 import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
 import com.example.health965.R;
+import com.example.health965.UI.Fragments.ReservationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -64,21 +65,6 @@ public class ClinicRequestsActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        if (Common.CurrentClinic != null) {
-            Common.getAPIRequest().onUpDateFireBaseTokenClinic(Common.CurrentClinic.getData().getToken().getAccessToken(),
-                    Common.CurrentClinic.getData().getClinic().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
-                    .enqueue(new Callback<FireBaseTokenRespons>() {
-                        @Override
-                        public void onResponse(Call<FireBaseTokenRespons> call, Response<FireBaseTokenRespons> response) {
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<FireBaseTokenRespons> call, Throwable t) {
-
-                        }
-                    });
-        }
     }
     public List<String> getStringList(){
         List<String> list = new ArrayList<>();

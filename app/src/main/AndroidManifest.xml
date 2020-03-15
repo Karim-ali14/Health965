@@ -18,7 +18,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.ClinicInformation.ClinicInformationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.ClinicRequestsActivity"
+        <activity android:name=".UI.ClinicRequests.ClinicRequestsActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.PasswordModificationActivity"
             android:screenOrientation="portrait" />
@@ -36,7 +36,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.ResetPassWord.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Login_Activity"
+        <activity android:name=".UI.Login_In.Login_Activity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Doctor_Page_Activity"
             android:screenOrientation="portrait" />

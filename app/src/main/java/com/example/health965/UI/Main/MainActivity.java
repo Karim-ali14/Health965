@@ -17,17 +17,10 @@ import com.example.health965.Common.Common;
 import com.example.health965.UI.Fragments.AccountPage;
 import com.example.health965.UI.Fragments.NotifyPage;
 import com.example.health965.UI.Fragments.MainPage;
-import com.example.health965.Models.FireBaseToken.FireBaseToken;
-import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
 import com.example.health965.UI.Fragments.OfferPage;
 import com.example.health965.R;
-import com.example.health965.UI.Login_Activity;
+import com.example.health965.UI.Login_In.Login_Activity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.iid.FirebaseInstanceId;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -117,22 +110,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
-        if (Common.CurrentUser != null) {
-            Common.getAPIRequest().onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),"application/json",
-                    Common.CurrentUser.getData().getUser().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
-                    .enqueue(new Callback<FireBaseTokenRespons>() {
-                        @Override
-                        public void onResponse(Call<FireBaseTokenRespons> call, Response<FireBaseTokenRespons> response) {
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<FireBaseTokenRespons> call, Throwable t) {
-
-                        }
-                    });
-        }
     }
 
     public void Back(View view) {

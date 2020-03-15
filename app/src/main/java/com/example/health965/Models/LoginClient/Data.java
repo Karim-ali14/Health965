@@ -1,5 +1,5 @@
 
-package com.example.health965.Models.LoginUser;
+package com.example.health965.Models.LoginClient;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

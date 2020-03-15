@@ -1,7 +1,9 @@
-package com.example.health965.UI;
+package com.example.health965.UI.Login_In;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -30,14 +32,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.health965.Common.Common;
+import com.example.health965.Models.FireBaseToken.FireBaseToken;
+import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
+import com.example.health965.Models.LoginClient.LoginClient;
 import com.example.health965.Models.LoginClinc.LoginClinc;
-import com.example.health965.Models.LoginUser.LoginUser;
 import com.example.health965.R;
+import com.example.health965.UI.ClinicRequests.ClinicRequestsActivity;
 import com.example.health965.UI.Main.MainActivity;
 import com.example.health965.UI.Registration.Registration.RegistrationActivity;
 import com.example.health965.UI.ResetPassWord.ForgotPasswordActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,10 +66,16 @@ public class Login_Activity extends AppCompatActivity {
     ConstraintLayout Layout;
     int typeUser = 0;
     ProgressDialog dialog;
+    Login_InViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        init();
+    }
+
+    private void init(){
+        viewModel= ViewModelProviders.of(this).get(Login_InViewModel.class);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -128,7 +140,7 @@ public class Login_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 typeUser = 1;
-               AnimationPartner();
+                AnimationPartner();
             }
         });
         LoginAsUser.setOnClickListener(new View.OnClickListener() {
@@ -185,19 +197,32 @@ public class Login_Activity extends AppCompatActivity {
             if (typeUser == 0)
                 loginAsUser();
             else
-                loginAsPartner();
+                loginAsClinic();
         }
     }
 
     private void loginAsUser(){
         dialog.show();
-        Common.getAPIRequest().onLoginAsUser(Phone.getText().toString(),
-                Password.getText().toString()).enqueue(new Callback<LoginUser>() {
+        /*Common.getAPIRequest().onLoginAsClient(Phone.getText().toString(),
+                Password.getText().toString()).enqueue(new Callback<LoginClient>() {
             @Override
-            public void onResponse(Call<LoginUser> call, Response<LoginUser> response) {
+            public void onResponse(Call<LoginClient> call, Response<LoginClient> response) {
                 dialog.dismiss();
                 if (response.code() == 200) {
                     Common.CurrentUser = response.body();
+                    Common.getAPIRequest().onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),"application/json",
+                            Common.CurrentUser.getData().getUser().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
+                            .enqueue(new Callback<FireBaseTokenRespons>() {
+                                @Override
+                                public void onResponse(Call<FireBaseTokenRespons> call, Response<FireBaseTokenRespons> response) {
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<FireBaseTokenRespons> call, Throwable t) {
+
+                                }
+                            });
                     startActivity(new Intent(Login_Activity.this, MainActivity.class));
                     finish();
                 }
@@ -213,19 +238,53 @@ public class Login_Activity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginUser> call, Throwable t) {
+            public void onFailure(Call<LoginClient> call, Throwable t) {
 
+            }
+        });*/
+        viewModel.onLoginAsClient(Phone.getText().toString(),
+                Password.getText().toString(),dialog,this).observe(this,
+                new Observer<LoginClient>() {
+            @Override
+            public void onChanged(LoginClient loginClient) {
+                Common.CurrentUser = loginClient;
+                dialog.dismiss();
+                startActivity(new Intent(Login_Activity.this, MainActivity.class));
+                finish();
+                viewModel.onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),
+                        Common.CurrentUser.getData().getUser().getId()+"",
+                        new FireBaseToken(FirebaseInstanceId.getInstance().getToken())
+                        ,Login_Activity.this).observe(Login_Activity.this, new Observer<FireBaseTokenRespons>() {
+                    @Override
+                    public void onChanged(FireBaseTokenRespons fireBaseTokenRespons) {
+                    }
+                });
             }
         });
     }
-    private void loginAsPartner(){
-        Common.getAPIRequest().onLoginAsPartner(Phone.getText().toString(),
+
+    private void loginAsClinic(){
+        dialog.show();
+        /*Common.getAPIRequest().onLoginAsPartner(Phone.getText().toString(),
                 Password.getText().toString()).enqueue(new Callback<LoginClinc>() {
             @Override
             public void onResponse(Call<LoginClinc> call, Response<LoginClinc> response) {
                 if (response.code() == 200) {
                     Log.i("TTTTTT",response.body().getData().getToken().getAccessToken());
                     Common.CurrentClinic = response.body();
+                    Common.getAPIRequest().onUpDateFireBaseTokenClinic(Common.CurrentClinic.getData().getToken().getAccessToken(),
+                            Common.CurrentClinic.getData().getClinic().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
+                            .enqueue(new Callback<FireBaseTokenRespons>() {
+                                @Override
+                                public void onResponse(Call<FireBaseTokenRespons> call, Response<FireBaseTokenRespons> response) {
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<FireBaseTokenRespons> call, Throwable t) {
+
+                                }
+                            });
                     startActivity(new Intent(Login_Activity.this, ClinicRequestsActivity.class));
                     finish();
                 }
@@ -243,8 +302,29 @@ public class Login_Activity extends AppCompatActivity {
             public void onFailure(Call<LoginClinc> call, Throwable t) {
 
             }
-        });
+        });*/
+        viewModel.onLoginAsClinic(Phone.getText().toString(),
+                Password.getText().toString(),dialog,this).observe(this,
+                new Observer<LoginClinc>() {
+                    @Override
+                    public void onChanged(LoginClinc loginClinc) {
+                        Common.CurrentClinic = loginClinc;
+                        startActivity(new Intent(Login_Activity.this, ClinicRequestsActivity.class));
+                        finish();
+                        viewModel.onUpDateFireBaseTokenClinic(Common.CurrentClinic.getData().getToken().getAccessToken(),
+                                Common.CurrentClinic.getData().getClinic().getId()+"",
+                                new FireBaseToken(FirebaseInstanceId.getInstance().getToken()),
+                                Login_Activity.this).observe(Login_Activity.this
+                                , new Observer<FireBaseTokenRespons>() {
+                            @Override
+                            public void onChanged(FireBaseTokenRespons fireBaseTokenRespons) {
+
+                            }
+                        });
+                    }
+                });
     }
+
     public void Skip(View view) {
         startActivity(new Intent(this,MainActivity.class));
     }
@@ -270,6 +350,7 @@ public class Login_Activity extends AppCompatActivity {
         LoginButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_above_bown));
         PhoneNumberLayout.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
     }
+
     public void getPassword(View view) {
         Intent intent = new Intent(this, ForgotPasswordActivity.class);
         intent.putExtra("Type",typeUser);
@@ -284,6 +365,7 @@ public class Login_Activity extends AppCompatActivity {
         }else
             startActivity(intent);
     }
+
     private void AnimationPartner(){
         LoginAsPartner.setBackground(getResources().getDrawable(R.drawable.style_button));
         LoginAsPartner.setTextColor(getResources().getColor(R.color.White));
@@ -328,6 +410,7 @@ public class Login_Activity extends AppCompatActivity {
         SkipButton.setVisibility(View.GONE);
         LayoutOfEmail.setAlpha(0);
     }
+
     private void AnimationUser(){
         LoginAsUser.setBackground(getResources().getDrawable(R.drawable.style_button));
         LoginAsUser.setTextColor(getResources().getColor(R.color.White));

@@ -11,8 +11,8 @@ import com.example.health965.Models.DoctorsWithClinics.DoctorsWithClinics;
 import com.example.health965.Models.FireBaseToken.FireBaseToken;
 import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
 import com.example.health965.Models.Governorate.Governorate;
+import com.example.health965.Models.LoginClient.LoginClient;
 import com.example.health965.Models.LoginClinc.LoginClinc;
-import com.example.health965.Models.LoginUser.LoginUser;
 import com.example.health965.Models.MakeReservation.RequestOfReservation;
 import com.example.health965.Models.Notification.Notifications;
 import com.example.health965.Models.OfferForClinic.OfferForClinic;
@@ -46,12 +46,12 @@ public interface APIRequest {
     @POST("client/signup")
     Call<Registration> onRegistration(@Body DataUserRegistration data);
 
-    // TODO User LoginUser
+    // TODO User LoginClient
     @FormUrlEncoded
     @POST("client/signin")
-    Call<LoginUser> onLoginAsUser(@Field("mobilePhone") String phone, @Field("password") String password);
+    Call<LoginClient> onLoginAsClient(@Field("mobilePhone") String phone, @Field("password") String password);
 
-    // TODO Partner LoginUser
+    // TODO Partner LoginClient
     @FormUrlEncoded
     @POST("clinic/signin")
     Call<LoginClinc> onLoginAsPartner(@Field("mobilePhone") String phone, @Field("password") String password);
@@ -163,7 +163,7 @@ public interface APIRequest {
                                                            @Body FireBaseToken token);
     @PUT("client/{client_id}/device-id")
     Call<FireBaseTokenRespons> onUpDateFireBaseTokenClient(@Header("Authorization") String Authorization,@Header("Content-Type") String Content_Type,
-                                              @Path("client_id")String clinic_id,
+                                              @Path("client_id")String client_id,
                                               @Body FireBaseToken token);
 
     @PUT("clinic/{clinic_id}/reservation/{reservation_id}")

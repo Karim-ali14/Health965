@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.example.health965.Models.Regestration.DataUserRegistration;
 import com.example.health965.Models.Regestration.Registration;
 import com.example.health965.R;
-import com.example.health965.UI.Login_Activity;
+import com.example.health965.UI.Login_In.Login_Activity;
 import com.example.health965.UI.Registration.ActivateYourAccount.ActivateYourAccountActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;

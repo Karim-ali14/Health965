@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.ReSetPassword;
 import com.example.health965.R;
-import com.example.health965.UI.Login_Activity;
+import com.example.health965.UI.Login_In.Login_Activity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
