@@ -203,45 +203,6 @@ public class Login_Activity extends AppCompatActivity {
 
     private void loginAsUser(){
         dialog.show();
-        /*Common.getAPIRequest().onLoginAsClient(Phone.getText().toString(),
-                Password.getText().toString()).enqueue(new Callback<LoginClient>() {
-            @Override
-            public void onResponse(Call<LoginClient> call, Response<LoginClient> response) {
-                dialog.dismiss();
-                if (response.code() == 200) {
-                    Common.CurrentUser = response.body();
-                    Common.getAPIRequest().onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),"application/json",
-                            Common.CurrentUser.getData().getUser().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
-                            .enqueue(new Callback<FireBaseTokenRespons>() {
-                                @Override
-                                public void onResponse(Call<FireBaseTokenRespons> call, Response<FireBaseTokenRespons> response) {
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<FireBaseTokenRespons> call, Throwable t) {
-
-                                }
-                            });
-                    startActivity(new Intent(Login_Activity.this, MainActivity.class));
-                    finish();
-                }
-                else if (response.code() == 401) {
-                    try {
-                        Toast.makeText(Login_Activity.this,new JSONObject(response.errorBody().string()).getString("message"), Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginClient> call, Throwable t) {
-
-            }
-        });*/
         viewModel.onLoginAsClient(Phone.getText().toString(),
                 Password.getText().toString(),dialog,this).observe(this,
                 new Observer<LoginClient>() {
@@ -265,50 +226,13 @@ public class Login_Activity extends AppCompatActivity {
 
     private void loginAsClinic(){
         dialog.show();
-        /*Common.getAPIRequest().onLoginAsPartner(Phone.getText().toString(),
-                Password.getText().toString()).enqueue(new Callback<LoginClinc>() {
-            @Override
-            public void onResponse(Call<LoginClinc> call, Response<LoginClinc> response) {
-                if (response.code() == 200) {
-                    Log.i("TTTTTT",response.body().getData().getToken().getAccessToken());
-                    Common.CurrentClinic = response.body();
-                    Common.getAPIRequest().onUpDateFireBaseTokenClinic(Common.CurrentClinic.getData().getToken().getAccessToken(),
-                            Common.CurrentClinic.getData().getClinic().getId()+"",new FireBaseToken(FirebaseInstanceId.getInstance().getToken()))
-                            .enqueue(new Callback<FireBaseTokenRespons>() {
-                                @Override
-                                public void onResponse(Call<FireBaseTokenRespons> call, Response<FireBaseTokenRespons> response) {
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<FireBaseTokenRespons> call, Throwable t) {
-
-                                }
-                            });
-                    startActivity(new Intent(Login_Activity.this, ClinicRequestsActivity.class));
-                    finish();
-                }
-                else if (response.code() == 401) {
-                    try {
-                        Toast.makeText(Login_Activity.this,new JSONObject(response.errorBody().string()).getString("message"), Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<LoginClinc> call, Throwable t) {
-
-            }
-        });*/
         viewModel.onLoginAsClinic(Phone.getText().toString(),
                 Password.getText().toString(),dialog,this).observe(this,
                 new Observer<LoginClinc>() {
                     @Override
                     public void onChanged(LoginClinc loginClinc) {
                         Common.CurrentClinic = loginClinc;
+                        dialog.dismiss();
                         startActivity(new Intent(Login_Activity.this, ClinicRequestsActivity.class));
                         finish();
                         viewModel.onUpDateFireBaseTokenClinic(Common.CurrentClinic.getData().getToken().getAccessToken(),

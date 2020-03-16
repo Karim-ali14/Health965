@@ -43,11 +43,11 @@ public class Login_InRepository {
                 Password).enqueue(new Callback<LoginClient>() {
             @Override
             public void onResponse(Call<LoginClient> call, Response<LoginClient> response) {
+                dialog.dismiss();
                 if (response.code() == 200) {
                     mutableLiveData.setValue(response.body());
                 }
                 else{
-                    dialog.dismiss();
                     try {
                         Toast.makeText(context,new JSONObject(response.errorBody().string()).getString("message"), Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {
@@ -112,6 +112,7 @@ public class Login_InRepository {
                     mutableLiveData.setValue(response.body());
                 }
                 else {
+                    dialog.dismiss();
                     try {
                         Toast.makeText(context,new JSONObject(response.errorBody().string()).getString("message"), Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {

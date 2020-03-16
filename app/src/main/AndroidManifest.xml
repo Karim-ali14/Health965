@@ -22,7 +22,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.PasswordModificationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.ModifyPersonalInformationActivity"
+        <activity android:name=".UI.ModifyPersonalInformation.ModifyPersonalInformationActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.PersonalInformationActivity"
             android:screenOrientation="portrait" />

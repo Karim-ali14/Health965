@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.health965.Common.Common;
 import com.example.health965.R;
+import com.example.health965.UI.ModifyPersonalInformation.ModifyPersonalInformationActivity;
 
 public class PersonalInformationActivity extends AppCompatActivity {
     Button modify;
@@ -40,7 +41,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     public void modify(View view) {
-        startActivity(new Intent(this,ModifyPersonalInformationActivity.class));
+        startActivity(new Intent(this, ModifyPersonalInformationActivity.class));
     }
 
     @Override
