@@ -1,9 +1,10 @@
-package com.example.health965.UI.Fragments;
+package com.example.health965.UI.ClinicRequests.Fragments;
 
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import com.example.health965.Models.Governorate.Governorate;
 import com.example.health965.Models.ModelOfRequests;
 import com.example.health965.Models.Reservation.Reservation;
 import com.example.health965.R;
+import com.example.health965.UI.ClinicRequests.ClinicRequestsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +35,9 @@ import retrofit2.Response;
 public class ReservationFragment extends Fragment {
 
     RecyclerView recyclerView;
-
-    public ReservationFragment() {
-
+    ClinicRequestsViewModel viewModel;
+    public ReservationFragment(ClinicRequestsViewModel viewModel) {
+        this.viewModel = viewModel;
     }
 
 
@@ -52,7 +54,7 @@ public class ReservationFragment extends Fragment {
     }
 
     private void getData(){
-        Common.getAPIRequest().getReservation(Common.CurrentClinic.getData().getToken().getAccessToken(),
+       /* Common.getAPIRequest().getReservation(Common.CurrentClinic.getData().getToken().getAccessToken(),
                 Common.CurrentClinic.getData().getClinic().getId()+"").enqueue(new Callback<Reservation>() {
             @Override
             public void onResponse(Call<Reservation> call, Response<Reservation> response) {
@@ -64,6 +66,14 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onFailure(Call<Reservation> call, Throwable t) {
 
+            }
+        });*/
+        viewModel.getDataReservation(getContext(),Common.CurrentClinic.getData().getToken().getAccessToken(),
+                Common.CurrentClinic.getData().getClinic().getId()+"").observe(getActivity()
+                , new Observer<Reservation>() {
+            @Override
+            public void onChanged(Reservation reservation) {
+                recyclerView.setAdapter(new AdapterForClinicRequests(reservation.getData().getRows(),getContext()));
             }
         });
     }

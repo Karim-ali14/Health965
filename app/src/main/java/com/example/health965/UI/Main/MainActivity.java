@@ -14,12 +14,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.health965.Common.Common;
-import com.example.health965.UI.Fragments.AccountPage;
-import com.example.health965.UI.Fragments.NotifyPage;
-import com.example.health965.UI.Fragments.MainPage;
-import com.example.health965.UI.Fragments.OfferPage;
 import com.example.health965.R;
 import com.example.health965.UI.Login_In.Login_Activity;
+import com.example.health965.UI.Main.Fragments.AccountPageFragment;
+import com.example.health965.UI.Main.Fragments.MainPageFragment;
+import com.example.health965.UI.Main.Fragments.NotifyPageFragment;
+import com.example.health965.UI.Main.Fragments.OfferPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         AboveLine = findViewById(R.id.AboveLine);
         BackLayout = findViewById(R.id.BackLayout);
         LeftImageLayout = findViewById(R.id.LeftImageLayout);
-        getSupportFragmentManager().beginTransaction().replace(R.id.Fragment,new MainPage(true,viewModel)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.Fragment,new MainPageFragment(true,viewModel)).commit();
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.account:{
                         logOut = true;
-                        fragment = new AccountPage(MainActivity.this);
+                        fragment = new AccountPageFragment(MainActivity.this);
                         title.setText(menuItem.getTitle());
                         ImageBar.setVisibility(View.VISIBLE);
                         LeftImageLayout.setVisibility(View.VISIBLE);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                     case R.id.notify:{
                         logOut = false;
-                        fragment = new NotifyPage(viewModel);
+                        fragment = new NotifyPageFragment(viewModel);
                         title.setText(menuItem.getTitle());
                         AboveLine.setVisibility(View.VISIBLE);
                         ImageBar.setVisibility(View.VISIBLE);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                     case R.id.offer:{
                         logOut = false;
-                        fragment = new OfferPage(viewModel);
+                        fragment = new OfferPageFragment(viewModel);
                         title.setText(menuItem.getTitle());
                         AboveLine.setVisibility(View.VISIBLE);
                         ImageBack.setVisibility(View.GONE);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                     case R.id.home:{
                         logOut = false;
-                        fragment = new MainPage(false,viewModel);
+                        fragment = new MainPageFragment(false,viewModel);
                         title.setText(menuItem.getTitle());
                         ImageBar.setVisibility(View.GONE);
                         LeftImageLayout.setVisibility(View.GONE);

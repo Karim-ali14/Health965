@@ -1,33 +1,33 @@
-package com.example.health965.UI.Fragments;
+package com.example.health965.UI.ClinicRequests.Fragments;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.example.health965.Adapters.AdapterForNotifyPage;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.Notification.Notifications;
 import com.example.health965.R;
+import com.example.health965.UI.ClinicRequests.ClinicRequestsViewModel;
 import com.example.health965.UI.Main.MainViewModel;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NotifyPage extends Fragment {
+public class NotifyPageFragment extends Fragment {
     RecyclerView recyclerView;
     TextView Empty;
-    MainViewModel viewModel;
-    public NotifyPage(MainViewModel viewModel) {
+    ClinicRequestsViewModel viewModel;
+    public NotifyPageFragment(ClinicRequestsViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
@@ -45,35 +45,8 @@ public class NotifyPage extends Fragment {
     }
     private void getNotification(){
         if (Common.CurrentUser != null) {
-//            Common.getAPIRequest().getNotification(Common.CurrentUser.getData().getToken().getAccessToken())
-//                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new Observer<List<Notification>>() {
-//                        @Override
-//                        public void onSubscribe(Disposable d) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onNext(List<Notification> notifications) {
-//                            if (notifications.size() != 0) {
-//                                recyclerView.setVisibility(View.VISIBLE);
-//                                Empty.setVisibility(View.GONE);
-//                                recyclerView.setAdapter(new AdapterForNotifyPage(notifications,
-//                                        getContext()));
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onComplete() {
-//
-//                        }
-//                    });v
-            viewModel.getNotification().observe(getActivity(), new Observer<Notifications>() {
+            viewModel.getNotification(Common.CurrentClinic.getData().getToken().getAccessToken())
+                    .observe(getActivity(), new Observer<Notifications>() {
                 @Override
                 public void onChanged(Notifications notification) {
                     recyclerView.setVisibility(View.VISIBLE);

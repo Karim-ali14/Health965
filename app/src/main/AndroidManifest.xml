@@ -20,11 +20,11 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.ClinicRequests.ClinicRequestsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.PasswordModificationActivity"
+        <activity android:name=".UI.PasswordModificationActivity.PasswordModificationActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.ModifyPersonalInformation.ModifyPersonalInformationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.PersonalInformationActivity"
+        <activity android:name=".UI.PersonalInformationActivity.PersonalInformationActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Registration.ActivateYourAccount.ActivateYourAccountActivity"
             android:screenOrientation="portrait" />

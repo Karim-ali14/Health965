@@ -1,4 +1,4 @@
-package com.example.health965.UI.Fragments;
+package com.example.health965.UI.Main.Fragments;
 
 
 import android.app.ProgressDialog;
@@ -32,12 +32,12 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OfferPage extends Fragment {
+public class OfferPageFragment extends Fragment {
 
     RecyclerView recyclerView;
     ProgressDialog dialog;
     MainViewModel viewModel;
-    public OfferPage(MainViewModel viewModel) {
+    public OfferPageFragment(MainViewModel viewModel) {
         this.viewModel = viewModel;
     }
     @Override

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Fragments.ClinicFragment"
+    tools:context=".UI.ClinicRequests.Fragments.ClinicFragment"
     android:background="@color/White">
     <RelativeLayout
         android:layout_width="match_parent"

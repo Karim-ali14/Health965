@@ -1,4 +1,4 @@
-package com.example.health965.UI.Fragments;
+package com.example.health965.UI.ClinicRequests.Fragments;
 
 
 import android.content.Intent;
@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import com.example.health965.R;
 import com.example.health965.UI.AboutApp.AboutAppActivity;
 import com.example.health965.UI.ClinicInformation.ClinicInformationActivity;
-import com.example.health965.UI.PasswordModificationActivity;
+import com.example.health965.UI.PasswordModificationActivity.PasswordModificationActivity;
 import com.example.health965.UI.PrivacyPolicy.PrivacyPolicyActivity;
 
 

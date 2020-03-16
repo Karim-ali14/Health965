@@ -1,4 +1,4 @@
-package com.example.health965.UI.Fragments;
+package com.example.health965.UI.Main.Fragments;
 
 
 import android.app.ProgressDialog;
@@ -46,7 +46,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainPage extends Fragment implements ViewPager.OnPageChangeListener{
+public class MainPageFragment extends Fragment implements ViewPager.OnPageChangeListener{
     LinearLayout linearLayout;
     ViewPager viewPager2;
     TextView points[];
@@ -56,7 +56,7 @@ public class MainPage extends Fragment implements ViewPager.OnPageChangeListener
     boolean start;
     List<Row> rows;
     MainViewModel viewModel;
-    public MainPage(boolean start, MainViewModel viewModel) {
+    public MainPageFragment(boolean start, MainViewModel viewModel) {
         this.start  = start;
         this.viewModel = viewModel;
     }

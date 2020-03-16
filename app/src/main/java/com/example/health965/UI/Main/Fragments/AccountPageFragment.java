@@ -1,4 +1,4 @@
-package com.example.health965.UI.Fragments;
+package com.example.health965.UI.Main.Fragments;
 
 
 import android.content.Context;
@@ -15,8 +15,8 @@ import android.widget.RelativeLayout;
 import com.example.health965.Common.Common;
 import com.example.health965.UI.AboutApp.AboutAppActivity;
 import com.example.health965.UI.Login_In.Login_Activity;
-import com.example.health965.UI.PasswordModificationActivity;
-import com.example.health965.UI.PersonalInformationActivity;
+import com.example.health965.UI.PasswordModificationActivity.PasswordModificationActivity;
+import com.example.health965.UI.PersonalInformationActivity.PersonalInformationActivity;
 import com.example.health965.UI.PrivacyPolicy.PrivacyPolicyActivity;
 import com.example.health965.R;
 
@@ -24,11 +24,11 @@ import com.example.health965.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AccountPage extends Fragment {
+public class AccountPageFragment extends Fragment {
     RelativeLayout LayOutPersonalInformation,LayOutModify,LayOutAbout,LayOutPersonal;
     Context context;
 
-    public AccountPage(Context context) {
+    public AccountPageFragment(Context context) {
         this.context = context;
     }
 

@@ -1,11 +1,12 @@
-package com.example.health965.UI;
+package com.example.health965.UI.PasswordModificationActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,7 +19,6 @@ import com.example.health965.Models.ChangePassword.ResponseChangePassword.Respon
 import com.example.health965.Models.ChangePassword.ChangePassword;
 import com.example.health965.R;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,10 +33,16 @@ public class PasswordModificationActivity extends AppCompatActivity {
     TextInputEditText OldPassword,NewPassword,PasswordConfirmation;
     ProgressDialog dialog;
     ConstraintLayout layout;
+    PasswordModificationViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_modification);
+        init();
+    }
+
+    private void init(){
+        viewModel = ViewModelProviders.of(this).get(PasswordModificationViewModel.class);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -62,60 +68,28 @@ public class PasswordModificationActivity extends AppCompatActivity {
 
     private void changeClinicPassword(){
         dialog.show();
-        Common.getAPIRequest().onChangeClinicPass(Common.CurrentClinic.getData().getToken().getAccessToken(),"application/json"
+        viewModel.onChangeClinicPass(Common.CurrentClinic.getData().getToken().getAccessToken()
                 ,Common.CurrentClinic.getData().getClinic().getId().toString(),new ChangePassword(OldPassword.getText().toString(),
-                NewPassword.getText().toString())).enqueue(new Callback<ResponseChangePassword>() {
+                        NewPassword.getText().toString()),this,dialog)
+                .observe(this, new Observer<ResponseChangePassword>() {
             @Override
-            public void onResponse(Call<ResponseChangePassword> call, Response<ResponseChangePassword> response) {
-                dialog.dismiss();
-                if (response.code() == 200)
-                    finish();
-                else {
-                    try {
-                        Toast.makeText(PasswordModificationActivity.this,new JSONObject(response.errorBody().string()).getString("message")
-                                , Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseChangePassword> call, Throwable t) {
-
+            public void onChanged(ResponseChangePassword responseChangePassword) {
+                finish();
             }
         });
     }
 
     private void changeClientPassword(){
         dialog.show();
-        Common.getAPIRequest().onChangeClientPass(Common.CurrentUser.getData().getToken().getAccessToken(),"application/json"
+        viewModel.onChangeClientPass(Common.CurrentUser.getData().getToken().getAccessToken()
                 ,Common.CurrentUser.getData().getUser().getId().toString(),new ChangePassword(OldPassword.getText().toString(),
-                NewPassword.getText().toString())).enqueue(new Callback<ResponseChangePassword>() {
-            @Override
-            public void onResponse(Call<ResponseChangePassword> call, Response<ResponseChangePassword> response) {
-                dialog.dismiss();
-                if (response.code() == 200)
-                    finish();
-                else {
-                    try {
-                        Toast.makeText(PasswordModificationActivity.this,new JSONObject(response.errorBody().string()).getString("message")
-                                , Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        NewPassword.getText().toString()),this,dialog).observe(this,
+                new Observer<ResponseChangePassword>() {
+                    @Override
+                    public void onChanged(ResponseChangePassword responseChangePassword) {
+                        finish();
                     }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseChangePassword> call, Throwable t) {
-
-            }
-        });
+                });
     }
 
     private void closeKeyBoard() {
