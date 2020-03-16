@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Clinics_Details_activity"
+    tools:context=".UI.Clinics_Details.Clinics_Details_activity"
     android:background="@color/White">
 
     <com.google.android.material.appbar.AppBarLayout

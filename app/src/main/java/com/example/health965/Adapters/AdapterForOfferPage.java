@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -17,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.OfferForClinic.Row;
 import com.example.health965.R;
-import com.example.health965.UI.Clinics_Details_activity;
+import com.example.health965.UI.Clinics_Details.Clinics_Details_activity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

@@ -1,6 +1,7 @@
-package com.example.health965.UI;
+package com.example.health965.UI.Clinics_Details;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
@@ -40,10 +41,12 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
     ViewPager viewPager2;
     int listSize = 0;
     ProgressDialog dialog;
+    Clinics_DetailsViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clinics__details_activity);
+        viewModel = ViewModelProviders.of(this).get(Clinics_DetailsViewModel.class);
         dialog = new ProgressDialog(this);
         dialog.show();
         viewPager = findViewById(R.id.ViewPager);
@@ -57,9 +60,8 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
         if (AdapterForClinics.CLINIC != null) {
             dialog.dismiss();
             ((TextView)findViewById(R.id.Title)).setText(AdapterForClinics.CLINIC.getName());
-            Observable<BannerForCategory> bannerForClinic = Common.getAPIRequest().getBannerForClinic(true, AdapterForClinics.CLINIC.getId() + ""
-                    , "clinic");
-            bannerForClinic.subscribeOn(Schedulers.io())
+            /*Common.getAPIRequest().getBannerForClinic(true, AdapterForClinics.CLINIC.getId() + ""
+                    , "clinic").subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
                 @Override
                 public void onSubscribe(Disposable d) {
@@ -85,9 +87,20 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                 public void onComplete() {
 
                 }
+            });*/
+
+            viewModel.getBannerForClinic(AdapterForClinics.CLINIC.getId() + "")
+                    .observe(this, new androidx.lifecycle.Observer<BannerForCategory>() {
+                @Override
+                public void onChanged(BannerForCategory bannerForCategory) {
+                    listSize = bannerForCategory.getData().getRows().size();
+                    viewPager2.setAdapter(new AdapterForImages(bannerForCategory.getData().getRows(), Clinics_Details_activity.this, false,true));
+                    viewPager2.setOnPageChangeListener(Clinics_Details_activity.this);
+                    addPoints(0, listSize);
+                }
             });
 
-            Common.getAPIRequest().getOffersForClinic(AdapterForClinics.CLINIC.getId() + "", true, true).
+            /*Common.getAPIRequest().getOffersForClinic(AdapterForClinics.CLINIC.getId() + "", true, true).
                     enqueue(new Callback<OfferForClinic>() {
                         @Override
                         public void onResponse(Call<OfferForClinic> call, Response<OfferForClinic> response) {
@@ -104,6 +117,17 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                         @Override
                         public void onFailure(Call<OfferForClinic> call, Throwable t) {
 
+                        }
+                    });*/
+            viewModel.getOffersForClinic(AdapterForClinics.CLINIC.getId()+"",this)
+                    .observe(this, new androidx.lifecycle.Observer<OfferForClinic>() {
+                        @Override
+                        public void onChanged(OfferForClinic offerForClinic) {
+                            viewPageAdapter2.addFaragment(new OfferClinic(offerForClinic.getData().getRows()), "عروض مميزة");
+                            viewPageAdapter2.addFaragment(new Details_fragment(AdapterForClinics.CLINIC), "تفاصيل العيادة");
+                            viewPager.setAdapter(viewPageAdapter2);
+                            tabLayout.setupWithViewPager(viewPager);
+                            tabLayout.getTabAt(1).select();
                         }
                     });
         }else {
@@ -150,6 +174,7 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
         super.onStop();
         AdapterForClinics.CLINIC = null;
     }
+
     private void getDataOfClinic(){
         Common.getAPIRequest().getClinicInfo("image",getIntent().getExtras()
                         .getString("Clinic_Id"),

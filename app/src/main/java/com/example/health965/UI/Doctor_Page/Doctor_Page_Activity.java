@@ -1,16 +1,18 @@
-package com.example.health965.UI;
+package com.example.health965.UI.Doctor_Page;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,7 +25,6 @@ import android.widget.Toast;
 import com.example.health965.Adapters.AdapterForDoctorCard;
 import com.example.health965.Adapters.AdapterForImages;
 import com.example.health965.Common.Common;
-import com.example.health965.Models.BannerForCategory.Row;
 import com.example.health965.Models.DoctorsWithClinics.DoctorsWithClinics;
 import com.example.health965.Models.ModelOfCardDoctor;
 import com.example.health965.R;
@@ -50,10 +51,18 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
     LinearLayout linearLayout;
     ViewPager viewPager;
     ConstraintLayout Layout;
+    Doctor_Page_ViewModel viewModel;
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor__page);
+        init();
+    }
+
+    public void init(){
+        viewModel = ViewModelProviders.of(this).get(Doctor_Page_ViewModel.class);
+        dialog = new ProgressDialog(this);
         SearchImage = findViewById(R.id.ImageOfSearch);
         SearchText = findViewById(R.id.TextSearch);
         SearchBar = findViewById(R.id.searchBar);
@@ -84,6 +93,7 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
             }
         });
     }
+
     public static void closeKeyBoard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
@@ -108,18 +118,6 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(SearchBar, InputMethodManager.SHOW_FORCED);
-    }
-
-
-    private List<ModelOfCardDoctor> getDara(){
-        List<ModelOfCardDoctor> list = new ArrayList<>();
-        list.add(new ModelOfCardDoctor(R.drawable.doctorw,R.drawable.hebaclinic,"د / أحمد محمد السالم","عيادة هبة دينتال كلينيك"
-        ,"السالمية , حي الأمير صباح الأحمد","زراعة اسنان , تبييض , تلميع , تنظيف , تقويم بوليش , تركيبات","ماجستير طب وجراحة الفم والأسنان"));
-        list.add(new ModelOfCardDoctor(R.drawable.doctorw,R.drawable.hebaclinic,"د / أحمد محمد السالم","عيادة هبة دينتال كلينيك"
-        ,"السالمية , حي الأمير صباح الأحمد","زراعة اسنان , تبييض , تلميع , تنظيف , تقويم بوليش , تركيبات","ماجستير طب وجراحة الفم والأسنان"));
-        list.add(new ModelOfCardDoctor(R.drawable.doctorw,R.drawable.hebaclinic,"د / أحمد محمد السالم","عيادة هبة دينتال كلينيك"
-        ,"السالمية , حي الأمير صباح الأحمد","زراعة اسنان , تبييض , تلميع , تنظيف , تقويم بوليش , تركيبات","ماجستير طب وجراحة الفم والأسنان"));
-        return list;
     }
 
     private void addPoints(int position) {
@@ -153,25 +151,16 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
     }
 
     private void getDoctorsWithClinics(){
-        Common.getAPIRequest().getDoctorsWithClinics("image",getIntent().getExtras().getInt("C_ID")+"").enqueue(new Callback<DoctorsWithClinics>() {
+        dialog.show();
+        viewModel.getDoctorsWithClinics(this,
+                getIntent().getExtras().getInt("C_ID")+"",dialog).observe(this,
+                new Observer<DoctorsWithClinics>() {
             @Override
-            public void onResponse(Call<DoctorsWithClinics> call, Response<DoctorsWithClinics> response) {
-                if (response.code() == 200)
-                    RecyclerOfCard.setAdapter(new AdapterForDoctorCard(response.body().getData().getRows(),Doctor_Page_Activity.this));
-                else {
-                    try {
-                        Toast.makeText(Doctor_Page_Activity.this,new JSONObject(response.errorBody().string()).getString("message"), Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DoctorsWithClinics> call, Throwable t) {
-
+            public void onChanged(DoctorsWithClinics doctorsWithClinics) {
+                dialog.dismiss();
+                RecyclerOfCard.setAdapter(new AdapterForDoctorCard(
+                        doctorsWithClinics.getData().getRows(),
+                        Doctor_Page_Activity.this));
             }
         });
     }

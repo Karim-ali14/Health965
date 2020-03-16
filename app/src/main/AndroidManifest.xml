@@ -38,11 +38,11 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Login_In.Login_Activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Doctor_Page_Activity"
+        <activity android:name=".UI.Doctor_Page.Doctor_Page_Activity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Governorate.Governorate_Activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Clinics_Details_activity"
+        <activity android:name=".UI.Clinics_Details.Clinics_Details_activity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Clinics.Clinics_Activity"
             android:screenOrientation="portrait" />

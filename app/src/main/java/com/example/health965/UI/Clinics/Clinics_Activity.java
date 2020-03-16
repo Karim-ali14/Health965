@@ -22,7 +22,7 @@ import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.BannerForCategory.Row;
 import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.UI.Governorate.Governorate_Activity;
-import com.example.health965.UI.Doctor_Page_Activity;
+import com.example.health965.UI.Doctor_Page.Doctor_Page_Activity;
 import com.example.health965.R;
 
 import java.util.ArrayList;

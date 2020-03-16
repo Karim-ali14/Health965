@@ -6,8 +6,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.Offers.Row;
 import com.example.health965.R;
-import com.example.health965.UI.Clinics_Details_activity;
+import com.example.health965.UI.Clinics_Details.Clinics_Details_activity;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -17,13 +16,11 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.Row;
 import com.example.health965.R;
-import com.example.health965.UI.Clinics_Details_activity;
-import com.example.health965.UI.Doctor_Page_Activity;
+import com.example.health965.UI.Clinics_Details.Clinics_Details_activity;
+import com.example.health965.UI.Doctor_Page.Doctor_Page_Activity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class AdapterForImages extends PagerAdapter {
     List<Row> list;
