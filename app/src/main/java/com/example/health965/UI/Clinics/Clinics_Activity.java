@@ -1,6 +1,7 @@
 package com.example.health965.UI.Clinics;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -37,9 +38,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Clinics_Activity extends AppCompatActivity implements IClinics, ViewPager.OnPageChangeListener {
+public class Clinics_Activity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     RecyclerView recyclerView;
-    ClinicsPresenter presenter;
     TextView points[];
     List<Integer> listImage;
     LinearLayout linearLayout;
@@ -48,12 +48,13 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
     public static List<Row> rows;
     int listSize = 0;
     RelativeLayout LayoutSpecial;
+    Clinics_ViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clinics);
-        presenter = new ClinicsPresenter(this);
-        presenter.onInit();
+        viewModel = ViewModelProviders.of(this).get(Clinics_ViewModel.class);
+        init();
         rows = new ArrayList<>();
         LayoutSpecial = findViewById(R.id.LayoutSpecial);
     }
@@ -62,7 +63,6 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
         finish();
     }
 
-    @Override
     public void init() {
         id = getIntent().getExtras().getInt("ID");
         recyclerView = findViewById(R.id.RecyclerClinics);
@@ -80,7 +80,9 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        Common.getAPIRequest().getAllClinics("image",id+"","clinicOptions","clinicCertificate").enqueue(new Callback<Clinics>() {
+
+      /*  Common.getAPIRequest().getAllClinics("image",id+"","clinicOptions","clinicCertificate").
+                enqueue(new Callback<Clinics>() {
             @Override
             public void onResponse(Call<Clinics> call, Response<Clinics> response) {
                 if (response.code() == 200)
@@ -91,8 +93,17 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
             public void onFailure(Call<Clinics> call, Throwable t) {
                 Log.d("TTTTTTT",t.getMessage());
             }
+        });*/
+
+        viewModel.getAllClinics(id+"",this).observe(this,
+                new androidx.lifecycle.Observer<Clinics>() {
+            @Override
+            public void onChanged(Clinics clinics) {
+                recyclerView.setAdapter(new AdapterForClinics(clinics.getData().getRows(),Clinics_Activity.this));
+            }
         });
-        Observable<BannerForCategory> bannerForCategoryObservable = Common.getAPIRequest().getBannerForCategory(true, id + "");
+
+        /*Observable<BannerForCategory> bannerForCategoryObservable = Common.getAPIRequest().getBannerForCategory(true, id + "");
                 bannerForCategoryObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
                     @Override
@@ -102,15 +113,7 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
 
                     @Override
                     public void onNext(final BannerForCategory bannerForCategory) {
-                        if (bannerForCategory.getData().getRows().size() != 0){
-                            listSize = bannerForCategory.getData().getRows().size();
-                            rows = bannerForCategory.getData().getRows();
-                            Log.i("TTTTTTTTTG",rows.get(0).getImage().getName());
-                            viewPager.setAdapter(new AdapterForImages(bannerForCategory.getData().getRows(),Clinics_Activity.this,false,false));
-                            viewPager.setOnPageChangeListener(Clinics_Activity.this);
-                            addPoints(0,bannerForCategory.getData().getRows().size());
 
-                        }
                     }
 
                     @Override
@@ -122,7 +125,22 @@ public class Clinics_Activity extends AppCompatActivity implements IClinics, Vie
                     public void onComplete() {
 
                     }
-                });
+                });*/
+
+        viewModel.getBannerForCategory(id+"",this).observe(this,
+                new androidx.lifecycle.Observer<BannerForCategory>() {
+            @Override
+            public void onChanged(BannerForCategory bannerForCategory) {
+                if (bannerForCategory.getData().getRows().size() != 0){
+                    listSize = bannerForCategory.getData().getRows().size();
+                    rows = bannerForCategory.getData().getRows();
+                    Log.i("TTTTTTTTTG",rows.get(0).getImage().getName());
+                    viewPager.setAdapter(new AdapterForImages(bannerForCategory.getData().getRows(),Clinics_Activity.this,false,false));
+                    viewPager.setOnPageChangeListener(Clinics_Activity.this);
+                    addPoints(0,bannerForCategory.getData().getRows().size());
+                }
+            }
+        });
     }
 
     private void addPoints(int position,int listSize) {

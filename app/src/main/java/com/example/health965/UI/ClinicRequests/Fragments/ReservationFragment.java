@@ -54,26 +54,13 @@ public class ReservationFragment extends Fragment {
     }
 
     private void getData(){
-       /* Common.getAPIRequest().getReservation(Common.CurrentClinic.getData().getToken().getAccessToken(),
-                Common.CurrentClinic.getData().getClinic().getId()+"").enqueue(new Callback<Reservation>() {
-            @Override
-            public void onResponse(Call<Reservation> call, Response<Reservation> response) {
-                if (response.code() == 200)
-                    recyclerView.setAdapter(new AdapterForClinicRequests(response.body().getData().getRows(),getContext()));
-                Log.i("TTTTTT",""+response.code());
-            }
-
-            @Override
-            public void onFailure(Call<Reservation> call, Throwable t) {
-
-            }
-        });*/
         viewModel.getDataReservation(getContext(),Common.CurrentClinic.getData().getToken().getAccessToken(),
                 Common.CurrentClinic.getData().getClinic().getId()+"").observe(getActivity()
                 , new Observer<Reservation>() {
             @Override
             public void onChanged(Reservation reservation) {
-                recyclerView.setAdapter(new AdapterForClinicRequests(reservation.getData().getRows(),getContext()));
+                recyclerView.setAdapter(new AdapterForClinicRequests(
+                        reservation.getData().getRows(),getContext(),recyclerView,viewModel));
             }
         });
     }
