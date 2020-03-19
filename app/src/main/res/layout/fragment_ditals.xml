@@ -111,60 +111,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/RecyclerOfOption"
                     android:layout_centerHorizontal="true"/>
-                <!--<ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/c"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/C"
-                    />
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/visa"
-                    android:layout_marginTop="12dp"
-                    android:layout_toLeftOf="@id/C"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/Visa"
-                    />
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/master"
-                    android:layout_marginTop="10dp"
-                    android:layout_toLeftOf="@id/Visa"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/master"
-                    />
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/untitled"
-                    android:layout_marginTop="10dp"
-                    android:layout_toLeftOf="@id/master"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/Untitled"
-                    />
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/loader"
-                    android:layout_marginTop="10dp"
-                    android:layout_toLeftOf="@id/Untitled"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/loader"
-                    />
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/tamen"
-                    android:layout_marginTop="10dp"
-                    android:layout_toLeftOf="@id/loader"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/tamen"
-
-                    />-->
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <RelativeLayout

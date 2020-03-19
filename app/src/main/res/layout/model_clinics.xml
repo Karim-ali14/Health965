@@ -114,63 +114,17 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"/>
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/Line"
                 android:gravity="center_horizontal"
-                android:layout_marginBottom="10dp">
-                <ImageView
+                android:layout_marginBottom="10dp"
+                android:padding="10dp">
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/c"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/C"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/visa"
-                    android:layout_marginTop="12dp"
-                    android:layout_toLeftOf="@id/C"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/Visa"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/master"
-                    android:layout_marginTop="10dp"
-                    android:layout_toLeftOf="@id/Visa"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/master"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/untitled"
-                    android:layout_marginTop="10dp"
-                    android:layout_toLeftOf="@id/master"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/Untitled"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/loader"
-                    android:layout_marginTop="10dp"
-                    android:layout_toLeftOf="@id/Untitled"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/loader"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/tamen"
-                    android:layout_marginTop="10dp"
-                    android:layout_toLeftOf="@id/loader"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/tamen"
+                    android:id="@+id/RecyclerOfOption"
+                    android:layout_centerHorizontal="true"
 
                     />
             </RelativeLayout>

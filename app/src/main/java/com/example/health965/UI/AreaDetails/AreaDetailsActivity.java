@@ -23,7 +23,9 @@ import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Governorate.Row;
 import com.example.health965.Models.ModelsForCilinics;
+import com.example.health965.Models.Options.Option;
 import com.example.health965.R;
+import com.example.health965.UI.Clinics.Clinics_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,8 +82,13 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
         viewModel.getClinicsByGovernorate(this,dialog,getIntent().getExtras().getInt("ID")+"",
                 row.getId()+"").observe(this, new Observer<Clinics>() {
             @Override
-            public void onChanged(Clinics clinics) {
-                recyclerView.setAdapter(new AdapterForClinics(clinics.getData().getRows(), AreaDetailsActivity.this));
+            public void onChanged(final Clinics clinics) {
+                viewModel.getDataOfOption(AreaDetailsActivity.this).observe(AreaDetailsActivity.this, new Observer<Option>() {
+                    @Override
+                    public void onChanged(Option option) {
+                        recyclerView.setAdapter(new AdapterForClinics(clinics.getData().getRows(),AreaDetailsActivity.this,option));
+                    }
+                });
             }
         });
 

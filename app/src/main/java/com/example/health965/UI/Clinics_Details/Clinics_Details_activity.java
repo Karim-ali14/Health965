@@ -60,34 +60,6 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
         if (AdapterForClinics.CLINIC != null) {
             dialog.dismiss();
             ((TextView)findViewById(R.id.Title)).setText(AdapterForClinics.CLINIC.getName());
-            /*Common.getAPIRequest().getBannerForClinic(true, AdapterForClinics.CLINIC.getId() + ""
-                    , "clinic").subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                public void onNext(final BannerForCategory bannerForCategory) {
-                    if (bannerForCategory.getData().getRows().size() != 0) {
-                        listSize = bannerForCategory.getData().getRows().size();
-                        viewPager2.setAdapter(new AdapterForImages(bannerForCategory.getData().getRows(), Clinics_Details_activity.this, false,true));
-                        viewPager2.setOnPageChangeListener(Clinics_Details_activity.this);
-                        addPoints(0, listSize);
-                    }
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            });*/
 
             viewModel.getBannerForClinic(AdapterForClinics.CLINIC.getId() + "")
                     .observe(this, new androidx.lifecycle.Observer<BannerForCategory>() {
@@ -100,25 +72,6 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                 }
             });
 
-            /*Common.getAPIRequest().getOffersForClinic(AdapterForClinics.CLINIC.getId() + "", true, true).
-                    enqueue(new Callback<OfferForClinic>() {
-                        @Override
-                        public void onResponse(Call<OfferForClinic> call, Response<OfferForClinic> response) {
-                            if (response.code() == 200) {
-                                viewPageAdapter2.addFaragment(new OfferClinic(response.body().getData().getRows()), "عروض مميزة");
-                                viewPageAdapter2.addFaragment(new Details_fragment(AdapterForClinics.CLINIC), "تفاصيل العيادة");
-                                viewPager.setAdapter(viewPageAdapter2);
-                                tabLayout.setupWithViewPager(viewPager);
-                                tabLayout.getTabAt(1).select();
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<OfferForClinic> call, Throwable t) {
-
-                        }
-                    });*/
             viewModel.getOffersForClinic(AdapterForClinics.CLINIC.getId()+"",this)
                     .observe(this, new androidx.lifecycle.Observer<OfferForClinic>() {
                         @Override
@@ -190,9 +143,8 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
             public void onNext(Clinics clinics) {
                 AdapterForClinics.CLINIC = clinics.getData().getRows().get(0);
                 ((TextView)findViewById(R.id.Title)).setText(AdapterForClinics.CLINIC.getName());
-                Observable<BannerForCategory> bannerForClinic = Common.getAPIRequest().getBannerForClinic(true, AdapterForClinics.CLINIC.getId() + ""
-                        , "clinic");
-                bannerForClinic.subscribeOn(Schedulers.io())
+                Common.getAPIRequest().getBannerForClinic(true, AdapterForClinics.CLINIC.getId() + ""
+                        , "clinic").subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -219,6 +171,7 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                         dialog.dismiss();
                     }
                 });
+
                 Common.getAPIRequest().getOffersForClinic(AdapterForClinics.CLINIC.getId() + "", true, true).
                         enqueue(new Callback<OfferForClinic>() {
                             @Override

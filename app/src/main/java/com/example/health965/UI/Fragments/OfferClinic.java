@@ -40,11 +40,4 @@ public class OfferClinic extends Fragment {
         recyclerView.setAdapter(new AdapterForOfferPage(rows, getContext(),true));
         return inflate;
     }
-
-    private List<Integer> getData() {
-        List<Integer> list = new ArrayList<>();
-        list.add(R.drawable.adds1);
-        list.add(R.drawable.adds2);
-        return list;
-    }
 }

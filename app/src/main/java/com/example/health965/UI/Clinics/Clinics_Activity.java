@@ -1,6 +1,7 @@
 package com.example.health965.UI.Clinics;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.BannerForCategory.Row;
 import com.example.health965.Models.Clinics.Clinics;
+import com.example.health965.Models.Options.Option;
 import com.example.health965.UI.Governorate.Governorate_Activity;
 import com.example.health965.UI.Doctor_Page.Doctor_Page_Activity;
 import com.example.health965.R;
@@ -30,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -80,52 +81,19 @@ public class Clinics_Activity extends AppCompatActivity implements ViewPager.OnP
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
-      /*  Common.getAPIRequest().getAllClinics("image",id+"","clinicOptions","clinicCertificate").
-                enqueue(new Callback<Clinics>() {
-            @Override
-            public void onResponse(Call<Clinics> call, Response<Clinics> response) {
-                if (response.code() == 200)
-                    recyclerView.setAdapter(new AdapterForClinics(response.body().getData().getRows(),Clinics_Activity.this));
-            }
-
-            @Override
-            public void onFailure(Call<Clinics> call, Throwable t) {
-                Log.d("TTTTTTT",t.getMessage());
-            }
-        });*/
-
+        // انا عملت الركوست الي فاضل اني احط في الاضبطر انه ياخد المودل الخاص بالابشنل
         viewModel.getAllClinics(id+"",this).observe(this,
                 new androidx.lifecycle.Observer<Clinics>() {
             @Override
-            public void onChanged(Clinics clinics) {
-                recyclerView.setAdapter(new AdapterForClinics(clinics.getData().getRows(),Clinics_Activity.this));
+            public void onChanged(final Clinics clinics) {
+                viewModel.getDataOfOption(Clinics_Activity.this).observe(Clinics_Activity.this, new Observer<Option>() {
+                    @Override
+                    public void onChanged(Option option) {
+                        recyclerView.setAdapter(new AdapterForClinics(clinics.getData().getRows(),Clinics_Activity.this,option));
+                    }
+                });
             }
         });
-
-        /*Observable<BannerForCategory> bannerForCategoryObservable = Common.getAPIRequest().getBannerForCategory(true, id + "");
-                bannerForCategoryObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BannerForCategory>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(final BannerForCategory bannerForCategory) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });*/
 
         viewModel.getBannerForCategory(id+"",this).observe(this,
                 new androidx.lifecycle.Observer<BannerForCategory>() {

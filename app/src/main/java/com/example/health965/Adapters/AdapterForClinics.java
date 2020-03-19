@@ -15,11 +15,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.health965.Common.Common;
 import com.example.health965.Models.Clinics.Row;
+import com.example.health965.Models.Doctors.Doctors;
 import com.example.health965.Models.MakeReservation.RequestOfReservation;
+import com.example.health965.Models.Options.Option;
 import com.example.health965.Models.Reservation.Reservation;
 import com.example.health965.R;
 import com.example.health965.UI.Clinics_Details.Clinics_Details_activity;
@@ -30,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,9 +45,11 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
     Context context;
     ProgressDialog dialog;
     public static Row CLINIC = null;
-    public AdapterForClinics(List<Row> list, Context context) {
+    Option option;
+    public AdapterForClinics(List<Row> list, Context context, Option option) {
         this.list = list;
         this.context = context;
+        this.option = option;
     }
 
     @NonNull
@@ -54,6 +60,7 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderForClinics holder, final int position) {
+        getOptions(holder,position);
         final Row row = list.get(position);
         holder.NameOfClinics.setText(row.getName());
         holder.Address.setText(row.getAddress());
@@ -118,6 +125,7 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
         TextView Address,TypeWork,NameOfClinics;
         CardView cardView;
         RelativeLayout Reservation;
+        RecyclerView RecyclerOfOption;
         public ViewHolderForClinics(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.ImageForClinic);
@@ -126,6 +134,21 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
             NameOfClinics = itemView.findViewById(R.id.NameOfClinics);
             cardView = itemView.findViewById(R.id.Card);
             Reservation = itemView.findViewById(R.id.Reservation);
+            RecyclerOfOption = itemView.findViewById(R.id.RecyclerOfOption);
+            RecyclerOfOption.setHasFixedSize(true);
+            RecyclerOfOption.setLayoutManager(new LinearLayoutManager(context,RecyclerView.HORIZONTAL,false));
         }
+    }
+
+    private void getOptions(ViewHolderForClinics holder,int position){
+        final List<com.example.health965.Models.Options.Row> listOptions = new ArrayList<>();
+        for (int i = 0;i < list.get(position).getClinicOptions().size();i++){
+            for (int y = 0;y < option.getData().getRows().size() ; y++){
+                if (list.get(position).getClinicOptions().get(i).getOptionId() == option.getData().getRows().get(y).getId()){
+                    listOptions.add(option.getData().getRows().get(y));
+                }
+            }
+        }
+        holder.RecyclerOfOption.setAdapter(new AdapterForOptions(context,listOptions));
     }
 }

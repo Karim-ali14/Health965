@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Clinics.Clinics;
+import com.example.health965.Models.Options.Option;
 
 public class AreaDetailsViewModel extends ViewModel {
     AreaDetailsRepository aDRepository;
@@ -22,5 +23,9 @@ public class AreaDetailsViewModel extends ViewModel {
 
     public LiveData<BannerForCategory> getBannerForGovernorate(Context context,String G_ID,ProgressDialog dialog){
         return aDRepository.getDataBannerForGovernorate(context,G_ID,dialog);
+    }
+
+    public LiveData<Option> getDataOfOption(final Context context){
+        return aDRepository.getDataOfOption(context);
     }
 }

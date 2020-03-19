@@ -19,8 +19,13 @@ import com.example.health965.Adapters.AdapterForImages;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Clinics.Clinics;
+import com.example.health965.Models.Options.Option;
 import com.example.health965.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
@@ -129,4 +134,31 @@ public class AreaDetailsRepository {
         });
         return mutableLiveData;
     }
+
+    public MutableLiveData<Option> getDataOfOption(final Context context){
+        final MutableLiveData<Option> mutableLiveData = new MutableLiveData<>();
+        Common.getAPIRequest().getDataOfOption(true).enqueue(new Callback<Option>() {
+            @Override
+            public void onResponse(Call<Option> call, Response<Option> response) {
+                if (response.code()==200){
+                    mutableLiveData.setValue(response.body());
+                }else {
+                    try {
+                        Toast.makeText(context,new JSONObject(response.errorBody().string()).getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Option> call, Throwable t) {
+
+            }
+        });
+        return mutableLiveData;
+    }
+
 }

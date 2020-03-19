@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Clinics.Clinics;
+import com.example.health965.Models.Options.Option;
 
 public class Clinics_ViewModel extends ViewModel {
     Clinics_Repository cRepository;
@@ -20,5 +21,9 @@ public class Clinics_ViewModel extends ViewModel {
     }
     public LiveData<BannerForCategory> getBannerForCategory(String id, final Context context){
         return cRepository.getDataBannerForCategory(id,context);
+    }
+
+    public LiveData<Option> getDataOfOption(final Context context){
+        return cRepository.getDataOfOption(context);
     }
 }
