@@ -14,7 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.health965.Common.Common;
-import com.example.health965.UI.Fragments.Details_fragment;
+import com.example.health965.UI.Clinics_Details.Details_fragment;
 
 import com.example.health965.Models.Doctors.Row;
 
