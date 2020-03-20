@@ -30,11 +30,11 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Registration.Registration.RegistrationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.ResetPassWord.PasswordRecoveryActivity"
+        <activity android:name=".UI.ResetPassWord.PasswordRecovery.PasswordRecoveryActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.ResetPassWord.EnterCodeActivity"
+        <activity android:name=".UI.ResetPassWord.EnterCode.EnterCodeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.ResetPassWord.ForgotPasswordActivity"
+        <activity android:name=".UI.ResetPassWord.ForgotPassword.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Login_In.Login_Activity"
             android:screenOrientation="portrait" />

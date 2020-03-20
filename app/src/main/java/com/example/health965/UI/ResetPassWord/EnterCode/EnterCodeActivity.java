@@ -1,4 +1,4 @@
-package com.example.health965.UI.ResetPassWord;
+package com.example.health965.UI.ResetPassWord.EnterCode;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.health965.R;
+import com.example.health965.UI.ResetPassWord.PasswordRecovery.PasswordRecoveryActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 

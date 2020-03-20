@@ -14,7 +14,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -29,7 +28,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.health965.Common.Common;
 import com.example.health965.Models.FireBaseToken.FireBaseToken;
@@ -40,19 +38,10 @@ import com.example.health965.R;
 import com.example.health965.UI.ClinicRequests.ClinicRequestsActivity;
 import com.example.health965.UI.Main.MainActivity;
 import com.example.health965.UI.Registration.Registration.RegistrationActivity;
-import com.example.health965.UI.ResetPassWord.ForgotPasswordActivity;
+import com.example.health965.UI.ResetPassWord.ForgotPassword.ForgotPasswordActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Login_Activity extends AppCompatActivity {
     Button LoginButton,SkipButton;

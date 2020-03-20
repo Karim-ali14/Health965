@@ -1,4 +1,4 @@
-package com.example.health965.UI.ResetPassWord;
+package com.example.health965.UI.ResetPassWord.PasswordRecovery;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -83,7 +83,10 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
                                 dialog.dismiss();
                                 if (response.code() == 200) {
                                     Toast.makeText(PasswordRecoveryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(PasswordRecoveryActivity.this, Login_Activity.class).putExtra("type", "getPass"));
+                                    startActivity(
+                                            new Intent(PasswordRecoveryActivity.this,
+                                                    Login_Activity.class)
+                                                    .putExtra("type", "getPass"));
                                 } else {
                                     try {
                                         Toast.makeText(PasswordRecoveryActivity.this
@@ -152,6 +155,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
         });
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
+
     private void closeKeyBoard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
