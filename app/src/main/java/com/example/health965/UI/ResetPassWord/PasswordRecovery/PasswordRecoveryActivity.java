@@ -2,6 +2,8 @@ package com.example.health965.UI.ResetPassWord.PasswordRecovery;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -41,10 +43,15 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
     TextInputEditText NewPassword,PasswordConfirmation;
     ProgressDialog dialog;
     TextInputLayout NewPasswordLayOut,PasswordConfirmationLayOut;
+    PasswordRecoveryViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_recovery);
+        init();
+    }
+    private void init(){
+        viewModel = ViewModelProviders.of(this).get(PasswordRecoveryViewModel.class);
         dialog = new ProgressDialog(this);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
@@ -75,66 +82,40 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
                     NewPasswordLayOut.setError("كلمة المرور لسه متطابقه");
                 }else{
                     if (getIntent().getExtras().getInt("Type")==0) {
-                        Common.getAPIRequest().onVerficationClient(getIntent().getExtras().getString("Email"),
+                        viewModel.onVerficationClient(getIntent().getExtras().getString("Email"),
                                 getIntent().getExtras().getString("Code"),
-                                NewPassword.getText().toString()).enqueue(new Callback<ReSetPassword>() {
-                            @Override
-                            public void onResponse(Call<ReSetPassword> call, Response<ReSetPassword> response) {
-                                dialog.dismiss();
-                                if (response.code() == 200) {
-                                    Toast.makeText(PasswordRecoveryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    startActivity(
-                                            new Intent(PasswordRecoveryActivity.this,
-                                                    Login_Activity.class)
-                                                    .putExtra("type", "getPass"));
-                                } else {
-                                    try {
-                                        Toast.makeText(PasswordRecoveryActivity.this
-                                                , new JSONObject(response.errorBody().string()).getString("message")
-                                                , Toast.LENGTH_SHORT).show();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
+                                NewPassword.getText().toString(),dialog,
+                                PasswordRecoveryActivity.this).observe(
+                                PasswordRecoveryActivity.this,
+                                new Observer<ReSetPassword>() {
+                                    @Override
+                                    public void onChanged(ReSetPassword reSetPassword) {
+                                        Toast.makeText(PasswordRecoveryActivity.this,
+                                                reSetPassword.getMessage(), Toast.LENGTH_SHORT).show();
+                                        startActivity(
+                                                new Intent(PasswordRecoveryActivity.this,
+                                                        Login_Activity.class)
+                                                        .putExtra("type", "getPass"));
 
-                            @Override
-                            public void onFailure(Call<ReSetPassword> call, Throwable t) {
-                                dialog.dismiss();
-                                Toast.makeText(PasswordRecoveryActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                    }
+                                });
                     }else {
-                        Common.getAPIRequest().onVerficationClinic(getIntent().getExtras().getString("Email"),
+                        viewModel.onVerficationClient(getIntent().getExtras().getString("Email"),
                                 getIntent().getExtras().getString("Code"),
-                                NewPassword.getText().toString()).enqueue(new Callback<ReSetPassword>() {
-                            @Override
-                            public void onResponse(Call<ReSetPassword> call, Response<ReSetPassword> response) {
-                                dialog.dismiss();
-                                if (response.code() == 200) {
-                                    Toast.makeText(PasswordRecoveryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(PasswordRecoveryActivity.this, Login_Activity.class).putExtra("type", "getPass"));
-                                } else {
-                                    try {
-                                        Toast.makeText(PasswordRecoveryActivity.this
-                                                , new JSONObject(response.errorBody().string()).getString("message")
-                                                , Toast.LENGTH_SHORT).show();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
+                                NewPassword.getText().toString(),dialog,
+                                PasswordRecoveryActivity.this).observe(
+                                PasswordRecoveryActivity.this, new Observer<ReSetPassword>() {
+                                    @Override
+                                    public void onChanged(ReSetPassword reSetPassword) {
+                                        Toast.makeText(PasswordRecoveryActivity.this,
+                                                reSetPassword.getMessage(), Toast.LENGTH_SHORT)
+                                                .show();
+                                        startActivity(new Intent(
+                                                PasswordRecoveryActivity.this,
+                                                Login_Activity.class)
+                                                .putExtra("type", "getPass"));
                                     }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ReSetPassword> call, Throwable t) {
-                                dialog.dismiss();
-                                Toast.makeText(PasswordRecoveryActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                });
                     }
                 }
             }
@@ -155,7 +136,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
         });
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
-
+    
     private void closeKeyBoard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
