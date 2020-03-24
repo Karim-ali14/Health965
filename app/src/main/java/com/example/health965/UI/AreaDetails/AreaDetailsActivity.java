@@ -10,33 +10,20 @@ import androidx.viewpager.widget.ViewPager;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.health965.Adapters.AdapterForClinics;
 import com.example.health965.Adapters.AdapterForImages;
-import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Governorate.Row;
-import com.example.health965.Models.ModelsForCilinics;
 import com.example.health965.Models.Options.Option;
 import com.example.health965.R;
-import com.example.health965.UI.Clinics.Clinics_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     TextView points[];

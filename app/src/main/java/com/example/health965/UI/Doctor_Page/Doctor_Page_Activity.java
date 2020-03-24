@@ -20,26 +20,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.health965.Adapters.AdapterForDoctorCard;
 import com.example.health965.Adapters.AdapterForImages;
-import com.example.health965.Common.Common;
 import com.example.health965.Models.DoctorsWithClinics.DoctorsWithClinics;
-import com.example.health965.Models.ModelOfCardDoctor;
 import com.example.health965.R;
 import com.example.health965.UI.Clinics.Clinics_Activity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     public static EditText SearchBar;

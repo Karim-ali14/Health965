@@ -123,8 +123,10 @@ public class Login_Activity extends AppCompatActivity {
         LoginButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
         if (getIntent().getExtras().getString("type").equals("main"))
             PasswordLayout.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
-        else if (getIntent().getExtras().getString("type").equals("getPass"))
+        else if (getIntent().getExtras().getString("type").equals("getPass")
+        || getIntent().getExtras().getString("type").equals("Login")) // if user was do any thing that not can do unless login in first
             PhoneNumberLayout.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_above_bown));
+
         LoginAsPartner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,16 +201,20 @@ public class Login_Activity extends AppCompatActivity {
             public void onChanged(LoginClient loginClient) {
                 Common.CurrentUser = loginClient;
                 dialog.dismiss();
-                startActivity(new Intent(Login_Activity.this, MainActivity.class));
-                finish();
-                viewModel.onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),
-                        Common.CurrentUser.getData().getUser().getId()+"",
-                        new FireBaseToken(FirebaseInstanceId.getInstance().getToken())
-                        ,Login_Activity.this).observe(Login_Activity.this, new Observer<FireBaseTokenRespons>() {
-                    @Override
-                    public void onChanged(FireBaseTokenRespons fireBaseTokenRespons) {
-                    }
-                });
+                if (getIntent().getExtras().getString("type").equals("Login"))
+                    finish();
+                else {
+                    startActivity(new Intent(Login_Activity.this, MainActivity.class));
+                    finish();
+                    viewModel.onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),
+                            Common.CurrentUser.getData().getUser().getId() + "",
+                            new FireBaseToken(FirebaseInstanceId.getInstance().getToken())
+                            , Login_Activity.this).observe(Login_Activity.this, new Observer<FireBaseTokenRespons>() {
+                        @Override
+                        public void onChanged(FireBaseTokenRespons fireBaseTokenRespons) {
+                        }
+                    });
+                }
             }
         });
     }

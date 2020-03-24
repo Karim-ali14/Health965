@@ -132,12 +132,24 @@
         android:background="@drawable/shadow_line2"
         app:layout_constraintBottom_toTopOf="@id/Bar" />
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/AboveLine"
+        android:id="@+id/spinner"
+        android:visibility="gone"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="5dp"
+        />
+    
     <FrameLayout
         android:id="@+id/Fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/lineBelow"
-        app:layout_constraintTop_toTopOf="@id/AboveLine" />
+        app:layout_constraintTop_toBottomOf="@id/spinner"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/Bar"

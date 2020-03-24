@@ -44,7 +44,7 @@ public class AdapterForOfferPage extends RecyclerView.Adapter<AdapterForOfferPag
         Picasso.with(context).load(Common.BaseURL+"images/"+
                 row.getBackground().getFor()+"/"+
                 Uri.encode(row.getBackground().getName())).into(holder.imageView);
-        holder.CardOfOffer.setOnClickListener(new View.OnClickListener() {
+        holder.ConnectWithUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!insideClinic)

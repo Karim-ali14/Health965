@@ -33,10 +33,12 @@ public class AdapterForNotifyPage extends RecyclerView.Adapter<AdapterForNotifyP
     @Override
     public void onBindViewHolder(@NonNull ViewHolderForNotify holder, int position) {
         holder.Massage.setText(list.get(position).getBody());
+        //holder.Time.setText("منذ "+list.get(position).);
         if (list.size()-1 == position)
             holder.line.setVisibility(View.GONE);
         else
             holder.line.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -46,11 +48,12 @@ public class AdapterForNotifyPage extends RecyclerView.Adapter<AdapterForNotifyP
     }
 
     class ViewHolderForNotify extends RecyclerView.ViewHolder {
-        TextView Massage;
+        TextView Massage,Time;
         View line;
         public ViewHolderForNotify(@NonNull View itemView) {
             super(itemView);
             Massage = itemView.findViewById(R.id.massage);
+            Time = itemView.findViewById(R.id.Time);
             line = itemView.findViewById(R.id.Line);
         }
     }

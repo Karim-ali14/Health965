@@ -139,6 +139,11 @@ public interface APIRequest {
     Call<OfferForClinic> getAllOffersF(@Query("include_background") boolean include_background,
                                             @Query("include_icon") boolean include_icon);
 
+    @GET("offer")
+    Call<OfferForClinic> getAllOffersByCategory(@Query("include_background") boolean include_background,
+                                            @Query("include_icon") boolean include_icon,
+                                            @Query("category_id") String  category_id);
+
     @GET("banner")
     Observable<BannerForCategory> getBannerForCategories(@Query("include_image") boolean include_image,
                                              @Query("for") String forHome);

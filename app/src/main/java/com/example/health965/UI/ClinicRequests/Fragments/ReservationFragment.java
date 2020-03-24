@@ -8,25 +8,15 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.health965.Adapters.AdapterForClinicRequests;
 import com.example.health965.Common.Common;
-import com.example.health965.Models.Governorate.Governorate;
-import com.example.health965.Models.ModelOfRequests;
 import com.example.health965.Models.Reservation.Reservation;
 import com.example.health965.R;
 import com.example.health965.UI.ClinicRequests.ClinicRequestsViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**

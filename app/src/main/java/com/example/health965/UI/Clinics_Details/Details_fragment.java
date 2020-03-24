@@ -48,7 +48,7 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class Details_fragment extends Fragment {
-    TextView description,numberOfDoctors;
+    TextView description,numberOfDoctors,AddressText;
     CompositeDisposable disposable;
     ProgressDialog dialog;
     Row clinic;
@@ -74,6 +74,7 @@ public class Details_fragment extends Fragment {
         CardCertificates = view.findViewById(R.id.CardCertificates);
         description = view.findViewById(R.id.description);
         numberOfDoctors = view.findViewById(R.id.NumberOfDoctors);
+        AddressText = view.findViewById(R.id.AddressText);
         ReservationButton = view.findViewById(R.id.ReservationButton);
         RecyclerView recyclerView = view.findViewById(R.id.RecyclerOfCertification);
         recyclerForOption = view.findViewById(R.id.RecyclerOfOption);
@@ -105,6 +106,7 @@ public class Details_fragment extends Fragment {
         recyclerForDoctors.setLayoutManager(new LinearLayoutManager(getContext()));
         getListDoctor();
         description.setText(clinic.getDescription());
+        AddressText.setText(clinic.getAddress());
         ReservationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +121,7 @@ public class Details_fragment extends Fragment {
                     });
                 }else {
                     dialog.dismiss();
-                    startActivity(new Intent(getActivity(), Login_Activity.class).putExtra("type","getPass"));
+                    startActivity(new Intent(getActivity(), Login_Activity.class).putExtra("type","Login"));
                 }
             }
         });

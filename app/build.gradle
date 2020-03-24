@@ -66,6 +66,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth:19.2.0'
 
+    // deal with JWT
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'

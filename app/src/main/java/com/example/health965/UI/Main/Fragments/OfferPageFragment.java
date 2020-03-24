@@ -12,34 +12,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.example.health965.Adapters.AdapterForClinics;
 import com.example.health965.Adapters.AdapterForOfferPage;
-import com.example.health965.Common.Common;
-import com.example.health965.Models.BannerForCategory.Row;
 import com.example.health965.Models.OfferForClinic.OfferForClinic;
+import com.example.health965.Models.OfferForClinic.Row;
 import com.example.health965.R;
+import com.example.health965.UI.Main.MainActivity;
 import com.example.health965.UI.Main.MainViewModel;
+import com.example.health965.UI.Main.CallBack;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OfferPageFragment extends Fragment {
+public class OfferPageFragment extends Fragment implements CallBack {
 
     RecyclerView recyclerView;
     ProgressDialog dialog;
     MainViewModel viewModel;
+
     public OfferPageFragment(MainViewModel viewModel) {
         this.viewModel = viewModel;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +49,7 @@ public class OfferPageFragment extends Fragment {
     }
 
     private void init(View inflate){
+        ((MainActivity) getActivity()).passRef(this);
         dialog = new ProgressDialog(getActivity());
         dialog.show();
         recyclerView = inflate.findViewById(R.id.RecyclerOffer);
@@ -59,11 +59,16 @@ public class OfferPageFragment extends Fragment {
     }
 
     private void getData(){
-        viewModel.getOfferClinic(dialog).observe(getActivity(), new Observer<OfferForClinic>() {
+        viewModel.getOffer(dialog).observe(getActivity(), new Observer<OfferForClinic>() {
             @Override
             public void onChanged(OfferForClinic offerForClinic) {
                 recyclerView.setAdapter(new AdapterForOfferPage(offerForClinic.getData().getRows(),getContext(),false));
             }
         });
+    }
+
+    @Override
+    public void filterByCategory(List<Row> list) {
+        recyclerView.setAdapter(new AdapterForOfferPage(list,getContext(),false));
     }
 }

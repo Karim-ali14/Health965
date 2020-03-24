@@ -3,17 +3,26 @@ package com.example.health965.UI.Main;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.health965.Adapters.AdapterForSpinner;
 import com.example.health965.Common.Common;
+import com.example.health965.Models.Category.Category;
+import com.example.health965.Models.Category.Row;
+import com.example.health965.Models.OfferForClinic.OfferForClinic;
 import com.example.health965.R;
 import com.example.health965.UI.Login_In.Login_Activity;
 import com.example.health965.UI.Main.Fragments.AccountPageFragment;
@@ -30,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
     View AboveLine;
     RelativeLayout BackLayout,LeftImageLayout;
     MainViewModel viewModel;
-    boolean logOut = false;
+    String TypeOfClick = null;
+    CallBack callBack;
+    Spinner spinner;
+    boolean showSpinnar = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +52,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onInit() {
+        spinner = findViewById(R.id.spinner);
+        viewModel.getCategories(this,new ProgressDialog(this)).observe(this, new Observer<Category>() {
+            @Override
+            public void onChanged(Category category) {
+                category.getData().getRows().add(0,new Row(0,"اختر الفئة","",null));
+                AdapterForSpinner adapter = new AdapterForSpinner(MainActivity.this,
+                        0,category.getData().getRows());
+                spinner.setAdapter(adapter);
+            }
+        });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Row item = (Row) parent.getSelectedItem();
+                if (!item.getName().equals("اختر الفئة")) {
+                    viewModel.getOfferByCategory(new ProgressDialog(MainActivity.this), item.getId() + "")
+                            .observe(MainActivity.this, new Observer<OfferForClinic>() {
+                                @Override
+                                public void onChanged(OfferForClinic offerForClinic) {
+                                    callBack.filterByCategory(offerForClinic.getData().getRows());
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         bottomNavigationView = findViewById(R.id.Bar);
         title = findViewById(R.id.Title);
         ImageBar = findViewById(R.id.ImageBar);
@@ -55,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (menuItem.getItemId()){
                     case R.id.account:{
-                        logOut = true;
+                        TypeOfClick = "account";
                         fragment = new AccountPageFragment(MainActivity.this);
                         title.setText(menuItem.getTitle());
                         ImageBar.setVisibility(View.VISIBLE);
@@ -64,10 +106,13 @@ public class MainActivity extends AppCompatActivity {
                         BackLayout.setVisibility(View.GONE);
                         AboveLine.setVisibility(View.VISIBLE);
                         ImageBar.setImageResource(R.drawable.logout);
+                        spinner.setVisibility(View.GONE);
+                        showSpinnar = false;
+                        spinner.setSelection(0);
                     }
                     break;
                     case R.id.notify:{
-                        logOut = false;
+                        TypeOfClick = "notify";
                         fragment = new NotifyPageFragment(viewModel);
                         title.setText(menuItem.getTitle());
                         AboveLine.setVisibility(View.VISIBLE);
@@ -76,21 +121,25 @@ public class MainActivity extends AppCompatActivity {
                         ImageBack.setVisibility(View.GONE);
                         BackLayout.setVisibility(View.GONE);
                         ImageBar.setImageResource(R.drawable.trash);
+                        spinner.setVisibility(View.GONE);
+                        showSpinnar = false;
+                        spinner.setSelection(0);
                     }
                     break;
                     case R.id.offer:{
-                        logOut = false;
+                        TypeOfClick = "offer";
                         fragment = new OfferPageFragment(viewModel);
                         title.setText(menuItem.getTitle());
                         AboveLine.setVisibility(View.VISIBLE);
                         ImageBack.setVisibility(View.GONE);
                         BackLayout.setVisibility(View.GONE);
-                        ImageBar.setVisibility(View.GONE);
-                        LeftImageLayout.setVisibility(View.GONE);
+                        ImageBar.setVisibility(View.VISIBLE);
+                        LeftImageLayout.setVisibility(View.VISIBLE);
+                        ImageBar.setImageResource(R.drawable.trash);
                     }
                     break;
                     case R.id.home:{
-                        logOut = false;
+                        TypeOfClick = "home";
                         fragment = new MainPageFragment(false,viewModel);
                         title.setText(menuItem.getTitle());
                         ImageBar.setVisibility(View.GONE);
@@ -98,7 +147,9 @@ public class MainActivity extends AppCompatActivity {
                         AboveLine.setVisibility(View.GONE);
                         ImageBack.setVisibility(View.VISIBLE);
                         BackLayout.setVisibility(View.VISIBLE);
-
+                        spinner.setVisibility(View.GONE);
+                        showSpinnar = false;
+                        spinner.setSelection(0);
                     }
                     break;
                 }
@@ -117,10 +168,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void LogOut(View view) {
-        if (logOut) {
+        if (TypeOfClick.equals("account")) {
             Common.CurrentUser = null;
             startActivity(new Intent(this, Login_Activity.class).putExtra("type","main"));
             finish();
         }
+        else if(TypeOfClick.equals("offer")){
+            if (showSpinnar) {
+                showSpinnar = false;
+                spinner.setVisibility(View.GONE);
+            }else {
+                showSpinnar = true;
+                spinner.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    public void passRef(CallBack callBack) {
+        this.callBack = callBack;
+
     }
 }

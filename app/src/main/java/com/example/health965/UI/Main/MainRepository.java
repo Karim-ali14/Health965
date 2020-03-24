@@ -189,9 +189,31 @@ public class MainRepository {
     }
 
     //TODO get Data Of Offers for Offer Fragment
-    public MutableLiveData<OfferForClinic> getDataOfferForClinic(final ProgressDialog dialog){
+    public MutableLiveData<OfferForClinic> getDataOffer(final ProgressDialog dialog){
         final MutableLiveData<OfferForClinic> offerForClinicData = new MutableLiveData<>();
         Common.getAPIRequest().getAllOffersF(true,true).
+                enqueue(new Callback<OfferForClinic>() {
+                    @Override
+                    public void onResponse(Call<OfferForClinic> call, Response<OfferForClinic> response) {
+                        dialog.dismiss();
+                        if (response.code() == 200){
+                            offerForClinicData.setValue(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<OfferForClinic> call, Throwable t) {
+
+                    }
+                });
+        return offerForClinicData;
+    }
+
+    public MutableLiveData<OfferForClinic> getDataOfferByCategory(final ProgressDialog dialog,
+                                                                  String category_id){
+        final MutableLiveData<OfferForClinic> offerForClinicData = new MutableLiveData<>();
+        Common.getAPIRequest().getAllOffersByCategory(true,
+                true,category_id).
                 enqueue(new Callback<OfferForClinic>() {
                     @Override
                     public void onResponse(Call<OfferForClinic> call, Response<OfferForClinic> response) {

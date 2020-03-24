@@ -30,7 +30,10 @@ public class MainViewModel extends ViewModel {
         return mRepository.getDataOfNotification();
     }
 
-    public LiveData<OfferForClinic> getOfferClinic(ProgressDialog dialog){
-        return mRepository.getDataOfferForClinic(dialog);
+    public LiveData<OfferForClinic> getOffer(ProgressDialog dialog){
+        return mRepository.getDataOffer(dialog);
+    }
+    public LiveData<OfferForClinic> getOfferByCategory(ProgressDialog dialog,String category_id){
+        return mRepository.getDataOfferByCategory(dialog,category_id);
     }
 }

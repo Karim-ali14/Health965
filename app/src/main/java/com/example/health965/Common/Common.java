@@ -7,7 +7,9 @@ import com.example.health965.Models.LoginClient.LoginClient;
 
 public class Common {
     //TODO Base Url
-    public final static String BaseURL = "https://api.956health.martstations.com/";
+    public final static String BaseURL = "https://api.app.965health.com/";
+    public final static String BaseURLForImage = "https://app.965health.com/";
+    //public final static String BaseURL = "https://api.956health.martstations.com/";
 
     // TODO get APIRequest
     public static APIRequest getAPIRequest(){
@@ -15,5 +17,6 @@ public class Common {
     }
 
     public static LoginClient CurrentUser = null;
-    public static LoginClinc CurrentClinic= null;
+
+    public static LoginClinc CurrentClinic = null;
 }

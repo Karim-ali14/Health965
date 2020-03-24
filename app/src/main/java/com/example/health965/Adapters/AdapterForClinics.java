@@ -109,7 +109,7 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
                             });
                 }else {
                     dialog.dismiss();
-                    context.startActivity(new Intent(context, Login_Activity.class).putExtra("type","getPass"));
+                    context.startActivity(new Intent(context, Login_Activity.class).putExtra("type","Login"));
                 }
             }
         });

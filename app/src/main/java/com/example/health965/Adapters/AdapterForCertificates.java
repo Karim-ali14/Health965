@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.health965.Models.Clinics.ClinicCertificate;
-import com.example.health965.Models.ModelOfCertificates;
 import com.example.health965.R;
 
 import java.util.List;
