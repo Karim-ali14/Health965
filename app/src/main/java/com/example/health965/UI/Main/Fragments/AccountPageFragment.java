@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.example.health965.Common.Common;
 import com.example.health965.UI.AboutApp.AboutAppActivity;
+import com.example.health965.UI.Client_reservation.Client_ReservationActivity;
 import com.example.health965.UI.Login_In.Login_Activity;
 import com.example.health965.UI.PasswordModificationActivity.PasswordModificationActivity;
 import com.example.health965.UI.PersonalInformationActivity.PersonalInformationActivity;
@@ -25,7 +26,7 @@ import com.example.health965.R;
  * A simple {@link Fragment} subclass.
  */
 public class AccountPageFragment extends Fragment {
-    RelativeLayout LayOutPersonalInformation,LayOutModify,LayOutAbout,LayOutPersonal;
+    RelativeLayout LayOutPersonalInformation,LayOutModify,LayOutAbout,LayOutPersonal,LayOutReservation;
     Context context;
 
     public AccountPageFragment(Context context) {
@@ -41,6 +42,7 @@ public class AccountPageFragment extends Fragment {
         LayOutModify = view.findViewById(R.id.LayOutModify);
         LayOutAbout = view.findViewById(R.id.LayOutAbout);
         LayOutPersonal = view.findViewById(R.id.LayOutPersonal);
+        LayOutReservation = view.findViewById(R.id.LayOutReservation);
         LayOutPersonalInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +71,12 @@ public class AccountPageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(context, PrivacyPolicyActivity.class));
+            }
+        });
+        LayOutReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, Client_ReservationActivity.class));
             }
         });
         return view;

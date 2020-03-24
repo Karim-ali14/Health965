@@ -35,7 +35,7 @@ public class ClinicRequestsRepository {
     public MutableLiveData<Reservation> getDataReservation(final Context context,String accessToken,
                                                            String clinicID){
         final MutableLiveData<Reservation> mutableLiveData = new MutableLiveData<>();
-        Common.getAPIRequest().getReservation(accessToken,clinicID).enqueue(new Callback<Reservation>() {
+        Common.getAPIRequest().getAllClinicReservation(accessToken,clinicID).enqueue(new Callback<Reservation>() {
             @Override
             public void onResponse(Call<Reservation> call, Response<Reservation> response) {
                 if (response.code() == 200)

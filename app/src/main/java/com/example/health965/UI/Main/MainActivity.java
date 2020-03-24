@@ -29,6 +29,7 @@ import com.example.health965.UI.Main.Fragments.AccountPageFragment;
 import com.example.health965.UI.Main.Fragments.MainPageFragment;
 import com.example.health965.UI.Main.Fragments.NotifyPageFragment;
 import com.example.health965.UI.Main.Fragments.OfferPageFragment;
+import com.example.health965.UI.Main.Fragments.ReservationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.account:{
                         TypeOfClick = "account";
-                        fragment = new AccountPageFragment(MainActivity.this);
+                        fragment = new AccountPageFragment(MainActivity.this    );
                         title.setText(menuItem.getTitle());
                         ImageBar.setVisibility(View.VISIBLE);
                         LeftImageLayout.setVisibility(View.VISIBLE);

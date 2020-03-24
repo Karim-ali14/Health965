@@ -8,15 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Category.Category;
+import com.example.health965.Models.ClientReservation.ClientReservation;
 import com.example.health965.Models.Notification.Notifications;
 import com.example.health965.Models.OfferForClinic.OfferForClinic;
 import com.example.health965.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
@@ -229,5 +237,37 @@ public class MainRepository {
                     }
                 });
         return offerForClinicData;
+    }
+    //TODO get Data Of Reservation for Reservation Fragment
+    public MutableLiveData<ClientReservation> getAllClientReservation(final Context context){
+        final MutableLiveData<ClientReservation> mutableLiveData = new MutableLiveData<>();
+        if (Common.CurrentUser != null) {
+            Common.getAPIRequest().getAllClientReservation(
+                    Common.CurrentUser.getData().getToken().getAccessToken(),
+                    Common.CurrentUser.getData().getUser().getId() + "").enqueue(new Callback<ClientReservation>() {
+                @Override
+                public void onResponse(Call<ClientReservation> call, Response<ClientReservation> response) {
+                    if (response.code() == 200)
+                        mutableLiveData.setValue(response.body());
+                    else {
+                        try {
+                            Toast.makeText(context, new JSONObject(
+                                            response.errorBody().string()).getString("message"),
+                                    Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ClientReservation> call, Throwable t) {
+
+                }
+            });
+        }
+        return mutableLiveData;
     }
 }

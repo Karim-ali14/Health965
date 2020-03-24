@@ -9,6 +9,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -193,6 +194,7 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     private void loginAsUser(){
+        Common.sharedpreferences = getSharedPreferences(Common.FileName, Context.MODE_PRIVATE);
         dialog.show();
         viewModel.onLoginAsClient(Phone.getText().toString(),
                 Password.getText().toString(),dialog,this).observe(this,

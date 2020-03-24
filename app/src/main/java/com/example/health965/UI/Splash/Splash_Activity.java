@@ -2,10 +2,12 @@ package com.example.health965.UI.Splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.health965.Common.Common;
 import com.example.health965.R;
 import com.example.health965.UI.Home.Home_Activity;
 import com.google.firebase.iid.FirebaseInstanceId;

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Category.Category;
+import com.example.health965.Models.ClientReservation.ClientReservation;
 import com.example.health965.Models.Notification.Notifications;
 import com.example.health965.Models.OfferForClinic.OfferForClinic;
 
@@ -35,5 +36,8 @@ public class MainViewModel extends ViewModel {
     }
     public LiveData<OfferForClinic> getOfferByCategory(ProgressDialog dialog,String category_id){
         return mRepository.getDataOfferByCategory(dialog,category_id);
+    }
+    public LiveData<ClientReservation> getAllClientReservation(final Context context){
+        return mRepository.getAllClientReservation(context);
     }
 }

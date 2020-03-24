@@ -5,6 +5,7 @@ import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Category.Category;
 import com.example.health965.Models.ChangePassword.ResponseChangePassword.ResponseChangePassword;
 import com.example.health965.Models.ChangePassword.ChangePassword;
+import com.example.health965.Models.ClientReservation.ClientReservation;
 import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Doctors.Doctors;
 import com.example.health965.Models.DoctorsWithClinics.DoctorsWithClinics;
@@ -66,6 +67,11 @@ public interface APIRequest {
                                                     @Header("Content-Type") String Type,
                                                     @Path("id") String id,
                                                     @Body ChangePassword body);
+
+    //TODO Change Password to Clinic
+    @PUT("client/{id}")
+    Call<LoginClient> getDataOfClient(@Header ("Authorization") String Auth,
+                                                    @Path("id") String id);
     //TODO Change Password to Client
     @PUT("client/{id}/password")
     Call<ResponseChangePassword> onChangeClientPass(@Header ("Authorization") String Auth,
@@ -113,7 +119,13 @@ public interface APIRequest {
 
     //TODO Get All Reservation
     @GET("/clinic/{id}/reservation")
-    Call<Reservation> getReservation(@Header("Authorization") String Token , @Path("id") String id);
+    Call<Reservation> getAllClinicReservation(@Header("Authorization") String Token
+            , @Path("id") String id);
+
+    //TODO Get All Reservation
+    @GET("/client/{id}/reservation")
+    Call<ClientReservation> getAllClientReservation(@Header("Authorization") String Token
+            , @Path("id") String id);
 
 
     //TODO Reservation
@@ -176,6 +188,12 @@ public interface APIRequest {
                                                         @Path("clinic_id") String clinic_id,
                                                         @Path("reservation_id") String reservation_id,
                                                         @Body ModelOfUpDate model);
+    @PUT("client/{client_id}/reservation/{reservation_id}")
+    Call<UpdateStatusOfReservation> onUpDateReservationForClient(@Header("Authorization") String Authorization,
+                                                        @Path("client_id") String clinic_id,
+                                                        @Path("reservation_id") String reservation_id,
+                                                        @Body ModelOfUpDate model);
+
     @GET("option")
     Call<Option> getDataOfOption(@Query("include_image") boolean image);
 
@@ -198,4 +216,6 @@ public interface APIRequest {
     Call<ReSetPassword> onVerficationClient(@Field("email")String email,
                                             @Field("passwordResetToken")String passwordResetToken,
                                             @Field("password")String password);
+
+
 }

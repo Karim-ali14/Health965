@@ -1,5 +1,8 @@
 package com.example.health965.Common;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.health965.API.APIRequest;
 import com.example.health965.API.RetrofitClient;
 import com.example.health965.Models.LoginClinc.LoginClinc;
@@ -19,4 +22,7 @@ public class Common {
     public static LoginClient CurrentUser = null;
 
     public static LoginClinc CurrentClinic = null;
+    public static SharedPreferences sharedpreferences = null;
+    public static String FileName = "TokenFile";
+    public static String Token = "Token";
 }
