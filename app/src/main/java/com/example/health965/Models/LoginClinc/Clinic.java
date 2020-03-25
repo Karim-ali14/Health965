@@ -28,6 +28,16 @@ public class Clinic {
     @Expose
     private String createdAt;
 
+    public Clinic(Integer id, String mobilePhone, String name, String email, Image image, String updatedAt, String createdAt) {
+        this.id = id;
+        this.mobilePhone = mobilePhone;
+        this.name = name;
+        this.email = email;
+        this.image = image;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+    }
+
     public Integer getId() {
         return id;
     }

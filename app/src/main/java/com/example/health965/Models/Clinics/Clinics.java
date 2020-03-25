@@ -20,7 +20,7 @@ public class Clinics {
     private String message;
     @SerializedName("error")
     @Expose
-    private java.lang.Error error;
+    private Object error;
 
     public Boolean getSuccess() {
         return success;
@@ -54,11 +54,11 @@ public class Clinics {
         this.message = message;
     }
 
-    public java.lang.Error getError() {
+    public Object getError() {
         return error;
     }
 
-    public void setError(java.lang.Error error) {
+    public void setError(Object error) {
         this.error = error;
     }
 

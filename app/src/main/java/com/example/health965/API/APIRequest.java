@@ -12,6 +12,7 @@ import com.example.health965.Models.DoctorsWithClinics.DoctorsWithClinics;
 import com.example.health965.Models.FireBaseToken.FireBaseToken;
 import com.example.health965.Models.FireBaseToken.FireBaseTokenRespons;
 import com.example.health965.Models.Governorate.Governorate;
+import com.example.health965.Models.IsReserved.IsReserved;
 import com.example.health965.Models.LoginClient.LoginClient;
 import com.example.health965.Models.LoginClinc.LoginClinc;
 import com.example.health965.Models.MakeReservation.RequestOfReservation;
@@ -69,9 +70,15 @@ public interface APIRequest {
                                                     @Body ChangePassword body);
 
     //TODO Change Password to Clinic
-    @PUT("client/{id}")
+    @GET("client/{id}")
     Call<LoginClient> getDataOfClient(@Header ("Authorization") String Auth,
                                                     @Path("id") String id);
+
+    //TODO Change Password to Clinic
+    @GET("clinic/{id}")
+    Call<LoginClinc> getDataOfClinic(@Header ("Authorization") String Auth,
+                                                    @Path("id") String id);
+
     //TODO Change Password to Client
     @PUT("client/{id}/password")
     Call<ResponseChangePassword> onChangeClientPass(@Header ("Authorization") String Auth,
@@ -217,5 +224,8 @@ public interface APIRequest {
                                             @Field("passwordResetToken")String passwordResetToken,
                                             @Field("password")String password);
 
-
+    @GET("client/{id}/reservation/is-reserved")
+    Call<IsReserved> isReserved(@Header("Authorization") String Authorization,
+                                @Path("id") String client_id,
+                                @Query("clinic_id") String clinic_id);
 }

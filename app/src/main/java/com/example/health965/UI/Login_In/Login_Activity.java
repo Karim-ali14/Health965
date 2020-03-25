@@ -11,6 +11,7 @@ import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -57,6 +58,7 @@ public class Login_Activity extends AppCompatActivity {
     int typeUser = 0;
     ProgressDialog dialog;
     Login_InViewModel viewModel;
+    SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +67,7 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     private void init(){
+        preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
         viewModel= ViewModelProviders.of(this).get(Login_InViewModel.class);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
@@ -194,7 +197,6 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     private void loginAsUser(){
-        Common.sharedpreferences = getSharedPreferences(Common.FileName, Context.MODE_PRIVATE);
         dialog.show();
         viewModel.onLoginAsClient(Phone.getText().toString(),
                 Password.getText().toString(),dialog,this).observe(this,
@@ -202,6 +204,9 @@ public class Login_Activity extends AppCompatActivity {
             @Override
             public void onChanged(LoginClient loginClient) {
                 Common.CurrentUser = loginClient;
+                saveTokenWithId(Common.CurrentUser.getData().getToken().getAccessToken(),
+                        Common.CurrentUser.getData().getUser().getId()+"",
+                        typeUser);
                 dialog.dismiss();
                 if (getIntent().getExtras().getString("type").equals("Login"))
                     finish();
@@ -221,6 +226,14 @@ public class Login_Activity extends AppCompatActivity {
         });
     }
 
+    private void saveTokenWithId(String Token,String Id,int type) {
+        preferences.edit()
+                .putString(Common.Token,Token)
+                .putString(Common.ID,Id)
+                .putInt(Common.Type,type)
+                .apply();
+    }
+
     private void loginAsClinic(){
         dialog.show();
         viewModel.onLoginAsClinic(Phone.getText().toString(),
@@ -229,6 +242,9 @@ public class Login_Activity extends AppCompatActivity {
                     @Override
                     public void onChanged(LoginClinc loginClinc) {
                         Common.CurrentClinic = loginClinc;
+                        saveTokenWithId(Common.CurrentClinic.getData().getToken().getAccessToken(),
+                                Common.CurrentClinic.getData().getClinic().getId()+"",
+                                typeUser);
                         dialog.dismiss();
                         startActivity(new Intent(Login_Activity.this, ClinicRequestsActivity.class));
                         finish();

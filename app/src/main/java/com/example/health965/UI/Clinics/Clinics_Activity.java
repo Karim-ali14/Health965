@@ -19,10 +19,8 @@ import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterForClinics;
 import com.example.health965.Adapters.AdapterForImages;
-import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.BannerForCategory.Row;
-import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Options.Option;
 import com.example.health965.UI.Governorate.Governorate_Activity;
 import com.example.health965.UI.Doctor_Page.Doctor_Page_Activity;
@@ -30,14 +28,6 @@ import com.example.health965.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Clinics_Activity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     RecyclerView recyclerView;

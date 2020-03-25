@@ -7,13 +7,12 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.health965.Adapters.AdapterForDoctor;
-import com.example.health965.Adapters.AdapterForOptions;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Clinics.Row;
 import com.example.health965.Models.Doctors.Doctors;
+import com.example.health965.Models.IsReserved.IsReserved;
 import com.example.health965.Models.MakeReservation.RequestOfReservation;
 import com.example.health965.Models.OfferForClinic.OfferForClinic;
 import com.example.health965.Models.Options.Option;
@@ -246,4 +245,33 @@ public class Clinics_DetailsRepository {
             });
             return mutableLiveData;
         }
+
+    public MutableLiveData<IsReserved> isReserved(String token, String client_id,
+                                                  String clinic_id, final Context context){
+        final MutableLiveData<IsReserved> mutableLiveData = new MutableLiveData<>();
+        Common.getAPIRequest().isReserved(token,client_id,clinic_id).enqueue(new Callback<IsReserved>() {
+            @Override
+            public void onResponse(Call<IsReserved> call, Response<IsReserved> response) {
+                if (response.code() == 200)
+                    mutableLiveData.setValue(response.body());
+                else {
+                    try {
+                        Toast.makeText(context,
+                                new JSONObject(response.errorBody().string()).getString("message"),
+                                Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IsReserved> call, Throwable t) {
+
+            }
+        });
+        return mutableLiveData;
+    }
 }

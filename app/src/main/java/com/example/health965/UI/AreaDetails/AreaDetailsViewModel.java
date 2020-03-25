@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
-import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Options.Option;
 
 public class AreaDetailsViewModel extends ViewModel {

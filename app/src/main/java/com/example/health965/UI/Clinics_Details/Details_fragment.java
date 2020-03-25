@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.health965.Adapters.AdapterForCertificates;
 import com.example.health965.Adapters.AdapterForDoctor;
@@ -25,23 +24,15 @@ import com.example.health965.Adapters.AdapterForOptions;
 import com.example.health965.Common.Common;
 import com.example.health965.Models.Clinics.Row;
 import com.example.health965.Models.Doctors.Doctors;
-import com.example.health965.Models.MakeReservation.RequestOfReservation;
 import com.example.health965.Models.Options.Option;
 import com.example.health965.Models.Reservation.Reservation;
 import com.example.health965.R;
 import com.example.health965.UI.Login_In.Login_Activity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -53,11 +44,11 @@ public class Details_fragment extends Fragment {
     ProgressDialog dialog;
     Row clinic;
     RecyclerView recyclerForDoctors,recyclerForOption;
-    Button ReservationButton;
+    public static Button ReservationButton;
     CardView CardCertificates,CardOfImages;
     public static int Doctor_Id = 0;
     Clinics_DetailsViewModel viewModel;
-    public Details_fragment(Row clinic,Clinics_DetailsViewModel viewModel) {
+    public Details_fragment(Row clinic, Clinics_DetailsViewModel viewModel) {
         this.clinic = clinic;
         this.viewModel = viewModel;
     }

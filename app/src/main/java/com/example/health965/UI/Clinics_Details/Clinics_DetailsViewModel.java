@@ -10,6 +10,7 @@ import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Clinics.Row;
 import com.example.health965.Models.Doctors.Doctors;
+import com.example.health965.Models.IsReserved.IsReserved;
 import com.example.health965.Models.OfferForClinic.OfferForClinic;
 import com.example.health965.Models.Options.Option;
 import com.example.health965.Models.Reservation.Reservation;
@@ -33,7 +34,7 @@ public class Clinics_DetailsViewModel extends ViewModel {
     // TODO All of Details Fragment
 
         public LiveData<Doctors> getListDoctor(final Context context,
-                                                      Row clinic, final ProgressDialog dialog){
+                                               Row clinic, final ProgressDialog dialog){
             return cDRepository.getListDoctor(context,clinic,dialog);
         }
 
@@ -50,4 +51,8 @@ public class Clinics_DetailsViewModel extends ViewModel {
         public LiveData<Clinics> getDataOfClinic(String Clinic_ID){
             return cDRepository.getDataOfClinic(Clinic_ID);
         }
+    public LiveData<IsReserved> isReserved(String token, String client_id,
+                                                  String clinic_id, final Context context){
+        return cDRepository.isReserved(token,client_id,clinic_id,context);
+    }
 }

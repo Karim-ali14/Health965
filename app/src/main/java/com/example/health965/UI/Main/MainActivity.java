@@ -43,17 +43,13 @@ public class MainActivity extends AppCompatActivity {
     String TypeOfClick = null;
     CallBack callBack;
     Spinner spinner;
-    boolean showSpinnar = false;
+    boolean showSpinner = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         onInit();
-    }
 
-    public void onInit() {
-        spinner = findViewById(R.id.spinner);
         viewModel.getCategories(this,new ProgressDialog(this)).observe(this, new Observer<Category>() {
             @Override
             public void onChanged(Category category) {
@@ -63,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 spinner.setAdapter(adapter);
             }
         });
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -83,13 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        bottomNavigationView = findViewById(R.id.Bar);
-        title = findViewById(R.id.Title);
-        ImageBar = findViewById(R.id.ImageBar);
-        ImageBack = findViewById(R.id.back);
-        AboveLine = findViewById(R.id.AboveLine);
-        BackLayout = findViewById(R.id.BackLayout);
-        LeftImageLayout = findViewById(R.id.LeftImageLayout);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.Fragment,new MainPageFragment(true,viewModel)).commit();
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -108,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         AboveLine.setVisibility(View.VISIBLE);
                         ImageBar.setImageResource(R.drawable.logout);
                         spinner.setVisibility(View.GONE);
-                        showSpinnar = false;
+                        showSpinner = false;
                         spinner.setSelection(0);
                     }
                     break;
@@ -123,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         BackLayout.setVisibility(View.GONE);
                         ImageBar.setImageResource(R.drawable.trash);
                         spinner.setVisibility(View.GONE);
-                        showSpinnar = false;
+                        showSpinner = false;
                         spinner.setSelection(0);
                     }
                     break;
@@ -149,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         ImageBack.setVisibility(View.VISIBLE);
                         BackLayout.setVisibility(View.VISIBLE);
                         spinner.setVisibility(View.GONE);
-                        showSpinnar = false;
+                        showSpinner = false;
                         spinner.setSelection(0);
                     }
                     break;
@@ -159,9 +150,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void onInit() {
+        spinner = findViewById(R.id.spinner);
+        bottomNavigationView = findViewById(R.id.Bar);
+        title = findViewById(R.id.Title);
+        ImageBar = findViewById(R.id.ImageBar);
+        ImageBack = findViewById(R.id.back);
+        AboveLine = findViewById(R.id.AboveLine);
+        BackLayout = findViewById(R.id.BackLayout);
+        LeftImageLayout = findViewById(R.id.LeftImageLayout);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
     }
 
     public void Back(View view) {
@@ -175,11 +178,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         else if(TypeOfClick.equals("offer")){
-            if (showSpinnar) {
-                showSpinnar = false;
+            if (showSpinner) {
+                showSpinner = false;
                 spinner.setVisibility(View.GONE);
             }else {
-                showSpinnar = true;
+                showSpinner = true;
                 spinner.setVisibility(View.VISIBLE);
             }
         }

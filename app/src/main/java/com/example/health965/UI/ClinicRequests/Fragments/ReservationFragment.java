@@ -1,6 +1,7 @@
 package com.example.health965.UI.ClinicRequests.Fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -44,7 +45,10 @@ public class ReservationFragment extends Fragment {
     }
 
     private void getData(){
-        viewModel.getDataReservation(getContext(),Common.CurrentClinic.getData().getToken().getAccessToken(),
+        SharedPreferences sharedPreferences =
+                getActivity().getSharedPreferences(Common.FileName, getActivity().MODE_PRIVATE);
+
+        viewModel.getDataReservation(getContext(),sharedPreferences.getString(Common.Token,""),
                 Common.CurrentClinic.getData().getClinic().getId()+"").observe(getActivity()
                 , new Observer<Reservation>() {
             @Override
@@ -54,7 +58,6 @@ public class ReservationFragment extends Fragment {
             }
         });
     }
-
 }
 
 

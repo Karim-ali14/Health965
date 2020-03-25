@@ -22,7 +22,9 @@ public class Common {
     public static LoginClient CurrentUser = null;
 
     public static LoginClinc CurrentClinic = null;
-    public static SharedPreferences sharedpreferences = null;
+
     public static String FileName = "TokenFile";
     public static String Token = "Token";
+    public static String ID = "Client_id";
+    public static String Type = "Type";
 }

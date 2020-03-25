@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.health965.Common.Common;
 import com.example.health965.Models.Clinics.Row;
-import com.example.health965.Models.Doctors.Doctors;
 import com.example.health965.Models.MakeReservation.RequestOfReservation;
 import com.example.health965.Models.Options.Option;
 import com.example.health965.Models.Reservation.Reservation;
