@@ -84,7 +84,7 @@ public class PasswordModificationActivity extends AppCompatActivity {
         dialog.show();
         SharedPreferences preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
         viewModel.onChangeClientPass(preferences.getString(Common.Token, "")
-                ,Common.CurrentUser.getData().getUser().getId().toString(),new ChangePassword(OldPassword.getText().toString(),
+                ,preferences.getString(Common.ID, ""),new ChangePassword(OldPassword.getText().toString(),
                         NewPassword.getText().toString()),this,dialog).observe(this,
                 new Observer<ResponseChangePassword>() {
                     @Override

@@ -197,7 +197,7 @@ public interface APIRequest {
                                                         @Body ModelOfUpDate model);
     @PUT("client/{client_id}/reservation/{reservation_id}")
     Call<UpdateStatusOfReservation> onUpDateReservationForClient(@Header("Authorization") String Authorization,
-                                                        @Path("client_id") String clinic_id,
+                                                        @Path("client_id") String client_id,
                                                         @Path("reservation_id") String reservation_id,
                                                         @Body ModelOfUpDate model);
 

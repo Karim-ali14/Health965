@@ -151,7 +151,7 @@ public class AdapterForClientReservation extends RecyclerView.Adapter<AdapterFor
         dialog.show();
         Common.getAPIRequest().onUpDateReservationForClient(
                 preferences.getString(Common.Token, ""),
-                Common.CurrentUser.getData().getUser().getId() + "",
+                preferences.getString(Common.ID, ""),
                 model.getId() + "", new ModelOfUpDate(status))
                 .enqueue(new Callback<UpdateStatusOfReservation>() {
             @Override

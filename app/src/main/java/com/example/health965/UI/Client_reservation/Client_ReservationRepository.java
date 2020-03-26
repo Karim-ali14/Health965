@@ -35,7 +35,7 @@ public class Client_ReservationRepository {
         if (Common.CurrentUser != null) {
             Common.getAPIRequest().getAllClientReservation(
                     preferences.getString(Common.Token, ""),
-                    Common.CurrentUser.getData().getUser().getId() + "").enqueue(new Callback<ClientReservation>() {
+                    preferences.getString(Common.ID, "")).enqueue(new Callback<ClientReservation>() {
                 @Override
                 public void onResponse(Call<ClientReservation> call, Response<ClientReservation> response) {
                     dialog.dismiss();

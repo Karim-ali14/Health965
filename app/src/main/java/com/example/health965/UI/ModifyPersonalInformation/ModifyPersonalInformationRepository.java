@@ -33,7 +33,7 @@ public class ModifyPersonalInformationRepository {
         final MutableLiveData<ResponseUpdateClientInfo> mutableLiveData = new MutableLiveData<>();
         SharedPreferences preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
         Common.getAPIRequest().onUpdateClientInfo(preferences.getString(Common.Token, ""),"application/json",
-                Common.CurrentUser.getData().getUser().getId().toString(),model).enqueue(new Callback<ResponseUpdateClientInfo>() {
+                preferences.getString(Common.ID, ""),model).enqueue(new Callback<ResponseUpdateClientInfo>() {
             @Override
             public void onResponse(Call<ResponseUpdateClientInfo> call, Response<ResponseUpdateClientInfo> response) {
                 if (response.code() == 200){

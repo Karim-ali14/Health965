@@ -54,7 +54,7 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         if (AdapterForClinics.CLINIC != null) {
             viewModel.isReserved(preferences.getString(Common.Token, ""),
-                    Common.CurrentUser.getData().getUser().getId()+"",
+                    preferences.getString(Common.ID, ""),
                     AdapterForClinics.CLINIC.getId()+"",this).observe(this, new Observer<IsReserved>() {
                 @Override
                 public void onChanged(IsReserved isReserved) {
@@ -143,7 +143,7 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
             public void onChanged(Clinics clinics) {
                 AdapterForClinics.CLINIC = clinics.getData().getRows().get(0);
                 viewModel.isReserved(preferences.getString(Common.Token, ""),
-                        Common.CurrentUser.getData().getUser().getId()+"",
+                        preferences.getString(Common.ID, ""),
                         AdapterForClinics.CLINIC.getId()+"",Clinics_Details_activity.this).observe(
                                 Clinics_Details_activity.this, new Observer<IsReserved>() {
                     @Override

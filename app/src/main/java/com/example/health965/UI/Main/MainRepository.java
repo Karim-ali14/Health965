@@ -246,7 +246,7 @@ public class MainRepository {
             SharedPreferences preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
             Common.getAPIRequest().getAllClientReservation(
                     preferences.getString(Common.Token, ""),
-                    Common.CurrentUser.getData().getUser().getId() + "").enqueue(new Callback<ClientReservation>() {
+                    preferences.getString(Common.ID, "")).enqueue(new Callback<ClientReservation>() {
                 @Override
                 public void onResponse(Call<ClientReservation> call, Response<ClientReservation> response) {
                     if (response.code() == 200)

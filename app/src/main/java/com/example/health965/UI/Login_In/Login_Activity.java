@@ -215,7 +215,7 @@ public class Login_Activity extends AppCompatActivity {
                     finish();
 
                     viewModel.onUpDateFireBaseTokenClient(preferences.getString(Common.Token, ""),
-                            Common.CurrentUser.getData().getUser().getId() + "",
+                            preferences.getString(Common.ID, ""),
                             new FireBaseToken(FirebaseInstanceId.getInstance().getToken())
                             , Login_Activity.this).observe(Login_Activity.this, new Observer<FireBaseTokenRespons>() {
                         @Override
