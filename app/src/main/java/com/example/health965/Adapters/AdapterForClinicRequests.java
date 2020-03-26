@@ -140,20 +140,20 @@ public class AdapterForClinicRequests extends RecyclerView.Adapter<AdapterForCli
     }
 
     private void updateStatus(Row model, String status, final int position){
+        final SharedPreferences preferences = context.getSharedPreferences(Common.FileName, context.MODE_PRIVATE);
         final ProgressDialog dialog1 = new ProgressDialog(context);
         dialog1.show();
         Common.getAPIRequest().onUpDateReservation(
-                Common.CurrentClinic.getData().getToken().getAccessToken(),
-                Common.CurrentClinic.getData().getClinic().getId() + "",
+                preferences.getString(Common.Token,""),
+                preferences.getString(Common.ID,""),
                 model.getId() + "", new ModelOfUpDate(status)).enqueue(new Callback<UpdateStatusOfReservation>() {
             @Override
             public void onResponse(Call<UpdateStatusOfReservation> call, Response<UpdateStatusOfReservation> response) {
                 if (response.code() == 200) {
                     try {
                         list.clear();
-                        SharedPreferences preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
                         viewModel.getDataReservation(context, preferences.getString(Common.Token, ""),
-                                Common.CurrentClinic.getData().getClinic().getId() + "").observe((LifecycleOwner) context
+                                preferences.getString(Common.ID,"")).observe((LifecycleOwner) context
                                 , new Observer<Reservation>() {
                                     @Override
                                     public void onChanged(Reservation reservation) {

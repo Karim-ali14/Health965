@@ -249,8 +249,8 @@ public class Login_Activity extends AppCompatActivity {
                         dialog.dismiss();
                         startActivity(new Intent(Login_Activity.this, ClinicRequestsActivity.class));
                         finish();
-                        viewModel.onUpDateFireBaseTokenClinic(Common.CurrentClinic.getData().getToken().getAccessToken(),
-                                Common.CurrentClinic.getData().getClinic().getId()+"",
+                        viewModel.onUpDateFireBaseTokenClinic(preferences.getString(Common.Token,""),
+                                preferences.getString(Common.ID,""),
                                 new FireBaseToken(FirebaseInstanceId.getInstance().getToken()),
                                 Login_Activity.this).observe(Login_Activity.this
                                 , new Observer<FireBaseTokenRespons>() {

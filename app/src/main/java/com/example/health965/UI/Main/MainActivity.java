@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -174,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
     public void LogOut(View view) {
         if (TypeOfClick.equals("account")) {
             Common.CurrentUser = null;
+            SharedPreferences preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
+            preferences.edit().clear().apply();
             startActivity(new Intent(this, Login_Activity.class).putExtra("type","main"));
             finish();
         }

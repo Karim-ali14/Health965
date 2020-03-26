@@ -45,11 +45,11 @@ public class ReservationFragment extends Fragment {
     }
 
     private void getData(){
-        SharedPreferences sharedPreferences =
+        SharedPreferences preferences =
                 getActivity().getSharedPreferences(Common.FileName, getActivity().MODE_PRIVATE);
 
-        viewModel.getDataReservation(getContext(),sharedPreferences.getString(Common.Token,""),
-                Common.CurrentClinic.getData().getClinic().getId()+"").observe(getActivity()
+        viewModel.getDataReservation(getContext(),preferences.getString(Common.Token,""),
+                preferences.getString(Common.ID,"")).observe(getActivity()
                 , new Observer<Reservation>() {
             @Override
             public void onChanged(Reservation reservation) {

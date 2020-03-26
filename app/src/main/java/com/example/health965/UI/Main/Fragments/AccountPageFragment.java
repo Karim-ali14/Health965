@@ -81,5 +81,4 @@ public class AccountPageFragment extends Fragment {
         });
         return view;
     }
-
 }

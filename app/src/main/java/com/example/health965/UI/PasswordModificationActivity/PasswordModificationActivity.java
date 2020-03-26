@@ -69,8 +69,10 @@ public class PasswordModificationActivity extends AppCompatActivity {
 
     private void changeClinicPassword(){
         dialog.show();
-        viewModel.onChangeClinicPass(Common.CurrentClinic.getData().getToken().getAccessToken()
-                ,Common.CurrentClinic.getData().getClinic().getId().toString(),new ChangePassword(OldPassword.getText().toString(),
+        SharedPreferences preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
+        viewModel.onChangeClinicPass(preferences.getString(Common.Token,"")
+                ,preferences.getString(Common.ID,""),
+                new ChangePassword(OldPassword.getText().toString(),
                         NewPassword.getText().toString()),this,dialog)
                 .observe(this, new Observer<ResponseChangePassword>() {
             @Override
