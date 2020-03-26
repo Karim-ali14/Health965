@@ -2,7 +2,6 @@ package com.example.health965.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.health965.Common.Common;
-import com.example.health965.UI.Clinics_Details.Details_fragment;
+import com.example.health965.UI.Clinics_Details.Fragment.Details_fragment;
 
 import com.example.health965.Models.Doctors.Row;
 

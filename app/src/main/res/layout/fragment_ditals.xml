@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UI.Clinics_Details.Details_fragment"
+    tools:context=".UI.Clinics_Details.Fragment.Details_fragment"
     android:background="@color/White"
         >
     <RelativeLayout
@@ -123,7 +123,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/Certificates"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -143,7 +144,8 @@
                 android:layout_below="@id/Line"
                 android:gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
-                android:padding="10dp">
+                android:padding="10dp"
+                >
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,7 +183,6 @@
                 android:layout_marginLeft="10dp"
                 android:id="@+id/NumberOfDoctors"/>
         </RelativeLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -213,6 +214,47 @@
             android:layout_marginTop="6dp"
             android:layout_below="@id/RecyclerForDoctors"
             android:layout_marginBottom="10dp"
-            android:id="@+id/ReservationButton"/>
+            android:id="@+id/ReservationButton"
+            android:visibility="visible"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/RecyclerForDoctors"
+            android:visibility="gone"
+            android:id="@+id/ButtonsLayout"
+            android:layout_marginBottom="10dp"
+            >
+            <Button
+                android:id="@+id/PhoneButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/style_button2"
+                android:drawableStart="@drawable/call"
+                android:paddingStart="40dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="+96551234566"
+                android:textColor="@color/TextColor"/>
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/style_button"
+                android:drawableEnd="@drawable/ic_send_black_24dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="40dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="+96551234566"
+                android:textColor="#F0F7F2"
+                android:id="@+id/WhatsAppButton"/>
+        </LinearLayout>
+
     </RelativeLayout>
 </ScrollView>

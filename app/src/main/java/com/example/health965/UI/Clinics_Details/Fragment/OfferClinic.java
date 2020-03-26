@@ -1,4 +1,4 @@
-package com.example.health965.UI.Clinics_Details;
+package com.example.health965.UI.Clinics_Details.Fragment;
 
 
 import android.os.Bundle;

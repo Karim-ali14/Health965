@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +25,8 @@ import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.IsReserved.IsReserved;
 import com.example.health965.Models.OfferForClinic.OfferForClinic;
 import com.example.health965.R;
+import com.example.health965.UI.Clinics_Details.Fragment.Details_fragment;
+import com.example.health965.UI.Clinics_Details.Fragment.OfferClinic;
 import com.example.health965.ViewHolders.ViewPageAdapter2;
 import com.google.android.material.tabs.TabLayout;
 
@@ -53,20 +58,6 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         if (AdapterForClinics.CLINIC != null && Common.CurrentUser != null) {
-            viewModel.isReserved(preferences.getString(Common.Token, ""),
-                    preferences.getString(Common.ID, ""),
-                    AdapterForClinics.CLINIC.getId()+"",this).observe(this, new Observer<IsReserved>() {
-                @Override
-                public void onChanged(IsReserved isReserved) {
-                    if (isReserved.getSuccess()){
-                        /*
-                        * انا ظبط الركوست كل الي فاضل زيزو هيبعت الشكل بتاع الزراير وهعملهم وبس
-                        *
-                        * */
-                    }
-                }
-            });
-            dialog.dismiss();
             ((TextView)findViewById(R.id.Title)).setText(AdapterForClinics.CLINIC.getName());
 
             viewModel.getBannerForClinic(AdapterForClinics.CLINIC.getId() + "")
@@ -89,6 +80,51 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                             viewPager.setAdapter(viewPageAdapter2);
                             tabLayout.setupWithViewPager(viewPager);
                             tabLayout.getTabAt(1).select();
+                            viewModel.isReserved(preferences.getString(Common.Token, ""),
+                                    preferences.getString(Common.ID, ""),
+                                    AdapterForClinics.CLINIC.getId()+"",Clinics_Details_activity.this)
+                                    .observe(Clinics_Details_activity.this, new Observer<IsReserved>() {
+                                @Override
+                                public void onChanged(IsReserved isReserved) {
+                                    dialog.dismiss();
+                                    if (isReserved.getSuccess()){
+                                        if (AdapterForClinics.CLINIC.getContacts() != null) {
+                                            Details_fragment.ReservationButton.setVisibility(View.GONE);
+                                            Details_fragment.ButtonsLayout.setVisibility(View.VISIBLE);
+                                            Details_fragment.PhoneButton.setText(AdapterForClinics.CLINIC.getContacts().getPhoneNumber1());
+                                            Details_fragment.WhatsAppButton.setText(AdapterForClinics.CLINIC.getContacts().getWhatsApp());
+
+                                            Details_fragment.WhatsAppButton.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    String url = "https://api.whatsapp.com/send?phone="+AdapterForClinics.CLINIC.getContacts().getWhatsApp();
+                                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                                    i.setData(Uri.parse(url));
+                                                    startActivity(i);
+                                                }
+                                            });
+
+                                            Details_fragment.PhoneButton.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    String Phone = AdapterForClinics.CLINIC.getContacts().getPhoneNumber1();
+                                                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                                                    intent.setData(Uri.parse("tel:" +Phone));
+                                                    startActivity(intent);
+                                                }
+                                            });
+                                        }else {
+                                            Details_fragment.ReservationButton.setVisibility(View.GONE);
+                                            Details_fragment.ButtonsLayout.setVisibility(View.VISIBLE);
+                                            Details_fragment.PhoneButton.setText("-----");
+                                            Details_fragment.WhatsAppButton.setText("-----");
+                                        }
+                                    }else {
+                                        Details_fragment.ReservationButton.setVisibility(View.VISIBLE);
+                                        Details_fragment.ButtonsLayout.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
                         }
                     });
         }else {
@@ -142,18 +178,7 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
             @Override
             public void onChanged(Clinics clinics) {
                 AdapterForClinics.CLINIC = clinics.getData().getRows().get(0);
-                if (Common.CurrentUser != null) {
-                    viewModel.isReserved(preferences.getString(Common.Token, ""),
-                            preferences.getString(Common.ID, ""),
-                            AdapterForClinics.CLINIC.getId() + "", Clinics_Details_activity.this).observe(
-                            Clinics_Details_activity.this, new Observer<IsReserved>() {
-                                @Override
-                                public void onChanged(IsReserved isReserved) {
-                                    Toast.makeText(Clinics_Details_activity.this, isReserved.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                }
-                dialog.dismiss();
+
                 ((TextView) findViewById(R.id.Title)).setText(AdapterForClinics.CLINIC.getName());
 
                 viewModel.getBannerForClinic(AdapterForClinics.CLINIC.getId() + "")
@@ -176,6 +201,54 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                                 viewPager.setAdapter(viewPageAdapter2);
                                 tabLayout.setupWithViewPager(viewPager);
                                 tabLayout.getTabAt(1).select();
+                                if (Common.CurrentUser != null) {
+                                    viewModel.isReserved(preferences.getString(Common.Token, ""),
+                                            preferences.getString(Common.ID, ""),
+                                            AdapterForClinics.CLINIC.getId() + "", Clinics_Details_activity.this).observe(
+                                            Clinics_Details_activity.this, new Observer<IsReserved>() {
+                                                @Override
+                                                public void onChanged(IsReserved isReserved) {
+                                                    dialog.dismiss();
+                                                    if (isReserved.getSuccess()){
+                                                        if (AdapterForClinics.CLINIC.getContacts() != null) {
+                                                            Details_fragment.ReservationButton.setVisibility(View.GONE);
+                                                            Details_fragment.ButtonsLayout.setVisibility(View.VISIBLE);
+                                                            Details_fragment.PhoneButton.setText(AdapterForClinics.CLINIC.getContacts().getPhoneNumber1());
+                                                            Details_fragment.WhatsAppButton.setText(AdapterForClinics.CLINIC.getContacts().getWhatsApp());
+
+                                                            Details_fragment.WhatsAppButton.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    String url = "https://api.whatsapp.com/send?phone="+AdapterForClinics.CLINIC.getContacts().getWhatsApp();
+                                                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                                                    i.setData(Uri.parse(url));
+                                                                    startActivity(i);
+                                                                }
+                                                            });
+
+                                                            Details_fragment.PhoneButton.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    String Phone = AdapterForClinics.CLINIC.getContacts().getPhoneNumber1();
+                                                                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                                                                    intent.setData(Uri.parse("tel:" +Phone));
+                                                                    startActivity(intent);
+                                                                }
+                                                            });
+                                                        }else {
+                                                            Details_fragment.ReservationButton.setVisibility(View.GONE);
+                                                            Details_fragment.ButtonsLayout.setVisibility(View.VISIBLE);
+                                                            Details_fragment.PhoneButton.setText("-----");
+                                                            Details_fragment.WhatsAppButton.setText("-----");
+                                                        }
+                                                    }else {
+                                                        Details_fragment.ReservationButton.setVisibility(View.VISIBLE);
+                                                        Details_fragment.ButtonsLayout.setVisibility(View.GONE);
+                                                    }
+                                                }
+                                            });
+                                }else
+                                    dialog.dismiss();
                             }
                         });
             }

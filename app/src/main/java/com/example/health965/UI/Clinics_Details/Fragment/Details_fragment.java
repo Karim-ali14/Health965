@@ -1,4 +1,4 @@
-package com.example.health965.UI.Clinics_Details;
+package com.example.health965.UI.Clinics_Details.Fragment;
 
 
 import android.app.ProgressDialog;
@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterForCertificates;
@@ -27,6 +28,7 @@ import com.example.health965.Models.Doctors.Doctors;
 import com.example.health965.Models.Options.Option;
 import com.example.health965.Models.Reservation.Reservation;
 import com.example.health965.R;
+import com.example.health965.UI.Clinics_Details.Clinics_DetailsViewModel;
 import com.example.health965.UI.Login_In.Login_Activity;
 
 import java.util.ArrayList;
@@ -45,6 +47,9 @@ public class Details_fragment extends Fragment {
     Row clinic;
     RecyclerView recyclerForDoctors,recyclerForOption;
     public static Button ReservationButton;
+    public static Button WhatsAppButton;
+    public static Button PhoneButton;
+    public static LinearLayout ButtonsLayout;
     CardView CardCertificates,CardOfImages;
     public static int Doctor_Id = 0;
     Clinics_DetailsViewModel viewModel;
@@ -67,6 +72,9 @@ public class Details_fragment extends Fragment {
         numberOfDoctors = view.findViewById(R.id.NumberOfDoctors);
         AddressText = view.findViewById(R.id.AddressText);
         ReservationButton = view.findViewById(R.id.ReservationButton);
+        WhatsAppButton = view.findViewById(R.id.WhatsAppButton);
+        PhoneButton = view.findViewById(R.id.PhoneButton);
+        ButtonsLayout = view.findViewById(R.id.ButtonsLayout);
         RecyclerView recyclerView = view.findViewById(R.id.RecyclerOfCertification);
         recyclerForOption = view.findViewById(R.id.RecyclerOfOption);
         recyclerView.setHasFixedSize(true);

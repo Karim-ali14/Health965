@@ -47,7 +47,7 @@ public class AreaDetailsRepository {
         final MutableLiveData<Clinics> mutableLiveData = new MutableLiveData<>();
         Common.getAPIRequest().getClinicsByGovernorate("image","clinicOptions",
                 "clinicCertificate",C_ID+"",
-                G_ID+"").enqueue(new Callback<Clinics>() {
+                G_ID+"","contacts").enqueue(new Callback<Clinics>() {
             @Override
             public void onResponse(Call<Clinics> call, Response<Clinics> response) {
                 if (response.code() == 200) {

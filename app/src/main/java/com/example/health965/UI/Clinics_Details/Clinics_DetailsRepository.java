@@ -224,7 +224,7 @@ public class Clinics_DetailsRepository {
             final MutableLiveData<Clinics> mutableLiveData = new MutableLiveData<>();
             Common.getAPIRequest().getClinicInfo("image", Clinic_Id,
                     "clinicOptions",
-                    "clinicCertificate").subscribeOn(Schedulers.io())
+                    "clinicCertificate","contacts").subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Clinics>() {
                 @Override
                 public void onSubscribe(Disposable d) {

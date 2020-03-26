@@ -94,22 +94,28 @@ public interface APIRequest {
 
     //TODO Get All Clinics
     @GET("clinic")
-    Call<Clinics> getAllClinics(@Query("select") String image,@Query("category_id") String category_Id,
+    Call<Clinics> getAllClinics(@Query("select") String image,
+                                @Query("category_id") String category_Id,
                                 @Query("select") String clinicOptions,
-                                @Query("select") String clinicCertificate);
+                                @Query("select") String clinicCertificate,
+                                @Query("select") String contacts);
 
     //TODO Get All Clinics
     @GET("clinic")
-    Call<Clinics> getClinicsByGovernorate(@Query("select") String image,@Query("select") String clinicOptions,
+    Call<Clinics> getClinicsByGovernorate(@Query("select") String image,
+                                          @Query("select") String clinicOptions,
                                           @Query("select") String clinicCertificate,
                                           @Query("category_id") String category_Id,
-                                          @Query("governorate_id") String Governorate_Id);
+                                          @Query("governorate_id") String Governorate_Id,
+                                          @Query("select") String contacts);
 
     //TODO Get Clinic Info
     @GET("clinic")
-    Observable<Clinics> getClinicInfo(@Query("select") String image, @Query("id") String ID,
+    Observable<Clinics> getClinicInfo(@Query("select") String image,
+                                      @Query("id") String ID,
                                       @Query("select") String clinicOptions,
-                                      @Query("select") String clinicCertificate);
+                                      @Query("select") String clinicCertificate,
+                                      @Query("select") String contacts);
 
     //TODO Get All Doctors
     @GET("doctor")

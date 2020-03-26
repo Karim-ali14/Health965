@@ -34,7 +34,7 @@ public class Clinics_Repository {
 
     public MutableLiveData<Clinics> getAllDataClinics(String id, final Context context){
         final MutableLiveData<Clinics> mutableLiveData = new MutableLiveData<>();
-        Common.getAPIRequest().getAllClinics("image",id,"clinicOptions","clinicCertificate").enqueue(new Callback<Clinics>() {
+        Common.getAPIRequest().getAllClinics("image",id,"clinicOptions","clinicCertificate","contacts").enqueue(new Callback<Clinics>() {
             @Override
             public void onResponse(Call<Clinics> call, Response<Clinics> response) {
                 if (response.code() == 200)
