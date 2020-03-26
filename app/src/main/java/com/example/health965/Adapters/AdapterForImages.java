@@ -39,9 +39,7 @@ public class AdapterForImages extends PagerAdapter {
         final Row row = list.get(position);
         View view = LayoutInflater.from(context).inflate(R.layout.model_of_image,container,false);
         ImageView imageView = view.findViewById(R.id.ImageSilder);
-        Picasso.with(context).load(Common.BaseURL+"images/"+row.getImage().getFor()+"/"+ Uri.encode(row.getImage().getName())).into(imageView);
-        Log.i("TTTTTTTTT",Common.BaseURL+"images/"+row.getImage().getFor()+"/"+ Uri.encode(row.getImage().getName()));
-
+        Picasso.with(context).load(Common.BaseURLForImage+"images/"+row.getImage().getFor()+"/"+ Uri.encode(row.getImage().getName())).into(imageView);
         if (search) {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override

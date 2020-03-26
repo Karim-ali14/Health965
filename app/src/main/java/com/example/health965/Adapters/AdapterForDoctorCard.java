@@ -53,9 +53,9 @@ public class AdapterForDoctorCard extends RecyclerView.Adapter<AdapterForDoctorC
         final Row model = list.get(position);
         //holder.DoctorIamge.setImageResource(model.getIamgeOfDoctoer());
         //holder.ClinicImage.setImageResource(model.getImageOfClinics());
-        Picasso.with(context).load(Common.BaseURL+"images/"+model.getImage().getFor()
+        Picasso.with(context).load(Common.BaseURLForImage+"images/"+model.getImage().getFor()
                 +"/"+ Uri.encode(model.getImage().getName())).into(holder.DoctorIamge);
-        Picasso.with(context).load(Common.BaseURL+"images/"+model.getClinic().getImage().getFor()
+        Picasso.with(context).load(Common.BaseURLForImage+"images/"+model.getClinic().getImage().getFor()
                 +"/"+ Uri.encode(model.getClinic().getImage().getName())).into(holder.ClinicImage);
         //holder.Address.setText(model.get);
         holder.DoctorName.setText(model.getName());

@@ -66,13 +66,12 @@ public class AdapterForClinics extends RecyclerView.Adapter<AdapterForClinics.Vi
         holder.NameOfClinics.setText(row.getName());
         holder.Address.setText(row.getAddress());
         holder.TypeWork.setText(row.getDescription());
-        Picasso.with(context).load(Common.BaseURL+"images/"+ row.getImage().getFor()+"/"+Uri.encode(row.getImage().getName())).into(holder.image);
-        Log.i("TTTTTT",Common.BaseURL+"images/"+ row.getImage().getFor()+Uri.encode(row.getImage().getName())+"___"+row.getName());
+        Picasso.with(context).load(Common.BaseURLForImage+"images/"+ row.getImage().getFor()+"/"+Uri.encode(row.getImage().getName())).into(holder.image);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CLINIC  = row;
-                context.startActivity(new Intent(context, Clinics_Details_activity.class));
+                context.startActivity(new Intent(context, Clinics_Details_activity.class).putExtra("Clinic_Id",row.getId().toString()));
 
             }
         });

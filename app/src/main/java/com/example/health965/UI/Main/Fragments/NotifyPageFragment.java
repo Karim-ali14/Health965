@@ -42,8 +42,8 @@ public class NotifyPageFragment extends Fragment {
         Empty = view.findViewById(R.id.Empty);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        getNotification();
         preferences = getActivity().getSharedPreferences(Common.FileName,getActivity().MODE_PRIVATE);
+        getNotification();
         return view;
     }
     private void getNotification(){

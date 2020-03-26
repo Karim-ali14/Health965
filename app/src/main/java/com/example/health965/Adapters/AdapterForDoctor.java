@@ -44,10 +44,8 @@ public class AdapterForDoctor extends RecyclerView.Adapter<AdapterForDoctor.View
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderForDoctor holder, final int position) {
         final Row model = list.get(position);
-        Picasso.with(context).load(Common.BaseURL+"images/"+model.getImage().getFor()+"/"+
+        Picasso.with(context).load(Common.BaseURLForImage+"images/"+model.getImage().getFor()+"/"+
                 Uri.encode(model.getImage().getName())).into(holder.DoctorImage);
-        Log.i("TTTTTT",Common.BaseURL+"images/"+model.getImage().getFor()+"/"+
-                Uri.encode(model.getName()));
         holder.Name.setText(model.getName());
         holder.Dec.setText(model.getSpecialty());
         holder.Check.setVisibility(View.GONE);

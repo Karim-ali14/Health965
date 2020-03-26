@@ -38,7 +38,7 @@ public class AdapterForSlider extends RecyclerView.Adapter<AdapterForSlider.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolderForSlider holder, int position) {
         final Row row = list.get(position);
-        Picasso.with(context).load(Common.BaseURL+"images/"+row.getBackground().getFor()+"/"+ Uri.encode(row.getBackground().getName())).into(holder.imageView);
+        Picasso.with(context).load(Common.BaseURLForImage+"images/"+row.getBackground().getFor()+"/"+ Uri.encode(row.getBackground().getName())).into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

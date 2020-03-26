@@ -34,7 +34,9 @@ public class AdapterForOptions extends RecyclerView.Adapter<AdapterForOptions.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderForOptions holder, int position) {
-        Picasso.with(context).load(Common.BaseURL+"images/"+rows.get(position).getImage().getFor()+"/"+ Uri.encode(rows.get(position).getImage().getName()))
+        Picasso.with(context).load(Common.BaseURLForImage+"images/"+
+                rows.get(position).getImage().getFor()+"/"+
+                Uri.encode(rows.get(position).getImage().getName()))
                 .into(holder.image);
     }
 

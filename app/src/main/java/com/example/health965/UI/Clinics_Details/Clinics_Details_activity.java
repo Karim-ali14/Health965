@@ -52,7 +52,7 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        if (AdapterForClinics.CLINIC != null) {
+        if (AdapterForClinics.CLINIC != null && Common.CurrentUser != null) {
             viewModel.isReserved(preferences.getString(Common.Token, ""),
                     preferences.getString(Common.ID, ""),
                     AdapterForClinics.CLINIC.getId()+"",this).observe(this, new Observer<IsReserved>() {
@@ -142,15 +142,17 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
             @Override
             public void onChanged(Clinics clinics) {
                 AdapterForClinics.CLINIC = clinics.getData().getRows().get(0);
-                viewModel.isReserved(preferences.getString(Common.Token, ""),
-                        preferences.getString(Common.ID, ""),
-                        AdapterForClinics.CLINIC.getId()+"",Clinics_Details_activity.this).observe(
-                                Clinics_Details_activity.this, new Observer<IsReserved>() {
-                    @Override
-                    public void onChanged(IsReserved isReserved) {
-                        Toast.makeText(Clinics_Details_activity.this, isReserved.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if (Common.CurrentUser != null) {
+                    viewModel.isReserved(preferences.getString(Common.Token, ""),
+                            preferences.getString(Common.ID, ""),
+                            AdapterForClinics.CLINIC.getId() + "", Clinics_Details_activity.this).observe(
+                            Clinics_Details_activity.this, new Observer<IsReserved>() {
+                                @Override
+                                public void onChanged(IsReserved isReserved) {
+                                    Toast.makeText(Clinics_Details_activity.this, isReserved.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
                 dialog.dismiss();
                 ((TextView) findViewById(R.id.Title)).setText(AdapterForClinics.CLINIC.getName());
 

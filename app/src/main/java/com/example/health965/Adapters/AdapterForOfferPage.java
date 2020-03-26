@@ -41,7 +41,7 @@ public class AdapterForOfferPage extends RecyclerView.Adapter<AdapterForOfferPag
     @Override
     public void onBindViewHolder(@NonNull ViewHolderForOfferPage holder, int position) {
         final Row row = list.get(position);
-        Picasso.with(context).load(Common.BaseURL+"images/"+
+        Picasso.with(context).load(Common.BaseURLForImage+"images/"+
                 row.getBackground().getFor()+"/"+
                 Uri.encode(row.getBackground().getName())).into(holder.imageView);
         holder.ConnectWithUs.setOnClickListener(new View.OnClickListener() {
