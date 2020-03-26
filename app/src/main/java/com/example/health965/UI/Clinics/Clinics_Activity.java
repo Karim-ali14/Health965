@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -19,8 +20,10 @@ import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterForClinics;
 import com.example.health965.Adapters.AdapterForImages;
+import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
 import com.example.health965.Models.BannerForCategory.Row;
+import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Options.Option;
 import com.example.health965.UI.Governorate.Governorate_Activity;
 import com.example.health965.UI.Doctor_Page.Doctor_Page_Activity;
@@ -40,6 +43,7 @@ public class Clinics_Activity extends AppCompatActivity implements ViewPager.OnP
     int listSize = 0;
     RelativeLayout LayoutSpecial;
     Clinics_ViewModel viewModel;
+    SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,7 @@ public class Clinics_Activity extends AppCompatActivity implements ViewPager.OnP
     }
 
     public void init() {
+        preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
         id = getIntent().getExtras().getInt("ID");
         recyclerView = findViewById(R.id.RecyclerClinics);
         recyclerView.setHasFixedSize(true);
@@ -79,7 +84,8 @@ public class Clinics_Activity extends AppCompatActivity implements ViewPager.OnP
                 viewModel.getDataOfOption(Clinics_Activity.this).observe(Clinics_Activity.this, new Observer<Option>() {
                     @Override
                     public void onChanged(Option option) {
-                        recyclerView.setAdapter(new AdapterForClinics(clinics.getData().getRows(),Clinics_Activity.this,option));
+                        recyclerView.setAdapter(new AdapterForClinics(clinics.getData().getRows(),
+                                Clinics_Activity.this,option));
                     }
                 });
             }

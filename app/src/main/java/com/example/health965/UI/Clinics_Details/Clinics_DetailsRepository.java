@@ -2,6 +2,7 @@ package com.example.health965.UI.Clinics_Details;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -159,7 +160,8 @@ public class Clinics_DetailsRepository {
                                                             final Context context){
             final MutableLiveData<Reservation> mutableLiveData = new MutableLiveData<>();
             if (Doctor_Id == 0) {
-                Common.getAPIRequest().makeReservation(Common.CurrentUser.getData().getToken().getAccessToken(), "application/json"
+                SharedPreferences preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
+                Common.getAPIRequest().makeReservation(preferences.getString(Common.Token, ""), "application/json"
                         , new RequestOfReservation(clinic.getId()))
                         .enqueue(new Callback<Reservation>() {
                             @Override
@@ -187,7 +189,8 @@ public class Clinics_DetailsRepository {
                         });
             }
             else {
-                Common.getAPIRequest().makeReservation(Common.CurrentUser.getData().getToken().getAccessToken(), "application/json"
+                SharedPreferences preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
+                Common.getAPIRequest().makeReservation(preferences.getString(Common.Token, ""), "application/json"
                         , new RequestOfReservation(clinic.getId(),
                                 Doctor_Id)).enqueue(new Callback<Reservation>() {
                     @Override

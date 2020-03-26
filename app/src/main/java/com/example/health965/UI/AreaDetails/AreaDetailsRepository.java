@@ -16,6 +16,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
+import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Options.Option;
 import com.example.health965.R;
 
@@ -42,7 +43,7 @@ public class AreaDetailsRepository {
         return aDRepository;
     }
 
-    public MutableLiveData<Clinics> getDataClinicsByGovernorate(final Context context, final ProgressDialog dialog,String C_ID,String G_ID){
+    public MutableLiveData<Clinics> getDataClinicsByGovernorate(final Context context, final ProgressDialog dialog, String C_ID, String G_ID){
         final MutableLiveData<Clinics> mutableLiveData = new MutableLiveData<>();
         Common.getAPIRequest().getClinicsByGovernorate("image","clinicOptions",
                 "clinicCertificate",C_ID+"",

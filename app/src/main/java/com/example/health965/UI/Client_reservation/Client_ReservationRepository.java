@@ -2,6 +2,7 @@ package com.example.health965.UI.Client_reservation;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
@@ -27,11 +28,13 @@ public class Client_ReservationRepository {
     }
 
     //TODO get Data Of Reservation for Reservation Fragment
-    public MutableLiveData<ClientReservation> getAllClientReservation(final Context context, final ProgressDialog dialog){
+    public MutableLiveData<ClientReservation> getAllClientReservation(final Context context,
+                                                                      final ProgressDialog dialog,
+                                                                      SharedPreferences preferences){
         final MutableLiveData<ClientReservation> mutableLiveData = new MutableLiveData<>();
         if (Common.CurrentUser != null) {
             Common.getAPIRequest().getAllClientReservation(
-                    Common.CurrentUser.getData().getToken().getAccessToken(),
+                    preferences.getString(Common.Token, ""),
                     Common.CurrentUser.getData().getUser().getId() + "").enqueue(new Callback<ClientReservation>() {
                 @Override
                 public void onResponse(Call<ClientReservation> call, Response<ClientReservation> response) {

@@ -3,6 +3,7 @@ package com.example.health965.Adapters;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +69,8 @@ public class AdapterForDoctorCard extends RecyclerView.Adapter<AdapterForDoctorC
                 dialog = new ProgressDialog(context);
                 dialog.show();
                 if (Common.CurrentUser != null) {
-                    Common.getAPIRequest().makeReservation(Common.CurrentUser.getData().getToken().getAccessToken(), "application/json", new RequestOfReservation(model.getClinicId(),
+                    SharedPreferences preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
+                    Common.getAPIRequest().makeReservation(preferences.getString(Common.Token, ""), "application/json", new RequestOfReservation(model.getClinicId(),
                             model.getId())).enqueue(new Callback<Reservation>() {
                         @Override
                         public void onResponse(Call<Reservation> call, Response<Reservation> response) {

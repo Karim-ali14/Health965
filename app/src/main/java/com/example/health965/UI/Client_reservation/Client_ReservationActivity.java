@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.health965.Adapters.AdapterForClientReservation;
+import com.example.health965.Common.Common;
 import com.example.health965.Models.ClientReservation.ClientReservation;
 import com.example.health965.R;
 
@@ -19,10 +21,12 @@ public class Client_ReservationActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Client_ReservationViewModels viewModel;
     ProgressDialog dialog;
+    SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client__reservation);
+        preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -36,7 +40,7 @@ public class Client_ReservationActivity extends AppCompatActivity {
 
     private void getData() {
         dialog.show();
-        viewModel.getAllClientReservation(this,dialog).observe(this
+        viewModel.getAllClientReservation(this,dialog,preferences).observe(this
                 , new Observer<ClientReservation>() {
                     @Override
                     public void onChanged(ClientReservation clientReservation) {

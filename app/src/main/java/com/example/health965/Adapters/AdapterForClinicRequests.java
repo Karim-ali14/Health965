@@ -2,6 +2,7 @@ package com.example.health965.Adapters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -150,7 +151,8 @@ public class AdapterForClinicRequests extends RecyclerView.Adapter<AdapterForCli
                 if (response.code() == 200) {
                     try {
                         list.clear();
-                        viewModel.getDataReservation(context, Common.CurrentClinic.getData().getToken().getAccessToken(),
+                        SharedPreferences preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
+                        viewModel.getDataReservation(context, preferences.getString(Common.Token, ""),
                                 Common.CurrentClinic.getData().getClinic().getId() + "").observe((LifecycleOwner) context
                                 , new Observer<Reservation>() {
                                     @Override

@@ -2,6 +2,7 @@ package com.example.health965.UI.Client_reservation;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -16,7 +17,8 @@ public class Client_ReservationViewModels extends ViewModel {
     }
 
     public LiveData<ClientReservation> getAllClientReservation(final Context context,
-                                                               ProgressDialog dialog){
-        return cRRepository.getAllClientReservation(context,dialog);
+                                                               ProgressDialog dialog,
+                                                               SharedPreferences preferences){
+        return cRRepository.getAllClientReservation(context,dialog,preferences);
     }
 }

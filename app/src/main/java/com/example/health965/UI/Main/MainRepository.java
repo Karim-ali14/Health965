@@ -2,6 +2,7 @@ package com.example.health965.UI.Main;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -168,9 +169,9 @@ public class MainRepository {
     }
 
     //TODO get Data Of Notifications for Notify Fragment
-    public MutableLiveData<Notifications> getDataOfNotification(){
+    public MutableLiveData<Notifications> getDataOfNotification(SharedPreferences preferences){
         final MutableLiveData<Notifications> notificationData = new MutableLiveData<>();
-        Common.getAPIRequest().getNotification(Common.CurrentUser.getData().getToken().getAccessToken())
+        Common.getAPIRequest().getNotification(preferences.getString(Common.Token, ""))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Notifications>() {
                     @Override
@@ -242,8 +243,9 @@ public class MainRepository {
     public MutableLiveData<ClientReservation> getAllClientReservation(final Context context){
         final MutableLiveData<ClientReservation> mutableLiveData = new MutableLiveData<>();
         if (Common.CurrentUser != null) {
+            SharedPreferences preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
             Common.getAPIRequest().getAllClientReservation(
-                    Common.CurrentUser.getData().getToken().getAccessToken(),
+                    preferences.getString(Common.Token, ""),
                     Common.CurrentUser.getData().getUser().getId() + "").enqueue(new Callback<ClientReservation>() {
                 @Override
                 public void onResponse(Call<ClientReservation> call, Response<ClientReservation> response) {

@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -81,7 +82,8 @@ public class PasswordModificationActivity extends AppCompatActivity {
 
     private void changeClientPassword(){
         dialog.show();
-        viewModel.onChangeClientPass(Common.CurrentUser.getData().getToken().getAccessToken()
+        SharedPreferences preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
+        viewModel.onChangeClientPass(preferences.getString(Common.Token, "")
                 ,Common.CurrentUser.getData().getUser().getId().toString(),new ChangePassword(OldPassword.getText().toString(),
                         NewPassword.getText().toString()),this,dialog).observe(this,
                 new Observer<ResponseChangePassword>() {

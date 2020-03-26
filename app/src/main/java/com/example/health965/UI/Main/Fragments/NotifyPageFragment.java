@@ -1,6 +1,7 @@
 package com.example.health965.UI.Main.Fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ public class NotifyPageFragment extends Fragment {
     RecyclerView recyclerView;
     TextView Empty;
     MainViewModel viewModel;
+    SharedPreferences preferences;
     public NotifyPageFragment(MainViewModel viewModel) {
         this.viewModel = viewModel;
     }
@@ -41,11 +43,12 @@ public class NotifyPageFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         getNotification();
+        preferences = getActivity().getSharedPreferences(Common.FileName,getActivity().MODE_PRIVATE);
         return view;
     }
     private void getNotification(){
         if (Common.CurrentUser != null) {
-            viewModel.getNotification().observe(getActivity(), new Observer<Notifications>() {
+            viewModel.getNotification(preferences).observe(getActivity(), new Observer<Notifications>() {
                 @Override
                 public void onChanged(Notifications notification) {
                     recyclerView.setVisibility(View.VISIBLE);

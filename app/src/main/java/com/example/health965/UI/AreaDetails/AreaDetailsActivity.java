@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterForClinics;
 import com.example.health965.Adapters.AdapterForImages;
+import com.example.health965.Common.Common;
 import com.example.health965.Models.BannerForCategory.BannerForCategory;
+import com.example.health965.Models.Clinics.Clinics;
 import com.example.health965.Models.Governorate.Row;
 import com.example.health965.Models.Options.Option;
 import com.example.health965.R;
@@ -33,6 +36,7 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
     ProgressDialog dialog;
     int listSize = 0;
     AreaDetailsViewModel viewModel;
+    SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,7 @@ public class AreaDetailsActivity extends AppCompatActivity implements ViewPager.
     }
 
     private void init(){
+        preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
         getWindow().getDecorView().setSystemUiVisibility
                 (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
                         View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);

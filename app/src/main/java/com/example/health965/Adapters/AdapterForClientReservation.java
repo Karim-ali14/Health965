@@ -2,6 +2,7 @@ package com.example.health965.Adapters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ public class AdapterForClientReservation extends RecyclerView.Adapter<AdapterFor
     Context context;
     RecyclerView recyclerView;
     Client_ReservationViewModels viewModel;
-
+    SharedPreferences preferences;
     public AdapterForClientReservation(List<Row> list, Context context, RecyclerView recyclerView,
                                        Client_ReservationViewModels viewModel) {
         this.list = list;
@@ -144,10 +145,12 @@ public class AdapterForClientReservation extends RecyclerView.Adapter<AdapterFor
     }
 
     private void updateStatus(Row model, String status, final int position){
+        preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
+
         final ProgressDialog dialog = new ProgressDialog(context);
         dialog.show();
         Common.getAPIRequest().onUpDateReservationForClient(
-                Common.CurrentUser.getData().getToken().getAccessToken(),
+                preferences.getString(Common.Token, ""),
                 Common.CurrentUser.getData().getUser().getId() + "",
                 model.getId() + "", new ModelOfUpDate(status))
                 .enqueue(new Callback<UpdateStatusOfReservation>() {
@@ -157,7 +160,7 @@ public class AdapterForClientReservation extends RecyclerView.Adapter<AdapterFor
                 dialog.dismiss();
                 if (response.code() == 200){
                     list.clear();
-                    viewModel.getAllClientReservation(context,dialog).observe((LifecycleOwner) context
+                    viewModel.getAllClientReservation(context,dialog,preferences).observe((LifecycleOwner) context
                             , new Observer<ClientReservation>() {
                                 @Override
                                 public void onChanged(ClientReservation clientReservation) {

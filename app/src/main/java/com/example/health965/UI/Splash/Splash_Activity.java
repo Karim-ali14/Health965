@@ -136,8 +136,7 @@ public class Splash_Activity extends AppCompatActivity {
     private boolean checkToken(String Token){
         JWT jwt = new JWT(Token);
         Date expiresAt = jwt.getExpiresAt();
-        //return new Date().before(expiresAt) || new Date().equals(expiresAt);
-        return false;
+        return new Date().before(expiresAt) || new Date().equals(expiresAt);
     }
-    
+
 }

@@ -1,6 +1,7 @@
 package com.example.health965.UI.ModifyPersonalInformation;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,7 +31,8 @@ public class ModifyPersonalInformationRepository {
     public MutableLiveData<ResponseUpdateClientInfo> onUpdateClientInfo(
             RequestUpdateClientInfo model, final Context context){
         final MutableLiveData<ResponseUpdateClientInfo> mutableLiveData = new MutableLiveData<>();
-        Common.getAPIRequest().onUpdateClientInfo(Common.CurrentUser.getData().getToken().getAccessToken(),"application/json",
+        SharedPreferences preferences = context.getSharedPreferences(Common.FileName,context.MODE_PRIVATE);
+        Common.getAPIRequest().onUpdateClientInfo(preferences.getString(Common.Token, ""),"application/json",
                 Common.CurrentUser.getData().getUser().getId().toString(),model).enqueue(new Callback<ResponseUpdateClientInfo>() {
             @Override
             public void onResponse(Call<ResponseUpdateClientInfo> call, Response<ResponseUpdateClientInfo> response) {

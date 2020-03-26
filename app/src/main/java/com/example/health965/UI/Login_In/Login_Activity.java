@@ -213,7 +213,8 @@ public class Login_Activity extends AppCompatActivity {
                 else {
                     startActivity(new Intent(Login_Activity.this, MainActivity.class));
                     finish();
-                    viewModel.onUpDateFireBaseTokenClient(Common.CurrentUser.getData().getToken().getAccessToken(),
+
+                    viewModel.onUpDateFireBaseTokenClient(preferences.getString(Common.Token, ""),
                             Common.CurrentUser.getData().getUser().getId() + "",
                             new FireBaseToken(FirebaseInstanceId.getInstance().getToken())
                             , Login_Activity.this).observe(Login_Activity.this, new Observer<FireBaseTokenRespons>() {

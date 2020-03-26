@@ -2,6 +2,7 @@ package com.example.health965.UI.Main;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -27,8 +28,8 @@ public class MainViewModel extends ViewModel {
         return mRepository.getDataOfBanners(context,dialog);
     }
 
-    public LiveData<Notifications> getNotification(){
-        return mRepository.getDataOfNotification();
+    public LiveData<Notifications> getNotification(SharedPreferences preferences){
+        return mRepository.getDataOfNotification(preferences);
     }
 
     public LiveData<OfferForClinic> getOffer(ProgressDialog dialog){
