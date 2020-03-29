@@ -60,12 +60,14 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/AppBarMain"
         app:layout_constraintTop_toBottomOf="@id/AppBarMain"/>
+
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/Line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent=".55"
         android:orientation="horizontal"
-        android:id="@+id/Line1"/>
+        app:layout_constraintGuide_percent=".50"
+        />
 
     <ImageView
         android:id="@+id/image"
