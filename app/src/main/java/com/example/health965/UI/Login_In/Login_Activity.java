@@ -206,6 +206,9 @@ public class Login_Activity extends AppCompatActivity {
                 Common.CurrentUser = loginClient;
                 saveTokenWithId(Common.CurrentUser.getData().getToken().getAccessToken(),
                         Common.CurrentUser.getData().getUser().getId()+"",
+                        Common.CurrentUser.getData().getUser().getFullName()+"",
+                        Common.CurrentUser.getData().getUser().getEmail()+"",
+                        Common.CurrentUser.getData().getUser().getMobilePhone()+"",
                         typeUser);
                 dialog.dismiss();
                 if (getIntent().getExtras().getString("type").equals("Login"))
@@ -227,11 +230,19 @@ public class Login_Activity extends AppCompatActivity {
         });
     }
 
-    private void saveTokenWithId(String Token,String Id,int type) {
+    private void saveTokenWithId(String Token,
+                                 String Id,
+                                 String Name,
+                                 String Email,
+                                 String Phone,
+                                 int type) {
         preferences.edit()
                 .putString(Common.Token,Token)
                 .putString(Common.ID,Id)
                 .putInt(Common.Type,type)
+                .putString(Common.Name,Name)
+                .putString(Common.Email,Email)
+                .putString(Common.Phone,Phone)
                 .apply();
     }
 
@@ -245,6 +256,9 @@ public class Login_Activity extends AppCompatActivity {
                         Common.CurrentClinic = loginClinc;
                         saveTokenWithId(Common.CurrentClinic.getData().getToken().getAccessToken(),
                                 Common.CurrentClinic.getData().getClinic().getId()+"",
+                                Common.CurrentClinic.getData().getClinic().getName()+"",
+                                Common.CurrentClinic.getData().getClinic().getEmail()+"",
+                                Common.CurrentClinic.getData().getClinic().getMobilePhone()+"",
                                 typeUser);
                         dialog.dismiss();
                         startActivity(new Intent(Login_Activity.this, ClinicRequestsActivity.class));

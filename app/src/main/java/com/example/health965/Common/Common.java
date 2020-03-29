@@ -27,5 +27,8 @@ public class Common {
     public static String Token = "Token";
     public static String ID = "Client_id";
     public static String Type = "Type";
+    public static String Name = "Name";
+    public static String Email = "Email";
+    public static String Phone = "Phone";
 
 }

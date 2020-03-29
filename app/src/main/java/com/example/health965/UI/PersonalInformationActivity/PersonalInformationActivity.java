@@ -3,6 +3,7 @@ package com.example.health965.UI.PersonalInformationActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -51,10 +52,11 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     private void putDataOfUser(){
+        SharedPreferences preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
         if (Common.CurrentUser != null) {
-            Name.setText(Common.CurrentUser.getData().getUser().getFullName());
-            Email.setText(Common.CurrentUser.getData().getUser().getEmail());
-            Phone.setText(Common.CurrentUser.getData().getUser().getMobilePhone());
+            Name.setText(preferences.getString(Common.Name,""));
+            Email.setText(preferences.getString(Common.Email,""));
+            Phone.setText(preferences.getString(Common.Phone,""));
         }
     }
 }

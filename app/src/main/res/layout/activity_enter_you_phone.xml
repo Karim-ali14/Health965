@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.PasswordModificationActivity.PasswordModificationActivity"
-    android:background="@color/White"
-    android:id="@+id/Layout">
+    tools:context=".UI.EnterYourPhone.EnterYouPhone"
+    android:background="@color/White">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/AppBarMain"
         android:layout_width="0dp"
@@ -43,10 +42,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="تعديل كلمة المرور"
+                    android:text="ادخل الكود المرسل"
                     android:textColor="#000000"
-                    android:textSize="17dp"
-                    android:textStyle="bold" />
+                    android:textSize="19dp" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
@@ -61,51 +59,67 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/AppBarMain"
         app:layout_constraintTop_toBottomOf="@id/AppBarMain"/>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/AboveLine"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
-        android:id="@+id/OldPasswordLayOut"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        app:boxCornerRadiusTopStart="25dp"
-        app:boxCornerRadiusBottomEnd="25dp"
-        app:boxCornerRadiusBottomStart="25dp"
-        app:boxCornerRadiusTopEnd="25dp"
-        app:errorEnabled="false"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:hint="كلمة المرور القديمة"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/OldPassword"
-            android:drawableRight="@drawable/key"
-            android:paddingRight="20dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:drawablePadding="7dp"
-            android:gravity="right"
-            android:inputType="textPassword"
-            android:importantForAutofill="noExcludeDescendants"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintGuide_percent=".40"
+        android:orientation="horizontal"
+        android:id="@+id/Line1"/>
 
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/arthealth"
+        android:transitionName="imageHealth"
+        app:layout_constraintBottom_toTopOf="@id/Line1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AboveLine"
+        app:layout_constraintVertical_bias="1"/>
+    <View
+        android:id="@+id/LineImage"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/AppBarMain"
+        android:background="@drawable/shadow_line"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/Line1"
+        android:transitionName="Line"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ادخل رقم الهاتف الخاص بك "
+        android:layout_centerInParent="true"
+        android:textSize="19dp"
+        android:textColor="#000"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingBottom="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Line1"
+        android:layout_marginTop="10dp"
+        android:id="@+id/LoginAsUser"
+        android:gravity="center"
+        android:fontFamily="@font/helveticaneuelt_arabic_roman"
+
+        />
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/OldPasswordLayOut"
+        app:layout_constraintTop_toBottomOf="@id/LoginAsUser"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:id="@+id/NewPasswordLayOut"
+        android:layout_marginTop="10dp"
+        android:id="@+id/EnterCodeLayOut"
+        android:hint="ادخل رقم الهاتف"
+        android:drawablePadding="7dp"
+        android:transitionName="EditText"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         app:boxCornerRadiusTopStart="25dp"
         app:boxCornerRadiusBottomEnd="25dp"
@@ -113,56 +127,22 @@
         app:boxCornerRadiusTopEnd="25dp"
         app:errorEnabled="false"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:hint="كلمة المرور الجديدة"
-        >
+        android:focusableInTouchMode="true">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/NewPassword"
-            android:drawableRight="@drawable/key"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LoginAsUser"
+            android:id="@+id/EnterCode"
             android:paddingRight="20dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:drawablePadding="7dp"
             android:gravity="right"
-            android:inputType="textPassword"
             android:importantForAutofill="noExcludeDescendants"
             />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/NewPasswordLayOut"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:id="@+id/PasswordConfirmationLayOut"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        app:boxCornerRadiusTopStart="25dp"
-        app:boxCornerRadiusBottomEnd="25dp"
-        app:boxCornerRadiusBottomStart="25dp"
-        app:boxCornerRadiusTopEnd="25dp"
-        app:errorEnabled="false"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:hint="تأكيد كلمة المرور الجديدة"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/PasswordConfirmation"
-            android:drawableRight="@drawable/key"
-            android:paddingRight="20dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:drawablePadding="7dp"
-            android:gravity="right"
-            android:inputType="textPassword"
-            android:importantForAutofill="noExcludeDescendants"
-            />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -171,12 +151,16 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="6dp"
         android:background="@drawable/style_button"
-        android:text="حفظ"
+        android:text="تفعيل"
         android:textColor="@color/White"
         android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PasswordConfirmationLayOut"
-        android:onClick="Save"/>
+        app:layout_constraintTop_toBottomOf="@+id/EnterCodeLayOut"
+        android:id="@+id/PasswordBack"
+        android:transitionName="Button"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

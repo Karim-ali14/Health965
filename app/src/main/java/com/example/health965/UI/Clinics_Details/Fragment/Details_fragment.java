@@ -3,6 +3,7 @@ package com.example.health965.UI.Clinics_Details.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterForCertificates;
+import com.example.health965.Adapters.AdapterForClinics;
 import com.example.health965.Adapters.AdapterForDoctor;
 import com.example.health965.Adapters.AdapterForOptions;
 import com.example.health965.Common.Common;
@@ -115,7 +117,39 @@ public class Details_fragment extends Fragment {
                             getActivity() , new Observer<Reservation>() {
                         @Override
                         public void onChanged(Reservation reservation) {
+                            if (reservation.getSuccess()){
+                                if (AdapterForClinics.CLINIC.getContacts() != null) {
+                                    Details_fragment.ReservationButton.setVisibility(View.GONE);
+                                    Details_fragment.ButtonsLayout.setVisibility(View.VISIBLE);
+                                    Details_fragment.PhoneButton.setText(AdapterForClinics.CLINIC.getContacts().getPhoneNumber1());
+                                    Details_fragment.WhatsAppButton.setText(AdapterForClinics.CLINIC.getContacts().getWhatsApp());
 
+                                    Details_fragment.WhatsAppButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            String url = "https://api.whatsapp.com/send?phone="+Details_fragment.WhatsAppButton.getText().toString();
+                                            Intent i = new Intent(Intent.ACTION_VIEW);
+                                            i.setData(Uri.parse(url));
+                                            startActivity(i);
+                                        }
+                                    });
+
+                                    Details_fragment.PhoneButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            String Phone = Details_fragment.PhoneButton.getText().toString();
+                                            Intent intent = new Intent(Intent.ACTION_DIAL);
+                                            intent.setData(Uri.parse("tel:" +Phone));
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }else {
+                                    Details_fragment.ReservationButton.setVisibility(View.GONE);
+                                    Details_fragment.ButtonsLayout.setVisibility(View.VISIBLE);
+                                    Details_fragment.PhoneButton.setText("-----");
+                                    Details_fragment.WhatsAppButton.setText("-----");
+                                }
+                            }
                         }
                     });
                 }else {

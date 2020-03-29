@@ -87,7 +87,7 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                                 @Override
                                 public void onChanged(IsReserved isReserved) {
                                     dialog.dismiss();
-                                    if (isReserved.getSuccess()){
+                                    if (isReserved.getData().getIsReserved()){
                                         if (AdapterForClinics.CLINIC.getContacts() != null) {
                                             Details_fragment.ReservationButton.setVisibility(View.GONE);
                                             Details_fragment.ButtonsLayout.setVisibility(View.VISIBLE);
@@ -97,7 +97,7 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                                             Details_fragment.WhatsAppButton.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    String url = "https://api.whatsapp.com/send?phone="+AdapterForClinics.CLINIC.getContacts().getWhatsApp();
+                                                    String url = "https://api.whatsapp.com/send?phone="+Details_fragment.WhatsAppButton.getText().toString();
                                                     Intent i = new Intent(Intent.ACTION_VIEW);
                                                     i.setData(Uri.parse(url));
                                                     startActivity(i);
@@ -107,7 +107,7 @@ public class Clinics_Details_activity extends AppCompatActivity implements ViewP
                                             Details_fragment.PhoneButton.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    String Phone = AdapterForClinics.CLINIC.getContacts().getPhoneNumber1();
+                                                    String Phone = Details_fragment.PhoneButton.getText().toString();
                                                     Intent intent = new Intent(Intent.ACTION_DIAL);
                                                     intent.setData(Uri.parse("tel:" +Phone));
                                                     startActivity(intent);

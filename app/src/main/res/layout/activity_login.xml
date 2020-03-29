@@ -182,6 +182,7 @@
                 android:gravity="right"
                 android:inputType="phone"
                 app:counterMaxLength="10"
+                android:importantForAutofill="noExcludeDescendants"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -216,6 +217,7 @@
                 android:drawablePadding="7dp"
                 android:inputType="textPassword"
                 android:gravity="right"
+                android:importantForAutofill="noExcludeDescendants"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 

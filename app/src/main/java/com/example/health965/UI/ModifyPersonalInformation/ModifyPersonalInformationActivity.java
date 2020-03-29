@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -65,6 +66,7 @@ public class ModifyPersonalInformationActivity extends AppCompatActivity {
     }
 
     public void UpdateInfo(View view) {
+        final SharedPreferences preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
         if (!FullName.getText().toString().isEmpty()||!Email.getText().toString().isEmpty()||!PhoneNumber.getText().toString().isEmpty()) {
             RequestUpdateClientInfo model = new RequestUpdateClientInfo(null, null, null);
             if (FullName.getText().toString().isEmpty())
@@ -85,9 +87,9 @@ public class ModifyPersonalInformationActivity extends AppCompatActivity {
             viewModel.onUpdateClientInfo(model,this).observe(this, new Observer<ResponseUpdateClientInfo>() {
                 @Override
                 public void onChanged(ResponseUpdateClientInfo responseUpdateClientInfo) {
-                    Common.CurrentUser.getData().getUser().setEmail(responseUpdateClientInfo.getData().getEmail());
-                    Common.CurrentUser.getData().getUser().setFullName(responseUpdateClientInfo.getData().getFullName());
-                    Common.CurrentUser.getData().getUser().setMobilePhone(responseUpdateClientInfo.getData().getMobilePhone());
+                    preferences.edit().putString(Common.Email,responseUpdateClientInfo.getData().getEmail());
+                    preferences.edit().putString(Common.Name,responseUpdateClientInfo.getData().getFullName());
+                    preferences.edit().putString(Common.Phone,responseUpdateClientInfo.getData().getMobilePhone());
                     finish();
                 }
             });

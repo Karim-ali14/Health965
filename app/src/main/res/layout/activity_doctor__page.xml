@@ -113,7 +113,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/searchBar"
                     android:visibility="gone"
-                    android:gravity="right"/>
+                    android:gravity="right"
+                    android:importantForAutofill="noExcludeDescendants"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <androidx.recyclerview.widget.RecyclerView

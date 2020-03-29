@@ -2,6 +2,7 @@ package com.example.health965.UI.ClinicInformation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,10 +31,11 @@ public class ClinicInformationActivity extends AppCompatActivity {
     }
 
     private void putDataOfClinic(){
+        SharedPreferences preferences = getSharedPreferences(Common.FileName,MODE_PRIVATE);
         if (Common.CurrentClinic != null) {
-            Name.setText(Common.CurrentClinic.getData().getClinic().getName());
-            Email.setText(Common.CurrentClinic.getData().getClinic().getEmail());
-            Phone.setText(Common.CurrentClinic.getData().getClinic().getMobilePhone());
+            Name.setText(preferences.getString(Common.Name,""));
+            Email.setText(preferences.getString(Common.Email,""));
+            Phone.setText(preferences.getString(Common.Phone,""));
         }
     }
 }

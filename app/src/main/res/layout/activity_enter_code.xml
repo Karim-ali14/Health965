@@ -141,6 +141,7 @@
             android:paddingBottom="12dp"
             android:drawablePadding="7dp"
             android:gravity="right"
+            android:importantForAutofill="noExcludeDescendants"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

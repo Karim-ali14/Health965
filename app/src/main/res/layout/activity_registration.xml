@@ -134,6 +134,7 @@
             android:drawablePadding="7dp"
             android:gravity="right"
             android:maxLength="200"
+            android:importantForAutofill="noExcludeDescendants"
             />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -170,6 +171,7 @@
             android:inputType="textEmailAddress"
             android:gravity="right"
             android:maxLength="200"
+            android:importantForAutofill="noExcludeDescendants"
             />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -206,7 +208,8 @@
             android:paddingBottom="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/EmailLayOut" />
+            app:layout_constraintTop_toBottomOf="@id/EmailLayOut"
+            android:importantForAutofill="noExcludeDescendants"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
@@ -241,6 +244,7 @@
             android:inputType="textPassword"
             android:gravity="right"
             android:maxLength="25"
+            android:importantForAutofill="noExcludeDescendants"
             />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -275,6 +279,7 @@
             android:inputType="textPassword"
             android:gravity="right"
             android:maxLength="25"
+            android:importantForAutofill="noExcludeDescendants"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

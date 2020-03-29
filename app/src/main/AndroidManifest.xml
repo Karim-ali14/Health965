@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.Client_reservation.Client_ReservationActivity"></activity>
+        <activity android:name=".UI.EnterYourPhone.EnterYouPhone"></activity>
+        <activity android:name=".UI.Client_reservation.Client_ReservationActivity" />
         <activity
             android:name=".UI.AreaDetails.AreaDetailsActivity"
             android:screenOrientation="portrait" />
