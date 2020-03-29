@@ -38,6 +38,7 @@ import com.example.health965.Models.LoginClient.LoginClient;
 import com.example.health965.Models.LoginClinc.LoginClinc;
 import com.example.health965.R;
 import com.example.health965.UI.ClinicRequests.ClinicRequestsActivity;
+import com.example.health965.UI.EnterYourPhone.EnterYouPhone;
 import com.example.health965.UI.Main.MainActivity;
 import com.example.health965.UI.Registration.Registration.RegistrationActivity;
 import com.example.health965.UI.ResetPassWord.ForgotPassword.ForgotPasswordActivity;
@@ -162,6 +163,12 @@ public class Login_Activity extends AppCompatActivity {
                 return false;
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getSharedElementEnterTransition().setDuration(400);
+            getWindow().getSharedElementReturnTransition().setDuration(400)
+                    .setInterpolator(new DecelerateInterpolator());
+        }
     }
 
     private void closeKeyBoard() {
@@ -282,7 +289,7 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     public void createNewAccount(View view) {
-        Intent intent = new Intent(this, RegistrationActivity.class);
+        Intent intent = new Intent(this, EnterYouPhone.class);
         intent.putExtra("type",1);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             Pair pair[] = new Pair[2];

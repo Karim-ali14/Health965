@@ -1,5 +1,6 @@
 package com.example.health965.UI.Registration.ActivateYourAccount;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import androidx.lifecycle.ViewModel;
@@ -13,11 +14,11 @@ public class ActivateYourAccountViewModel extends ViewModel {
         this.aYARepository = new ActivateYourAccountRepository();
     }
 
-    public void onSendVerificationMessage(String Phone, Context context){
-        aYARepository.sendVerificationMessage(Phone,context);
+    public void onSendVerificationMessage(String Phone, Context context, ProgressDialog dialog){
+        aYARepository.sendVerificationMessage(Phone,context,dialog);
     }
 
-    public void onActive(String code, FirebaseAuth mAuth, final Context context){
-        aYARepository.active(code,mAuth,context);
+    public void onActive(String code, FirebaseAuth mAuth, final Context context,String Phone){
+        aYARepository.active(code,mAuth,context,Phone);
     }
 }

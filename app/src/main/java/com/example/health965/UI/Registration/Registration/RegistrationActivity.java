@@ -56,6 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
         FullName = findViewById(R.id.FullName);
         Email = findViewById(R.id.Email);
         PhoneNumber = findViewById(R.id.PhoneNumber);
+        PhoneNumber.setText(getIntent().getExtras().getString("phone"));
         Password = findViewById(R.id.Password);
         PasswordConfirmation = findViewById(R.id.PasswordConfirmation);
         image = findViewById(R.id.image);
@@ -170,8 +171,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 .observe(this, new Observer<Registration>() {
                     @Override
                     public void onChanged(Registration registration) {
-                        Intent intent = new Intent(RegistrationActivity.this, ActivateYourAccountActivity.class);
-                        intent.putExtra("phone","+20"+PhoneNumber.getText().toString());
+                        Intent intent = new Intent(RegistrationActivity.this, Login_Activity.class);
+                        intent.putExtra("type","getPass");
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                             Pair pair[] = new Pair[2];
                             pair[0] = new Pair<View,String>(image,"imageHealth");

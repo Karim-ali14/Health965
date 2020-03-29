@@ -1,13 +1,16 @@
 package com.example.health965.UI.Registration.ActivateYourAccount;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.health965.UI.Login_In.Login_Activity;
+import com.example.health965.UI.Registration.Registration.RegistrationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -21,7 +24,9 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.TimeUnit;
 
 public class ActivateYourAccountRepository {
-    String mVerificationId;
+    String mVerificationId,CodeOfVerify;
+    ProgressDialog dialog;
+    Context context;
     public static ActivateYourAccountRepository aYARepository;
     public static ActivateYourAccountRepository getInstance(){
         if (aYARepository == null)
@@ -41,6 +46,15 @@ public class ActivateYourAccountRepository {
             //     user action.
 
             //signInWithPhoneAuthCredential(credential);
+            Log.i("TTTTTT",credential.getSmsCode());
+            CodeOfVerify = credential.getSmsCode();
+            if (CodeOfVerify != null){
+                dialog.dismiss();
+            }else {
+                dialog.dismiss();
+                Toast.makeText(context,"حاول ارسال رمز التحقق ثانية بعد 10ثواني",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -75,7 +89,9 @@ public class ActivateYourAccountRepository {
         }
     };
 
-    public void sendVerificationMessage(String Phone,Context context){
+    public void sendVerificationMessage(String Phone, Context context, ProgressDialog dialog){
+        this .dialog = dialog;
+        this.context = context;
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 Phone,        // Phone number to verify
                 30,                 // Timeout duration
@@ -84,24 +100,32 @@ public class ActivateYourAccountRepository {
                 mCallbacks);        // OnVerificationStateChangedCallbacks
     }
 
-    public void signInWithPhoneAuthCredential(PhoneAuthCredential credential, FirebaseAuth mAuth, final Context context){
+    public void signInWithPhoneAuthCredential(PhoneAuthCredential credential, FirebaseAuth mAuth, final Context context, final String Phone){
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show();
-                            context.startActivity(new Intent(context, Login_Activity.class).putExtra("type","getPass")
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                            context.startActivity(new Intent(context, RegistrationActivity.class).putExtra("type", "1").putExtra("phone", Phone)
+                                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         } else {
-                            Toast.makeText(context, "Wrong", Toast.LENGTH_SHORT).show();
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                Toast.makeText(context.getApplicationContext(), "رمز التحقق غير صحيح", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });
     }
 
-    public void active(String code, FirebaseAuth mAuth, final Context context){
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
-        signInWithPhoneAuthCredential(credential,mAuth,context);
+    public void active(String code, FirebaseAuth mAuth, final Context context,String Phone){
+       // if (CodeOfVerify != null) {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
+            signInWithPhoneAuthCredential(credential, mAuth, context, Phone);
+       /* }else {
+        Toast.makeText(context, "الكود لم يرسل بعد", Toast.LENGTH_SHORT).show();
+    }*/
     }
+
+
 }

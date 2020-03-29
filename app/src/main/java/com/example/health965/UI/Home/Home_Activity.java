@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.health965.Adapters.AdapterForSlider;
 import com.example.health965.Models.Offers.Offers;
+import com.example.health965.UI.EnterYourPhone.EnterYouPhone;
 import com.example.health965.UI.Login_In.Login_Activity;
 import com.example.health965.UI.Registration.Registration.RegistrationActivity;
 import com.example.health965.R;
@@ -78,7 +79,7 @@ public class Home_Activity extends AppCompatActivity{
     }
 
     public void createNewAccount(View view) {
-        startActivity(new Intent(this, RegistrationActivity.class).putExtra("type",0));
+        startActivity(new Intent(this, EnterYouPhone.class).putExtra("type",0));
     }
 
     @Override
