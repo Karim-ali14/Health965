@@ -36,7 +36,6 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
     public static ImageView SearchImage;
     RecyclerView RecyclerOfCard;
     TextView points[];
-    List<Integer> listImage;
     LinearLayout linearLayout;
     ViewPager viewPager;
     ConstraintLayout Layout;
@@ -61,10 +60,6 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
         getDoctorsWithClinics();
         linearLayout = findViewById(R.id.Points);
         viewPager = findViewById(R.id.ViewPager);
-        listImage = new ArrayList<>();
-        listImage.add(R.drawable.addclinic);
-        listImage.add(R.drawable.addclinic);
-        listImage.add(R.drawable.addclinic);
         viewPager.setAdapter(new AdapterForImages(Clinics_Activity.rows,this,true,false));
         viewPager.setOnPageChangeListener(this);
         addPoints(0);
@@ -110,7 +105,7 @@ public class Doctor_Page_Activity extends AppCompatActivity implements ViewPager
     }
 
     private void addPoints(int position) {
-        points = new TextView[listImage.size()];
+        points = new TextView[Clinics_Activity.rows.size()];
         linearLayout.removeAllViews();
 
         for (int i = 0 ; i < points.length ; i++){
